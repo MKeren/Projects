@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Course Catalog</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Semester</th>
+        <th>Course Code</th>
+        <th>Course Title</th>
+        <th>Category</th>
+        <th>Hours</th>
+        <th>Pre-requisite</th>
+        <th>ECTS Credit</th>
+        <th>Grade</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for course in courses %}
+        <tr>
+          <td>{{ course.semester }}</td>
+          <td>{{ course.course_code }}</td>
+          <td>{{ course.title }}</td>
+          <td>{{ course.category }}</td>
+          <td>{{ course.hours_lecture }} Lecture, {{ course.hours_tutorial }} Tutorial, {{ course.hours_lab }} Lab</td>
+          <td>{{ course.pre_requisite }}</td>
+          <td>{{ course.ects_credit }}</td>
+          {% if student.grades.filter(course=course).exists %}
+            {% for grade in student.grades.filter(course=course) %}
+          {% else %}
+            <td></td>
+          {% endif %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
