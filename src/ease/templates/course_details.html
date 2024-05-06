@@ -1,6 +1,0 @@
-{% for grade in grades %}
-    <tr>
-        <td>{{ grade.student }}</td>
-        <td {% if grade in passed_grades %}style="background-color: green;"{% endif %}{% if grade in d_grades %}style="background-color: orange;"{% endif %}{% if grade in failed_grades %}style="background-color: red;"{% endif %}>{{ grade.grade }}</td>
-    </tr>
-{% endfor %}

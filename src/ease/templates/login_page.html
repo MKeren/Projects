@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block content %}
+<nav class="fixed-top navbar navbar-light bg-white navbar-expand moodle-has-zindex" aria-label="Site navigation">
+    
+  <ul class="navbar-nav d-none d-md-flex">
+      <!-- custom_menu -->
+<li class="dropdown nav-item">
+
+<div class="dropdown-menu" role="menu" id="drop-down-menu-66393ed99420866393ed99247a4" aria-labelledby="drop-down-66393ed99420866393ed99247a4">
+      <a class="dropdown-item" role="menuitem" href="https://lms3.final.edu.tr/LMS/?lang=en" title="English ‎(en)‎">English ‎(en)‎</a>
+      <a class="dropdown-item" role="menuitem" href="https://lms3.final.edu.tr/LMS/?lang=tr" title="Türkçe ‎(tr)‎">Türkçe ‎(tr)‎</a>
+</div>
+</li>
+      <!-- page_heading_menu -->
+      
+  </ul>
+</nav>
+<header id="page-header" class="row">
+  <div class="col-12 pt-3 pb-3">
+      <div class="card ">
+          <div class="card-body ">
+              <div class="d-sm-flex align-items-center">
+                  <div class="mr-auto">
+                      <div class="logo"><img src="https://lms3.final.edu.tr/LMS/pluginfile.php/1/core_admin/logo/0x150/1633438538/ufulogoen4.png" alt="Logo of Final International University LMS 3" class="img-fluid"></div><h1 class="sr-only">Academic Report Sheet</h1>
+                  </div>
+
+                  <div class="header-actions-container flex-shrink-0" data-region="header-actions-container">
+                  </div>
+              </div>
+              <div class="d-flex flex-wrap">
+                  <div class="ml-auto d-flex">
+                      
+                  </div>
+                  <div id="course-header">
+                      
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</header>
+    <h2>Plese login with your username and password</h2>
+    <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username"><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br><br>
+        <button type="submit">Login</button>
+    </form>
+{% endblock %}

@@ -1,18 +1,21 @@
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView
-from .models import Course, Grade
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
 
-class CourseListView(ListView):
-    model = Course
-    template_name = 'course_catalog.html'
+def user_login(request):
 
-class CourseDetailView(DetailView):
-    model = Course
-    template_name = 'course_detail.html'
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else:
+            return render(request, 'login_page.html', {'error': 'Invalid username or password'})
+    else:
+        return render(request, 'login_page.html')
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        course = self.object
-        grades = Grade.objects.filter(course=course)
-        context['grades'] = grades
-        return context
+
+def home(request):
+    return render(request, 'home.html')

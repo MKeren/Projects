@@ -27,7 +27,7 @@ class Student(models.Model):
     student_no = models.CharField(max_length=20)
     faculty = models.CharField(max_length=255)
     email = models.EmailField(max_length=255)
-    date_of_registration = models.DateField
+    date_of_registration = models.DateField()
 
     def __str__(self):
         return self.name
@@ -52,7 +52,7 @@ class Transcript(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     grade = models.ForeignKey(Grade, on_delete=models.CASCADE)
-    date_of_graduation = models.DateField
+    date_of_graduation = models.DateField()
     
     def __str__(self):
-        return f"{self.student.name} - {self.course.name}"
+        return f"{self.student.name} - {self.course.title}"

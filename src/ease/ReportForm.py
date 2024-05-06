@@ -1,5 +1,6 @@
 from django import forms
 from .models import Grade
+from django.contrib.auth.forms import AuthenticationForm
 
 class ReportForm(forms.ModelForm):
     class Meta:
@@ -26,3 +27,7 @@ class ReportForm(forms.ModelForm):
             return 0
         else:
             return total_gpa / total_credits
+
+class CustomAuthenticationForm(AuthenticationForm):
+    username = forms.CharField(label='Username', widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your username'}))
+    password = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Enter your password'}))

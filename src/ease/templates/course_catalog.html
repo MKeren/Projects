@@ -25,8 +25,8 @@
           <td>{{ course.hours_lecture }} Lecture, {{ course.hours_tutorial }} Tutorial, {{ course.hours_lab }} Lab</td>
           <td>{{ course.pre_requisite }}</td>
           <td>{{ course.ects_credit }}</td>
-          {% if student.grades.filter(course=course).exists %}
-            {% for grade in student.grades.filter(course=course) %}
+          {% if student.grade.filter(course=course).exists %}
+            {% for grade in student.grade.filter(course=course) %}
           {% else %}
             <td></td>
           {% endif %}
