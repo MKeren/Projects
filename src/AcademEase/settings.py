@@ -77,8 +77,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'academease',
-        'USER': 'admin',
-        'PASSWORD': 'demeilleur',
+        # 'USER': 'admin',
+        'USER': 'root',
+        # 'PASSWORD': 'demeilleur',
+        'PASSWORD': '0815',
         'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS': {
