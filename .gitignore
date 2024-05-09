@@ -4,3 +4,4 @@ venv
 src\AcademEase\settings.py
 venv/Lib/site-packages
 src\AcademEase\__pycache__
+root.session.sql
