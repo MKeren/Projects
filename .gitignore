@@ -3,3 +3,4 @@ venv
 .vscode
 src\AcademEase\settings.py
 help
+venv/Lib/site-packages
