@@ -1,5 +1,5 @@
 from django import forms
-from .models import Grade
+from .models import Course, Grade
 from django.contrib.auth.forms import AuthenticationForm
 
 class ReportForm(forms.ModelForm):
@@ -16,18 +16,11 @@ class ReportForm(forms.ModelForm):
         if passed_with_d is not None and not self.instance.is_passed():
             self.add_error('passed_with_d', 'This student did not pass the course.')
 
-    def graduation_GPA(self):
-        total_gpa = 0
-        total_credits = 0
-        for grade in self.grades.all():
-            if grade.is_passed():
-                total_gpa += grade.course.gpa * grade.credits_attempted
-                total_credits += grade.credits_attempted
-        if total_credits == 0:
-            return 0
-        else:
-            return total_gpa / total_credits
-
 class CustomAuthenticationForm(AuthenticationForm):
     username = forms.CharField(label='Username', widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your username'}))
     password = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Enter your password'}))
+
+class CourseForm(forms.ModelForm):
+    class Meta:
+        model = Course
+        fields = ['title', 'description']

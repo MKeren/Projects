@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class CourseCategory(models.Model):
-    name = models.CharField(max_length=255)
+    category = models.CharField(max_length=255)
 
     def __str__(self):
         return self.name
@@ -27,7 +27,7 @@ class Student(models.Model):
     student_no = models.CharField(max_length=20)
     faculty = models.CharField(max_length=255)
     email = models.EmailField(max_length=255)
-    date_of_registration = models.DateField()
+    course_catalog = models.ForeignKey(Course, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -42,17 +42,15 @@ class Teacher(models.Model):
 class Grade(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     student = models.ForeignKey(User, on_delete=models.CASCADE)
-    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
     grade = models.CharField(max_length=10)
 
     def __str__(self):
-        return f"{self.student} - {self.course.title}"
+        return f"{self.student} - {self.course.title} - {self.grade}"
     
 class Transcript(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     grade = models.ForeignKey(Grade, on_delete=models.CASCADE)
-    date_of_graduation = models.DateField()
-    
+
     def __str__(self):
         return f"{self.student.name} - {self.course.title}"

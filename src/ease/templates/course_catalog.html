@@ -25,11 +25,19 @@
           <td>{{ course.hours_lecture }} Lecture, {{ course.hours_tutorial }} Tutorial, {{ course.hours_lab }} Lab</td>
           <td>{{ course.pre_requisite }}</td>
           <td>{{ course.ects_credit }}</td>
-          {% if student.grade.filter(course=course).exists %}
-            {% for grade in student.grade.filter(course=course) %}
-          {% else %}
-            <td></td>
-          {% endif %}
+          {% for grade in grades %}
+            {% if grade.course.code == course.code %}
+              {% if grade.grades == 'A', 'A-', 'B+', 'B', 'B-, 'C+', 'C', 'C-', 'D+' %}
+                <td style="background-color: green;">{{ grade.grade }}</td>
+              {% elif grade.grades == 'D' %}
+                <td style="background-color: orange;">{{ grade.grade }}</td>
+              {% else %}
+                <td style="background-color: red;">{{ grade.grade }}</td>
+              {% endif %}
+            {% else %}
+                <td></td>
+            {%endif %}
+          {% endfor %}       
         </tr>
       {% endfor %}
     </tbody>

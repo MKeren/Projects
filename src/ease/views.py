@@ -2,6 +2,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 
+from ease.models import Course, Grade, Student
+
 def user_login(request):
 
     if request.method == 'POST':
@@ -19,3 +21,18 @@ def user_login(request):
 
 def home(request):
     return render(request, 'home.html')
+
+def course_catalog(request, student_no):
+    courses = Course.objects.all()
+    student = Student.objects.get(id = student_no)
+    grades = Grade.objects.filter(student=student)
+    context = {
+        'student': student,
+        'courses': courses,
+        'grades': grades,
+    }
+    return render(request, 'course_catalog.html', context)
+
+def transcript(request):
+    grades = Grade.objects.filter(student=request.user)
+    return render(request, 'transcript.html', {'grades': grades})
