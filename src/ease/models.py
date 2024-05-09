@@ -1,4 +1,5 @@
-from datetime import timezone
+
+from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -27,7 +28,8 @@ class Student(models.Model):
     student_no = models.CharField(max_length=20)
     faculty = models.CharField(max_length=255)
     email = models.EmailField(max_length=255)
-    course_catalog = models.ForeignKey(Course, on_delete=models.CASCADE)
+    # date_of_registration = models.DateField(default=datetime.now)
+    date_of_registration = models.DateField()
 
     def __str__(self):
         return self.name
