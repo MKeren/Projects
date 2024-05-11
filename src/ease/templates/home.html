@@ -1,25 +1,33 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Welcome to AcademEase Home</h1>
 
-<body id="page-my-index" class="format-site path-my chrome dir-ltr lang-en yui-skin-sam yui3-skin-sam lms3-final-edu-tr--LMS pagelayout-mydashboard course-1 context-10434 drawer-open-left jsenabled"><div id="MathJax_Message" style="display: none;"></div>
-                    <!-- custom_menu -->
-    <li class="dropdown nav-item">
-        <div class="dropdown-menu" role="menu" id="drop-down-menu-663aab1084b18663aab106b6a710" aria-labelledby="drop-down-663aab1084b18663aab106b6a710">
-                    <a class="dropdown-item" role="menuitem" href="https://lms3.final.edu.tr/LMS/my/index.php?lang=en" title="English ‎(en)‎">English ‎(en)‎</a>
-                    <a class="dropdown-item" role="menuitem" href="https://lms3.final.edu.tr/LMS/my/index.php?lang=tr" title="Türkçe ‎(tr)‎">Türkçe ‎(tr)‎</a>
-        </div>
-    </li>
-                                     
-                    
+{% block title %}
+Home - Academic Report Sheet
+{% endblock %}
+
+<body>
+
+    <ul>
+    {% for course in courses %}
+        <li><a href="{% url 'course_catalog' course.slug %}">{{ course.title }}</a></li>
+    {% endfor %}
+    </ul>
+
+    <div id="sidebar">
+      <ul>
+          <li><a href="{% url 'assign_role' %}">Assign_role</a></li>
+          <li><a href="{% url 'course_catalog' %}">Course Catalog</a></li>
+          {% if user.is_authenticated and user.is_supervisor %}
+              <li><a href="{% url 'supervisor_dashboard' %}">Supervisor Dashboard</a></li>
+          {% endif %}
+          {% if user.is_authenticated and user.is_teacher %}
+              <li><a href="{% url 'teacher_dashboard' %}">Teacher Dashboard</a></li>
+          {% endif %}
+      </ul>
+  </div>
+                                                      
 </body>
 
-  <div id="sidebar">
-    <ul>
-        <li><a href="{% url 'transcript' %}">Transcript</a></li>
-        <li><a href="{% url 'course_catalog' %}">Course Catalog</a></li>
-    </ul>
-</div>
 
 {% endblock %}

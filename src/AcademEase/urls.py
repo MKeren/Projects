@@ -22,7 +22,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.user_login, name='login'),
     path('home/', views.home, name='home'), 
-    #path('', include('transcript.urls')), 
-    path('course_catalog/<int:student_id>/', views.course_catalog, name='course_catalog'),
+    path('assign_role/', views.assign_role, name='assign_role'),
+    path('supervisor_dashboard/', views.AdminDashboardView, name='supervisor_dashboard'),
+    path('teacher_dashboard/', views.TeacherDashboardView, name='teacher_dashboard'),
+    path('transcript/', views.StudentTranscriptView, name='student_transcript'),
+    path('course_catalog/', views.Course_catalog, name='course_catalog'),
 
 ]

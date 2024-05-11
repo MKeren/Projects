@@ -77,7 +77,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'academease',
-        'USER': 'admin',
+        'USER': 'keren',
         #'USER': 'root',
         'PASSWORD': 'demeilleur',
         #'PASSWORD': '0815',
@@ -132,3 +132,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = "ease.CustomUser"

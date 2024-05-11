@@ -7,34 +7,20 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1></h1>
-    </header>
+    <nav>
+        <!-- Navigation links for each role -->
+        {% if user.is_authenticated and user.role == 'supervisor' %}
+            <a href="{% url 'supervisor_dashboard' %}">Admin Dashboard</a>
+        {% endif %}
+
+        {% if user.is_authenticated and user.role == 'teacher' %}
+            <a href="{% url 'teacher_dashboard' %}">Teacher Dashboard</a>
+        {% endif %}
+    </nav>
+
     <main>
-      {% block content %}
-        <section id="course-catalog">
-            <h2>Course Catalog</h2>
-            <div class="course">
-                
-            </div>
-            
-        </section>
-        <section id="grade-entry">
-            <h2>Grade Entry</h2>
-            <form>
-                <label for="course-select">Select Course:</label>
-                <select id="course-select">
-                    <option value="course1">Course 1</option>
-                    <option value="course2">Course 2</option>
-                    
-                </select>
-                <label for="grade-input">Enter Grade:</label>
-                <input type="text" id="grade-input" placeholder="Enter grade...">
-                <button type="submit">Submit</button>
-            </form>
-        </section>
-      {% endblock %}
-       
+        {% block content %}
+        {% endblock %}
     </main>
     <footer>
         <p>&copy; 2024 AcademEase</p>

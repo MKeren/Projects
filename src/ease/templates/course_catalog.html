@@ -27,7 +27,7 @@
           <td>{{ course.ects_credit }}</td>
           {% for grade in grades %}
             {% if grade.course.code == course.code %}
-              {% if grade.grades == 'A', 'A-', 'B+', 'B', 'B-, 'C+', 'C', 'C-', 'D+' %}
+              {% if grade.grades == 'A' %}
                 <td style="background-color: green;">{{ grade.grade }}</td>
               {% elif grade.grades == 'D' %}
                 <td style="background-color: orange;">{{ grade.grade }}</td>
