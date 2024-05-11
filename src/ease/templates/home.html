@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% block title %}
+Home - Academic Report Sheet
+{% endblock %}
+
+<body>
+
+    <ul>
+    {% for course in courses %}
+        <li><a href="{% url 'course_catalog' course.slug %}">{{ course.title }}</a></li>
+    {% endfor %}
+    </ul>
+
+    <div id="sidebar">
+      <ul>
+          <li><a href="{% url 'assign_role' %}">Assign_role</a></li>
+          <li><a href="{% url 'course_catalog' %}">Course Catalog</a></li>
+          {% if user.is_authenticated and user.is_supervisor %}
+              <li><a href="{% url 'supervisor_dashboard' %}">Supervisor Dashboard</a></li>
+          {% endif %}
+          {% if user.is_authenticated and user.is_teacher %}
+              <li><a href="{% url 'teacher_dashboard' %}">Teacher Dashboard</a></li>
+          {% endif %}
+      </ul>
+  </div>
+                                                      
+</body>
+
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<h1>Admin Dashboard</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Student</th>
+            <th>Courses Passed</th>
+            <th>Courses Failed</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for student in students %}
+            <tr>
+                <td>{{ student.username }}</td>
+                <td>
+                    
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

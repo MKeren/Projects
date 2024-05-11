@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Course Catalog</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Semester</th>
+        <th>Course Code</th>
+        <th>Course Title</th>
+        <th>Category</th>
+        <th>Hours</th>
+        <th>Pre-requisite</th>
+        <th>ECTS Credit</th>
+        <th>Grade</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for course in courses %}
+        <tr>
+          <td>{{ course.semester }}</td>
+          <td>{{ course.course_code }}</td>
+          <td>{{ course.title }}</td>
+          <td>{{ course.category }}</td>
+          <td>{{ course.hours_lecture }} Lecture, {{ course.hours_tutorial }} Tutorial, {{ course.hours_lab }} Lab</td>
+          <td>{{ course.pre_requisite }}</td>
+          <td>{{ course.ects_credit }}</td>
+          {% for grade in grades %}
+            {% if grade.course.code == course.code %}
+              {% if grade.grades == 'A' %}
+                <td style="background-color: green;">{{ grade.grade }}</td>
+              {% elif grade.grades == 'D' %}
+                <td style="background-color: orange;">{{ grade.grade }}</td>
+              {% else %}
+                <td style="background-color: red;">{{ grade.grade }}</td>
+              {% endif %}
+            {% else %}
+                <td></td>
+            {%endif %}
+            
+          {% endfor %}      
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
