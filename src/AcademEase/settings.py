@@ -80,7 +80,8 @@ DATABASES = {
         'USER': 'keren',
         #'USER': 'root',
         'PASSWORD': 'demeilleur',
-        #'PASSWORD': '0815',
+        
+       
         'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS': {
