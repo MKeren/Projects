@@ -19,7 +19,9 @@ from django.urls import path
 from ease import views
 
 urlpatterns = [
+    
     path('admin/', admin.site.urls),
+    path('logout/', views.user_logout, name='logout'),
     path('', views.user_login, name='login'),
     path('home/', views.home, name='home'), 
     path('assign_role/', views.assign_role, name='assign_role'),

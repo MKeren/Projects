@@ -3,31 +3,62 @@
 {% block content %}
 
 {% block title %}
-Home - Academic Report Sheet
+<h1 class="my-4">Home - Academic Report Sheet</h1>
 {% endblock %}
 
 <body>
+    <div class="container">
+        <ul class="list-unstyled">
+            {% for course in courses %}
+        <li class="media">
+          <img class="mr-3" src="{{ course.image_url }}" alt="Course Image">
+          <div class="media-body">
+            <h5 class="mt-0 mb-1"><a href="{% url 'course_catalog' course.slug %}">{{ course.title }}</a></h5>
+            <p>{{ course.description }}</p>
+          </div>
+        </li>
+      {% endfor %}
+        </ul>
+    </div>
 
-    <ul>
-    {% for course in courses %}
-        <li><a href="{% url 'course_catalog' course.slug %}">{{ course.title }}</a></li>
-    {% endfor %}
-    </ul>
-
-    <div id="sidebar">
-      <ul>
-          <li><a href="{% url 'assign_role' %}">Assign_role</a></li>
-          <li><a href="{% url 'course_catalog' %}">Course Catalog</a></li>
-          {% if user.is_authenticated and user.is_supervisor %}
-              <li><a href="{% url 'supervisor_dashboard' %}">Supervisor Dashboard</a></li>
-          {% endif %}
-          {% if user.is_authenticated and user.is_teacher %}
-              <li><a href="{% url 'teacher_dashboard' %}">Teacher Dashboard</a></li>
-          {% endif %}
-      </ul>
+    <div class="container">
+        <div class="row">
+          <div class="col-md-3">
+            <ul class="list-unstyled">
+                <li><a href="{% url 'assign_role' %}">Assign Role</a></li>
+                <li><a href="{% url 'course_catalog' %}">Course Catalog</a></li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+      </div>
+      <div class="col-md-9">
+        <div class="card">
+          <div class="card-header">
+            <h4>Welcome, {{ user.username }}!</h4>
+          </div>
+          <div class="card-body">
+            {% if user.is_authenticated and user.is_supervisor %}
+              <p>As a supervisor, you can manage teachers and courses.</p>
+              <ul>
+                <li><a href="{% url 'teacher_list' %}">View Teacher List</a></li>
+                <li><a href="{% url 'course_list' %}">View Course List</a></li>
+              </ul>
+            {% endif %}
+            {% if user.is_authenticated and user.is_teacher %}
+              <p>As a teacher, you can manage classes and student reports.</p>
+              <ul>
+                <li><a href="{% url 'class_list' %}">View Class List</a></li>
+                <li><a href="{% url 'report_list' %}">View Student Reports</a></li>
+              </ul>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+
                                                       
 </body>
+    </form>
 
 
 {% endblock %}

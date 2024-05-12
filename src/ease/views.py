@@ -1,13 +1,12 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 #from ease.forms import UserRoleForm
 from ease.models import Course, Grade, Student, CustomUser, Role
 from django.contrib.auth.decorators import login_required, user_passes_test
-from django.views.generic import TemplateView
+from django.contrib import messages
 
 def user_login(request):
-
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -16,16 +15,21 @@ def user_login(request):
             login(request, user)
             return redirect('home')
         else:
-            return render(request, 'login_page.html', {'error': 'Invalid username or password'})
+            error_message = 'Invalid username or password'
+            return render(request, 'login_page.html', {'error': error_message})
     else:
         return render(request, 'login_page.html')
+      
+def user_logout(request):
+        logout(request)
+        return HttpResponseRedirect("/")
     
 def has_role(user, role):
     return user.role == role
 
-def home(request):
-    courses = Course.objects.all()
-    return render(request, 'home.html', {'courses': courses})
+def home(request):  
+        courses = Course.objects.all()
+        return render(request,'home.html', {'courses': courses})
 
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
