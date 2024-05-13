@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 #from ease.forms import UserRoleForm
-from ease.models import Course, Grade, Student, CustomUser, Role
+from ease.models import Course, Student, CustomUser, Role
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
 
