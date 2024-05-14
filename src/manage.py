@@ -2,7 +2,10 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+import django
+from django.conf import settings
 
+# manage.py
 
 def main():
     """Run administrative tasks."""
@@ -16,6 +19,10 @@ def main():
             "forget to activate a virtual environment?"
         ) from exc
     execute_from_command_line(sys.argv)
+
+    print(settings.DEBUG)
+
+    django.setup()
 
 
 if __name__ == '__main__':

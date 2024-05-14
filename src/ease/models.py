@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-class Course(models.Model):
+class OldCatalog(models.Model):
     semester = models.CharField(max_length=255)
     course_code = models.CharField(max_length=255)
     title = models.CharField(max_length=255)
@@ -11,6 +11,22 @@ class Course(models.Model):
     hours_lab = models.IntegerField()
     pre_requisite = models.TextField()
     ects_credit = models.IntegerField()
+    total_credits = models.IntegerField(null=True, blank=True)
+
+    def __str__(self):
+        return self.title
+    
+class NewCatalog(models.Model):
+    semester = models.CharField(max_length=255)
+    course_code = models.CharField(max_length=255)
+    title = models.CharField(max_length=255)
+    category = models.CharField(max_length=255)
+    hours_lecture = models.IntegerField()
+    hours_tutorial = models.IntegerField()
+    hours_lab = models.IntegerField()
+    pre_requisite = models.TextField()
+    ects_credit = models.IntegerField()
+    total_credits = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -49,12 +65,17 @@ class Teacher(models.Model):
 
 class Transcript(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    courseO = models.ForeignKey(OldCatalog, on_delete=models.SET_NULL, null=True, blank=True)
+    courseN = models.ForeignKey(NewCatalog, on_delete=models.SET_NULL, null=True, blank=True)
+    is_old_course = models.BooleanField(default=False)
     grades = models.CharField(max_length=10, blank=True, null=True)
     grade_points = models.DecimalField(max_digits=3, decimal_places=2, blank=True, null=True)
 
     def __str__(self):
-        return f"{self.student.name} - {self.course.title}"
+        if self.is_old_course:
+            return f"{self.student.name} - {self.courseO.title}"
+        else:
+            return f"{self.student.name} - {self.courseN.title}"
 
 class Grade(models.Model):
     transcript = models.ForeignKey(Transcript, on_delete=models.CASCADE)

@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1 class="my-4">Old Curriculum</h1>
+
+
+<style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: left;
+    }
+    
+    th {
+      background-color: #f2f2f2;
+    }
+
+  </style>
+    
+<input type="text" id="search-box" onkeyup="searchFunction()" placeholder="Search for courses..">
+
+<table id="course-table">
+    <thead>
+      <tr>
+        <th>Semester</th>
+        <th>Course Code</th>
+        <th>Course Title</th>
+        <th>Category</th>
+        <th>Hours</th>
+        <th>total_credits</th>
+        <th>Pre-requisite</th>
+        <th>ECTS Credit</th>
+        
+      </tr>
+    </thead>
+    <tbody id="table-body">
+
+        {% for oldcatalog in old_courses %}
+        <tr>
+          <td>{{ oldcatalog.semester }}</td>
+          <td>{{ oldcatalog.course_code }}</td>
+          <td>{{ oldcatalog.title }}</td>
+          <td>{{ oldcatalog.category }}</td>
+          <td>{{ oldcatalog.hours_lecture }} Lecture + {{ oldcatalog.hours_tutorial }} Tutorial + {{ oldcatalog.hours_lab }} Lab </td>
+          <td>{{ oldcatalog.total_credits }}</td>
+          <td>{{ oldcatalog.pre_requisite }}</td>
+          <td>{{ oldcatalog.ects_credit }}</td>
+
+          {% for grade in grades %}
+            {% if grade.course.code == course.code %}
+              {% if grade.grades == 'A' %}
+              <span style="background-color: green;">{{ grade.grade }}</span>
+              {% elif grade.grades == 'D' %}
+              <span style="background-color: orange;">{{ grade.grade }}</span>
+              {% else %}
+              <span style="background-color: red;">{{ grade.grade }}</span>
+              {% endif %}
+            {% else %}
+              <span></span>
+            {%endif %}
+            
+          {% endfor %}     
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<script>
+
+    function searchFunction() {
+      let input = document.getElementById("search-box").value;
+      input = input.toLowerCase();
+      let x = document.getElementsByTagName("tr");
+  
+      for (i = 0; i < x.length; i++) {
+        let td = x[i].getElementsByTagName("td")[1];
+        let txtValue = td.textContent || td.innerText;
+        if (txtValue.toLowerCase().indexOf(input) > -1) {
+          x[i].style.display = "";
+        } else {
+          x[i].style.display = "none";
+        }
+      }
+    }
+</script>
+
+{% endblock %}

@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 #from ease.forms import UserRoleForm
-from ease.models import Course, Student, CustomUser, Role
+from ease.models import NewCatalog,OldCatalog, CustomUser, Transcript
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
 
@@ -27,9 +27,11 @@ def user_logout(request):
 def has_role(user, role):
     return user.role == role
 
-def home(request):  
-        courses = Course.objects.all()
-        return render(request,'home.html', {'courses': courses})
+def home(request):
+    old_courses = OldCatalog.objects.all()
+    new_courses = NewCatalog.objects.all()
+    courses = list(old_courses) + list(new_courses)
+    return render(request, 'home.html', {'courses': courses})
 
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
@@ -41,17 +43,29 @@ def assign_role(request):
         user.role = role
         user.save()
         return redirect('home')
-    users = CustomUser.objects.filter(role='teacher')
+    users = CustomUser.objects.exclude(is_superuser=True)
     return render(request, 'assign_role.html', {'users': users})
 
 def TeacherDashboardView(request):
     return render(request, 'teacher_template/teacher_dashboard.html')
 
 def StudentTranscriptView(request):
-    return render(request, 'transcript.html')
+    transcripts = Transcript.objects.all()
+    
+    return render(request, 'transcript.html',{'transcripts': transcripts})
 
 def AdminDashboardView(request):
     return render(request, 'supervisor_template/supervisor_dashboard.html')
 
 def Course_catalog(request):
     return render(request, 'course_catalog.html')
+
+def old_catalog(request):
+    old_courses = OldCatalog.objects.all()
+
+    return render(request, 'old_catalog.html',{'old_courses': old_courses})
+
+def new_catalog(request):
+    new_courses = NewCatalog.objects.all()
+
+    return render(request, 'new_catalog.html', {'new_courses': new_courses})

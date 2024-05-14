@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class="my-4">Transcript</h1>
+
+    <head>
+        <link rel="stylesheet" href="https://cdn.datatables.net/2.0.7/css/dataTables.dataTables.css" />
+  
+        <script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
+    </head>
+
+    <table id="transcript-table" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Title of Course</th>
+                <th>ECTS Credits</th>
+                <th>Grade</th>
+                <th>Credits</th>
+                <th>Grade Points</th>
+            </tr>
+        </thead>
+        <tbody id="table-body">
+            {% for transcript in transcripts %}
+                <tr>
+                    <td>{{ transcript.code }}</td>
+                    <td>{{ transcript.title }}</td>
+                    <td>{{ transcript.ects_credits }}</td>
+                    <td>{{ transcript.grade }}</td>
+                    <td>{{ transcript.credits }}</td>
+                    <td>{{ transcript.grade_points }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script>
+        $(document).ready(function() {
+            $('#transcript-table').DataTable();
+        } );
+        </script>
+
+{% endblock %}

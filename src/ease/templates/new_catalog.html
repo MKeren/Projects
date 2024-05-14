@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<head>
+    <meta charset="UTF-8">
+    <h1 class="my-4">New Curriculum</h1>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/2.0.7/css/jquery.dataTables.min.css">
+    <script type= "text/javascript" lanuage="javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type= "text/javascript" lanuage="javascript" src="https://cdn.datatables.net/2.0.7/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var baseurl = "http://localhost:8080/new_catalog";
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("GET", baseurl+"/all",true);
+            xmlhttp.onreadystatechange = function(){
+                if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
+                    var new_catalog = JSON.parse(xmlhttp.responseText);
+                    $("#course-table").DataTable({
+                        data:new_catalog,
+                        "columns":[
+                            {"data": "Semester"},
+                            {"data": "Course Code"},
+                            {"data": "Course Title"},
+                            {"data": "Category"},
+                            {"data": "Hours"},
+                            {"data": "total_credits"},
+                            {"data": "Pre-requisite"},
+                            {"data": "ECTS Credit"}
+
+                        ]
+                    })
+                }
+            }
+            xmlhttp.send();
+        });
+    </script>
+</head>
+  
+<table id="course-table" class="display" style="width: 100%">
+     <thead>
+        <tr>
+            <th>Semester</th>
+            <th>Course Code</th>
+            <th>Course Title</th>
+            <th>Category</th>
+            <th>Hours</th>
+            <th>total_credits</th>
+            <th>Pre-requisite</th>
+            <th>ECTS Credit</th>
+      
+        </tr>
+    </thead>
+    <tbody id="table-body">
+    {% for newcatalog in new_courses %}
+        <tr>
+            <td>{{ newcatalog.semester }}</td>
+            <td>{{ newcatalog.course_code }}</td>
+            <td>{{ newcatalog.title }}</td>
+            <td>{{ newcatalog.category }}</td>
+            <td>{{ newcatalog.hours_lecture }} Lecture + {{ newcatalog.hours_tutorial }} Tutorial + {{ newcatalog.hours_lab }} Lab </td>
+            <td>{{ newcatalog.total_credits }}</td>
+            <td>{{ newcatalog.pre_requisite }}</td>
+            <td>{{ newcatalog.ects_credit }}</td>
+
+    {% for grade in grades %}
+        {% if grade.course.code == course.code %}
+          {% if grade.grades == 'A' %}
+          <span style="background-color: green;">{{ grade.grade }}</span>
+          {% elif grade.grades == 'D' %}
+          <span style="background-color: orange;">{{ grade.grade }}</span>
+          {% else %}
+          <span style="background-color: red;">{{ grade.grade }}</span>
+          {% endif %}
+        {% else %}
+          <span></span>
+        {%endif %}
+        
+    {% endfor %}      
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+
+
+{% endblock %}
+
