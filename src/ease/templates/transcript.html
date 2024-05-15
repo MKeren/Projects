@@ -1,14 +1,38 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block content %}
-    <h1 class="my-4">Transcript</h1>
 
-    <head>
-        <link rel="stylesheet" href="https://cdn.datatables.net/2.0.7/css/dataTables.dataTables.css" />
-  
-        <script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
-    </head>
+<head>
+    <h1 class="my-4">Trancript</h1>
 
+    <!-- DataTables --> 
+    <link rel="stylesheet" href="{%static 'datatables/dataTables.css' %}">
+
+    <style>
+
+        body{
+            padding: 8px 60px;
+        }
+
+        table {
+      border-collapse: collapse;
+      width: 100%;
+        }
+    
+        th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: center;
+        }
+    
+        th {
+      background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
     <table id="transcript-table" class="table table-striped">
         <thead>
             <tr>
@@ -34,10 +58,20 @@
         </tbody>
     </table>
 
-    <script>
-        $(document).ready(function() {
-            $('#transcript-table').DataTable();
-        } );
-        </script>
+    <!-- Jquery -->
+
+<script src="{%static 'jquery/jquery-3.7.1.min.js' %}"></script>
+
+<!-- DataTables --> 
+
+<script src="{%static 'datatables/dataTables.js' %}"></script>
+
+<script>
+
+   let table = new DataTable('#transcript-table', {
+   // options
+   });
+
+</script>
 
 {% endblock %}

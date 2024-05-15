@@ -1,51 +1,83 @@
 {% extends 'base.html' %}
 
-{% block title %}
-    Login
-{% endblock %}
-
 {% block content %}
-<nav class="fixed-top navbar navbar-light bg-white navbar-expand moodle-has-zindex" aria-label="Site navigation">
+
+<style>
+
+    body{
+        padding: 80px 60px;
+        text-align: left;
+        width: 100%;
+    }
+   
+    .centered-table {
+        margin: 0 auto; 
+        border-collapse: collapse; 
+        border: 1px solid black; 
+        width: 50%; 
+    }
+
+    .centered-table th,
+    .centered-table td {
+        border: 1px solid grey; 
+        padding: 5px; 
+        text-align: center; 
+    }
+
+    .centered-table th {
+        background-color: white; 
+    }
+
+    .centered-table tr:nth-child(even) {
+        background-color: #f2f2f2; 
+    }
+
+    .centered-table tr:hover {
+        background-color: #ddd;
+    }
     
-  <ul class="navbar-nav d-none d-md-flex">
-      <!-- custom_menu -->
-<li class="dropdown nav-item">
+    .centered-table2 {
+        margin: 0 auto; 
+        border-collapse: collapse; 
+        border: 1px solid black; 
+        width: 50%; 
+    }
 
-<div class="dropdown-menu" role="menu" id="drop-down-menu-66393ed99420866393ed99247a4" aria-labelledby="drop-down-66393ed99420866393ed99247a4">
-      <a class="dropdown-item" role="menuitem" href="https://translate.google.com/m/translate?sl=auto&tl=en&u=https://lms3.final.edu.tr/LMS/" title="English ‎(en)‎">English ‎(en)‎</a>
-      <a class="dropdown-item" role="menuitem" href="https://lms3.final.edu.tr/LMS/?lang=tr" title="Türkçe ‎(tr)‎">Türkçe ‎(tr)‎</a>
-</div>
-</li>
-      <!-- page_heading_menu -->
-      
-  </ul>
-</nav>
-<header id="page-header" class="row">
-  <div class="col-12 pt-3 pb-3">
-      <div class="card ">
-          <div class="card-body ">
-              <div class="d-sm-flex align-items-center">
-                  <div class="mr-auto">
-                      <div class="logo"><img src="https://lms3.final.edu.tr/LMS/pluginfile.php/1/core_admin/logo/0x150/1633438538/ufulogoen4.png" alt="Logo of Final International University LMS 3" class="img-fluid"></div><h1 class="sr-only">Academic Report Sheet</h1>
-                  </div>
+    .centered-table2 th,
+    .centered-table2 td {
+        border: 1px solid whitesmoke; 
+        padding: 5px; 
+        text-align: center; 
+    }
 
-                  <div class="header-actions-container flex-shrink-0" data-region="header-actions-container">
-                  </div>
-              </div>
-              <div class="d-flex flex-wrap">
-                  <div class="ml-auto d-flex">
-                      
-                  </div>
-                  <div id="course-header">
-                      
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-</header>
+    .centered-table2 th {
+        background-color: whitesmoke; 
+    }
 
-    <h2>Plese login with your username and password</h2>
+    .centered-table2 tr:nth-child(even) {
+        background-color: #f2f2f2; 
+    }
+
+    .centered-table2 tr:hover {
+        background-color: #ddd;
+    }
+
+
+</style>
+<body>
+<table class="centered-table2">
+    <tr>
+        <th>
+    <div class="logo"><img src="https://lms3.final.edu.tr/LMS/pluginfile.php/1/core_admin/logo/0x150/1633438538/ufulogoen4.png" alt="Logo of Final International University LMS 3" class="img-fluid"></div>
+    <tr>
+        <th>
+</table>
+
+<table class="centered-table">
+    <tr>
+        <th>
+                
+    <h5>Plese login with your username and password</h5>
     <form action="{% url 'login' %}" method="post">
         {% csrf_token %}
         {% if error %}
@@ -57,4 +89,8 @@
         <input type="password" id="password" name="password"><br><br>
         <button type="submit">Login</button>
     </form>
+</th>
+</tr>
+</table>
+</body>
 {% endblock %}

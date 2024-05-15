@@ -1,43 +1,49 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 
 <head>
-    <meta charset="UTF-8">
     <h1 class="my-4">New Curriculum</h1>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/2.0.7/css/jquery.dataTables.min.css">
-    <script type= "text/javascript" lanuage="javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type= "text/javascript" lanuage="javascript" src="https://cdn.datatables.net/2.0.7/js/jquery.dataTables.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            var baseurl = "http://localhost:8080/new_catalog";
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.open("GET", baseurl+"/all",true);
-            xmlhttp.onreadystatechange = function(){
-                if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
-                    var new_catalog = JSON.parse(xmlhttp.responseText);
-                    $("#course-table").DataTable({
-                        data:new_catalog,
-                        "columns":[
-                            {"data": "Semester"},
-                            {"data": "Course Code"},
-                            {"data": "Course Title"},
-                            {"data": "Category"},
-                            {"data": "Hours"},
-                            {"data": "total_credits"},
-                            {"data": "Pre-requisite"},
-                            {"data": "ECTS Credit"}
 
-                        ]
-                    })
-                }
-            }
-            xmlhttp.send();
-        });
-    </script>
+    <!-- DataTables --> 
+    <link rel="stylesheet" href="{%static 'datatables/dataTables.css' %}">
+
+    <style>
+
+        body{
+            padding: 8px 60px;
+        }
+
+        table {
+      border-collapse: collapse;
+      width: 100%;
+        }
+    
+        th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: center;
+        }
+    
+        th {
+      background-color: #f2f2f2;
+        }
+    </style>
 </head>
-  
-<table id="course-table" class="display" style="width: 100%">
+<body>
+    
+<table>
+    <tr>
+        <th>
+            <div class="logo"><img src="https://lms3.final.edu.tr/LMS/pluginfile.php/1/core_admin/logo/0x150/1633438538/ufulogoen4.png" alt="Logo of Final International University LMS 3" class="img-fluid"></div>
+            <h4 class="display">FACULTY OF ENGINEERING</h4> 
+            <h6>COMPUTER ENGINEERING Program of Courses</h6>
+        </th>
+    </tr>
+</table>
+
+<table id="myTable" class="display">
      <thead>
         <tr>
             <th>Semester</th>
@@ -51,38 +57,55 @@
       
         </tr>
     </thead>
-    <tbody id="table-body">
+    <tbody id="tablebody">
     {% for newcatalog in new_courses %}
         <tr>
             <td>{{ newcatalog.semester }}</td>
             <td>{{ newcatalog.course_code }}</td>
             <td>{{ newcatalog.title }}</td>
             <td>{{ newcatalog.category }}</td>
-            <td>{{ newcatalog.hours_lecture }} Lecture + {{ newcatalog.hours_tutorial }} Tutorial + {{ newcatalog.hours_lab }} Lab </td>
+            <td> Lecture: {{ newcatalog.hours_lecture }} Tutorial: {{ newcatalog.hours_tutorial }} Lab: {{ newcatalog.hours_lab }} </td>    
             <td>{{ newcatalog.total_credits }}</td>
             <td>{{ newcatalog.pre_requisite }}</td>
             <td>{{ newcatalog.ects_credit }}</td>
-
+        
     {% for grade in grades %}
         {% if grade.course.code == course.code %}
-          {% if grade.grades == 'A' %}
-          <span style="background-color: green;">{{ grade.grade }}</span>
-          {% elif grade.grades == 'D' %}
-          <span style="background-color: orange;">{{ grade.grade }}</span>
-          {% else %}
-          <span style="background-color: red;">{{ grade.grade }}</span>
-          {% endif %}
-        {% else %}
-          <span></span>
-        {%endif %}
-        
-    {% endfor %}      
+            {% if grade.grades == 'A' %} 
+                <span style="background-color: green;">{{ grade.grade }}</span>
+            {% elif grade.grades == 'D' %} 
+                <span style="background-color: orange;">{{ grade.grade }}</span> 
+            {% elif grade.grades >= 'D+' %} 
+                <span style="background-color: green;">{{ grade.grade }}</span>
+            {% else %} 
+            <span style="background-color: red;">{{ grade.grade }}</span>
+            {% endif %}
+            {% else %} 
+            <span></span> 
+        {% endif %}
+        {% endfor %}
         </tr>
     {% endfor %}
     </tbody>
+    </body>
+
 </table>
 
+ <!-- Jquery -->
 
+<script src="{%static 'jquery/jquery-3.7.1.min.js' %}"></script>
+
+ <!-- DataTables --> 
+
+ <script src="{%static 'datatables/dataTables.js' %}"></script>
+
+ <script>
+
+    let table = new DataTable('#myTable', {
+    // options
+    });
+
+ </script>
 
 {% endblock %}
 
