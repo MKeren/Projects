@@ -17,19 +17,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from ease import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     
     path('admin/', admin.site.urls),
-    path('logout/', views.user_logout, name='logout'),
+    
     path('', views.user_login, name='login'),
-    path('home/', views.home, name='home'), 
-    path('assign_role/', views.assign_role, name='assign_role'),
+    path('home/', views.Home, name='home'), 
     path('supervisor_dashboard/', views.AdminDashboardView, name='supervisor_dashboard'),
     path('teacher_dashboard/', views.TeacherDashboardView, name='teacher_dashboard'),
     path('transcript/', views.StudentTranscriptView, name='transcript'),
     path('course_catalog/', views.Course_catalog, name='course_catalog'),
     path('old_catalog/', views.old_catalog, name='old_catalog'),
     path('new_catalog/', views.new_catalog, name='new_catalog'),
+    path('upload_transcript/', views.upload_transcript, name='upload_transcript'),
+    path('logout/', views.user_logout, name='logout'),
 
 ]

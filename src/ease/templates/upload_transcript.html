@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<head>
+    <div id="container">
+        <div id="main" class="centered-table">
+            {% block title %}
+            <h1 class="my-4">Upload Transcript</h1>
+            {% endblock %}
+        </div>
+    </div>
+    
+    <style>
+
+        body{
+            padding: 8px 60px;
+        }
+  
+        table {
+      border-collapse: collapse;
+      width: 100%;
+        }
+    
+        th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: center;
+        }
+    
+        th {
+      background-color: #f2f2f2;
+        }
+    </style>
+     <style>
+      .dashboard {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 1rem;
+        padding: 1rem;
+      }
+  
+      .card {
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 1rem;
+      }
+  
+      .card h2 {
+        font-size: 1.5rem;
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+      }
+  
+      .card p {
+        font-size: 1rem;
+        margin-top: 0;
+        margin-bottom: 1rem;
+      }
+  
+      @media (max-width: 768px) {
+        .dashboard {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+</head>
+
+<body>
+    <div id="container" class="card-header">
+        
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="transcript_file">Transcript File:</label>
+        <input type="file" name="transcript_file" id="transcript_file" required>
+        <button type="submit">Upload</button>
+    </form>
+    </div>
+</body>
+{% endblock %}

@@ -1,11 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block content %}
 
 <head>
-    <h1 class="my-4">New Curriculum</h1>
-
+    
     <!-- DataTables --> 
     <link rel="stylesheet" href="{%static 'datatables/dataTables.css' %}">
 
@@ -29,10 +27,50 @@
         th {
       background-color: #f2f2f2;
         }
+        .logo img {
+            height: 40px; /* Adjust the height as needed */
+            width: auto; 
+        }
+        
     </style>
-</head>
-<body>
+    <style>
+        .dashboard {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          grid-gap: 1rem;
+          padding: 1rem;
+        }
     
+        .card {
+          background-color: #fff;
+          border-radius: 5px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          padding: 1rem;
+        }
+    
+        .card h2 {
+          font-size: 1.5rem;
+          margin-top: 0;
+          margin-bottom: 0.5rem;
+        }
+    
+        .card p {
+          font-size: 1rem;
+          margin-top: 0;
+          margin-bottom: 1rem;
+        }
+    
+        @media (max-width: 768px) {
+          .dashboard {
+            grid-template-columns: 1fr;
+          }
+        }
+    </style>
+
+</head>
+
+<body>
+<div id="container">
 <table>
     <tr>
         <th>
@@ -42,18 +80,21 @@
         </th>
     </tr>
 </table>
+</div>
+<div id="container">
 
 <table id="myTable" class="display">
-     <thead>
+    <thead>
         <tr>
             <th>Semester</th>
             <th>Course Code</th>
             <th>Course Title</th>
-            <th>Category</th>
+            <th> Course Category</th>
             <th>Hours</th>
             <th>total_credits</th>
             <th>Pre-requisite</th>
             <th>ECTS Credit</th>
+            <th>Grade</th>
       
         </tr>
     </thead>
@@ -68,28 +109,39 @@
             <td>{{ newcatalog.total_credits }}</td>
             <td>{{ newcatalog.pre_requisite }}</td>
             <td>{{ newcatalog.ects_credit }}</td>
+            <td>{{ newcatalog.grade }}</td>
         
-    {% for grade in grades %}
-        {% if grade.course.code == course.code %}
-            {% if grade.grades == 'A' %} 
-                <span style="background-color: green;">{{ grade.grade }}</span>
-            {% elif grade.grades == 'D' %} 
-                <span style="background-color: orange;">{{ grade.grade }}</span> 
-            {% elif grade.grades >= 'D+' %} 
-                <span style="background-color: green;">{{ grade.grade }}</span>
-            {% else %} 
-            <span style="background-color: red;">{{ grade.grade }}</span>
-            {% endif %}
-            {% else %} 
-            <span></span> 
-        {% endif %}
-        {% endfor %}
+    {% for transcript in transcripts %}
+        <tr>
+            <td>
+                {% if transcript.is_old_course %}
+                  {{ transcript.course_old.title }}
+                {% else %}
+                  {{ transcript.course_new.title }}
+                {% endif %}
+            </td>
+            <td>
+                {% if transcript.grades %}
+                    {% if transcript.grades == 'A' %} 
+                    <span style="background-color: green;">{{ transcript.grades }}</span>
+                    {% elif transcript.grades == 'D' %} 
+                    <span style="background-color: orange;">{{ transcript.grades }}</span> 
+                    {% elif transcript.grades > 'D' %} 
+                    <span style="background-color: green;">{{ transcript.grades }}</span>
+                    {% else %} 
+                    <span style="background-color: red;">{{ transcript.grades }}</span>
+                    {% endif %}
+                {% else %} 
+                    <span></span> 
+                {% endif %}
+                {% endfor %}
+            </td>
         </tr>
-    {% endfor %}
+        {% endfor %}
     </tbody>
-    </body>
-
 </table>
+</div>
+</body>
 
  <!-- Jquery -->
 

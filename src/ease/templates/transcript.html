@@ -5,7 +5,13 @@
 {% block content %}
 
 <head>
-    <h1 class="my-4">Trancript</h1>
+    <div id="container">
+        <div id="main" class="centered-table">
+            {% block title %}
+            <h1 class="my-4">Transcript</h1>
+            {% endblock %}
+        </div>
+    </div>
 
     <!-- DataTables --> 
     <link rel="stylesheet" href="{%static 'datatables/dataTables.css' %}">
@@ -33,10 +39,13 @@
     </style>
 </head>
 <body>
+    <div id="container">
+        
+    
     <table id="transcript-table" class="table table-striped">
         <thead>
             <tr>
-                <th>Code</th>
+                <th>Code</th>    
                 <th>Title of Course</th>
                 <th>ECTS Credits</th>
                 <th>Grade</th>
@@ -57,7 +66,8 @@
             {% endfor %}
         </tbody>
     </table>
-
+    </div>
+</body>
     <!-- Jquery -->
 
 <script src="{%static 'jquery/jquery-3.7.1.min.js' %}"></script>
