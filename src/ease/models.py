@@ -59,19 +59,15 @@ class Student(models.Model):
 
 
 class Transcript(models.Model):
-    student = models.ForeignKey(Student, on_delete=models.CASCADE)
-    course_old = models.ForeignKey(OldCatalog, on_delete=models.SET_NULL, null=True, blank=True)
-    course_new = models.ForeignKey(NewCatalog, on_delete=models.SET_NULL, null=True, blank=True)
+    code = models.CharField(max_length=20, blank=True, null=True)
+    title = models.CharField(max_length=255, blank=True, null=True)
     ects_credits = models.DecimalField(max_digits=3, decimal_places=2, blank=True, null=True)
-    is_old_course = models.BooleanField(default=False)
     grades = models.CharField(max_length=10, blank=True, null=True)
+    credits = models.CharField(max_length=10, blank=True, null=True)
     grade_points = models.DecimalField(max_digits=3, decimal_places=2, blank=True, null=True)
 
     def __str__(self):
-        if self.is_old_course:
-            return f"{self.student.name} - {self.course_old.title}"
-        else:
-            return f"{self.student.name} - {self.course_new.title}"
+        return f"{self.code} - {self.grades}"
 
 class Role(models.Model):
     NAME_CHOICES = [

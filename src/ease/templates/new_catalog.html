@@ -31,7 +31,6 @@
             height: 40px; /* Adjust the height as needed */
             width: auto; 
         }
-        
     </style>
     <style>
         .dashboard {
@@ -64,6 +63,9 @@
           .dashboard {
             grid-template-columns: 1fr;
           }
+        }
+        #myTable {
+          font-size: 10px;
         }
     </style>
 
@@ -98,7 +100,7 @@
       
         </tr>
     </thead>
-    <tbody id="tablebody">
+    <tbody id="tablebody" class="myTable">
     {% for newcatalog in new_courses %}
         <tr>
             <td>{{ newcatalog.semester }}</td>

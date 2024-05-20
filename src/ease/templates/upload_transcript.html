@@ -73,10 +73,26 @@
 
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
+        {{ form.as_p }}
         <label for="transcript_file">Transcript File:</label>
-        <input type="file" name="transcript_file" id="transcript_file" required>
         <button type="submit">Upload</button>
     </form>
     </div>
 </body>
+
+<body>
+  <h1>Upload Transcript</h1>
+  {% if messages %}
+      <ul>
+          {% for message in messages %}
+              <li>{{ message }}</li>
+          {% endfor %}
+      </ul>
+  {% endif %}
+  <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input type="file" name="file" accept=".csv" required>
+      <button type="submit">Upload</button>
+  </form>
+</body
 {% endblock %}

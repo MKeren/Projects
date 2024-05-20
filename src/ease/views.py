@@ -1,9 +1,12 @@
+import io
+from django.contrib import messages
 import pandas as pd
+import csv
 from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from ease.forms import TranscriptUploadForm
-from ease.models import NewCatalog,OldCatalog,Student, Transcript
+from ease.models import Course, NewCatalog,OldCatalog,Student, Transcript
 from django.contrib.auth.decorators import login_required
 
 
@@ -65,32 +68,54 @@ def new_catalog(request):
 #@login_required
 def upload_transcript(request):
     if request.method == 'POST':
-        form = TranscriptUploadForm(request.POST, request.FILES)
-        if form.is_valid():
-            file = form.cleaned_data['file']
-            df = pd.read_excel(file)  # Assuming the file is an Excel file
+        try:
+            csv_file = request.FILES['file']
+            if not csv_file.name.endswith('.csv'):
+                messages.error(request, 'This is not a CSV file')
+                return redirect('upload_transcript')
+
+            # Decode the file and read into a pandas DataFrame
+            data_set = csv_file.read().decode('UTF-8')
+            io_string = io.StringIO(data_set)
+            df = pd.read_csv(io_string)
+
+            # Check if necessary columns are in DataFrame
+            required_columns = ['Code', 'Grade']
+            if not all(column in df.columns for column in required_columns):
+                messages.error(request, 'CSV file must contain StudentNo, CourseCode, and Grade columns.')
+                return redirect('upload_transcript')
 
             for index, row in df.iterrows():
-                student_no = row['student_no']
-                course_code = row['course_code']
-                grade = row['grade']
-                grade_points = row['grade_points']
-                is_old_course = row.get('is_old_course', False)  # This column should be present in the file
+                
+                code = row['Code']
+                grades = row['Grade']
 
-                student = Student.objects.get(student_no=student_no)
-                if is_old_course:
-                    course = OldCatalog.objects.get(course_code=course_code)
-                    transcript, created = Transcript.objects.get_or_create(student=student, course_old=course, is_old_course=True)
-                else:
-                    course = NewCatalog.objects.get(course_code=course_code)
-                    transcript, created = Transcript.objects.get_or_create(student=student, course_new=course, is_old_course=False)
+                try:
+                    student = Transcript.objects.get(code=code,grades=grades)
+                except Course.DoesNotExist:
+                    messages.error(request, f'Student with student number {code}does not exist.')
+                    continue
+                
+                try:
+                    # Determine which catalog to use based on student data
+                    if student.is_old_course:
+                        course = OldCatalog.objects.get(code=code)
+                    else:
+                        course = NewCatalog.objects.get(code=code)
+                except (OldCatalog.DoesNotExist, NewCatalog.DoesNotExist):
+                    messages.error(request, f'Course with code {code} does not exist in the catalog.')
+                    continue
 
-                transcript.grade = grade
-                transcript.grade_points = grade_points
-                transcript.save()
+                transcript, created = Transcript.objects.update_or_create(
+                    student=student,
+                    courseO=course if student.is_old_course else None,
+                    courseN=course if not student.is_old_course else None,
+                )
 
-            return redirect('transcript')
+            messages.success(request, 'Transcript successfully uploaded')
+            return redirect('upload_transcript')
+        except Exception as e:
+            messages.error(request, f'Error processing file: {e}')
+            return redirect('upload_transcript')
 
-    else:
-        form = TranscriptUploadForm()
-    return render(request, 'upload_transcript.html', {'form': form})
+    return render(request, 'upload_transcript.html')
