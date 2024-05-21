@@ -1,13 +1,17 @@
 import io
+import os
+import PyPDF2
 from django.contrib import messages
+from docx import Document
 import pandas as pd
-import csv
+import tabula
 from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from ease.forms import TranscriptUploadForm
 from ease.models import Course, NewCatalog,OldCatalog,Student, Transcript
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 
 
 def user_login(request):
@@ -68,54 +72,48 @@ def new_catalog(request):
 #@login_required
 def upload_transcript(request):
     if request.method == 'POST':
-        try:
-            csv_file = request.FILES['file']
-            if not csv_file.name.endswith('.csv'):
-                messages.error(request, 'This is not a CSV file')
-                return redirect('upload_transcript')
-
-            # Decode the file and read into a pandas DataFrame
-            data_set = csv_file.read().decode('UTF-8')
-            io_string = io.StringIO(data_set)
-            df = pd.read_csv(io_string)
-
-            # Check if necessary columns are in DataFrame
-            required_columns = ['Code', 'Grade']
-            if not all(column in df.columns for column in required_columns):
-                messages.error(request, 'CSV file must contain StudentNo, CourseCode, and Grade columns.')
-                return redirect('upload_transcript')
+        form = TranscriptUploadForm(request.POST, request.FILES)
+        directory = ''
+        if form.is_valid():
+            file = form.cleaned_data['file']
+            if file.name.endswith('.csv'):
+                df = pd.read_csv(file)
+            elif file.name.endswith('.xlsx') or file.name.endswith('.xls'):
+                df = pd.read_excel(file)
+    
+            elif file.name.endswith('.pdf'):
+                pdf_file = open(file.name, 'rb')
+                pdf_reader = PyPDF2.PdfFileReader(pdf_file)
+    
+            elif file.name.endswith('.txt'):
+                text_file = open(file.name, 'r')
+                text_data = text_file.read()
+        
+            elif file.name.endswith('.docx'):
+                doc = Document(file.name)
+                doc_text = '\n'.join([paragraph.text for paragraph in doc.paragraphs])
+            
+            else:
+                pass
 
             for index, row in df.iterrows():
-                
                 code = row['Code']
+                title = row['Title of Course']
+                ects_credits = row['ECTS Credits']
                 grades = row['Grade']
+                credits = row['Credits']
+                grade_points = row['Gr.Pts']
 
-                try:
-                    student = Transcript.objects.get(code=code,grades=grades)
-                except Course.DoesNotExist:
-                    messages.error(request, f'Student with student number {code}does not exist.')
-                    continue
-                
-                try:
-                    # Determine which catalog to use based on student data
-                    if student.is_old_course:
-                        course = OldCatalog.objects.get(code=code)
-                    else:
-                        course = NewCatalog.objects.get(code=code)
-                except (OldCatalog.DoesNotExist, NewCatalog.DoesNotExist):
-                    messages.error(request, f'Course with code {code} does not exist in the catalog.')
-                    continue
+                # Transfer the grade to the course catalog
+                course, created = Course.objects.get_or_create(course_code=code, title=title, ects_credit=ects_credits)
+                course.grade = grades
+                course.save()
+                transcript, created = Transcript.objects.get_or_create(code=code,title=title,ects_credits=ects_credits,credits=credits,grade_points=grade_points)
+                transcript.grades = grades
+                transcript.save()
 
-                transcript, created = Transcript.objects.update_or_create(
-                    student=student,
-                    courseO=course if student.is_old_course else None,
-                    courseN=course if not student.is_old_course else None,
-                )
+            return redirect('transcript')
 
-            messages.success(request, 'Transcript successfully uploaded')
-            return redirect('upload_transcript')
-        except Exception as e:
-            messages.error(request, f'Error processing file: {e}')
-            return redirect('upload_transcript')
-
-    return render(request, 'upload_transcript.html')
+    else:
+        form = TranscriptUploadForm()
+    return render(request, 'upload_transcript.html', {'form': form})

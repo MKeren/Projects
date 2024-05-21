@@ -13,9 +13,10 @@ class Course(models.Model):
     ects_credit = models.IntegerField(null=True, blank=True)
     total_credits = models.IntegerField(null=True, blank=True)
     grade = models.CharField(max_length=255)
+    grade_color = models.CharField(max_length=10, null=True, blank=True)
 
     def __str__(self):
-        return self.title
+        return self.course_code
     
 class OldCatalog(Course):
     pass

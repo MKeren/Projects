@@ -65,6 +65,11 @@
       grid-template-columns: 1fr;
     }
   }
+
+  #myTable {
+          font-size: 10px;
+  }
+
   </style>
 
 </head>
@@ -97,14 +102,14 @@
         <th>Grade</th>  
       </tr>
     </thead>
-    <tbody id="tablebody">
+    <tbody id="tablebody" class="myTable">
         {% for oldcatalog in old_courses %}
         <tr>
           <td>{{ oldcatalog.semester }}</td>
           <td>{{ oldcatalog.course_code }}</td>
           <td>{{ oldcatalog.title }}</td>
           <td>{{ oldcatalog.category }}</td>
-          <td>{{ oldcatalog.hours_lecture }} Lecture + {{ oldcatalog.hours_tutorial }} Tutorial + {{ oldcatalog.hours_lab }} Lab </td>
+          <td> Lecture: {{ oldcatalog.hours_lecture }} Tutorial: {{ oldcatalog.hours_tutorial }} Lab: {{ oldcatalog.hours_lab }} </td>    
           <td>{{ oldcatalog.total_credits }}</td>
           <td>{{ oldcatalog.pre_requisite }}</td>
           <td>{{ oldcatalog.ects_credit }}</td>
