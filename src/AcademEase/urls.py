@@ -25,8 +25,6 @@ urlpatterns = [
     
     path('', views.user_login, name='login'),
     path('home/', views.Home, name='home'), 
-    path('supervisor_dashboard/', views.AdminDashboardView, name='supervisor_dashboard'),
-    path('teacher_dashboard/', views.TeacherDashboardView, name='teacher_dashboard'),
     path('transcript/', views.StudentTranscriptView, name='transcript'),
     path('course_catalog/', views.Course_catalog, name='course_catalog'),
     path('old_catalog/', views.old_catalog, name='old_catalog'),

@@ -71,6 +71,50 @@
   }
 
   </style>
+  <style>
+    table .grade-A {
+      background-color: green;
+    }
+    table .grade-A- {
+      background-color: green;
+    }
+
+    table .grade-B {
+      background-color: green;
+    }
+
+    table .grade-B- {
+      background-color: green;
+    }
+
+    table .grade-C {
+      background-color: green;
+    }
+    table .grade-C- {
+      background-color: green;
+    }
+
+    table .grade-D {
+      background-color: orange;
+    }
+
+    table .grade-D- {
+      background-color: red;
+    }
+
+    table .grade-F {
+      background-color: red;
+    }
+
+    table .grade-NG {
+      background-color: red;
+    }
+
+    table .grade-B\+, table .grade-C\+, table .grade-D\+ {
+      background-color: green;
+    }
+    
+  </style>
 
 </head>
 
@@ -105,41 +149,15 @@
     <tbody id="tablebody" class="myTable">
         {% for oldcatalog in old_courses %}
         <tr>
-          <td>{{ oldcatalog.semester }}</td>
-          <td>{{ oldcatalog.course_code }}</td>
-          <td>{{ oldcatalog.title }}</td>
-          <td>{{ oldcatalog.category }}</td>
-          <td> Lecture: {{ oldcatalog.hours_lecture }} Tutorial: {{ oldcatalog.hours_tutorial }} Lab: {{ oldcatalog.hours_lab }} </td>    
-          <td>{{ oldcatalog.total_credits }}</td>
-          <td>{{ oldcatalog.pre_requisite }}</td>
-          <td>{{ oldcatalog.ects_credit }}</td>
-          <td>{{ oldcatalog.grade }}</td>
-
-        {% for transcript in transcripts %}
-        <tr>
-            <td>
-                {% if transcript.is_old_course %}
-                  {{ transcript.course_old.title }}
-                {% else %}
-                  {{ transcript.course_new.title }}
-                {% endif %}
-            </td>
-            <td>
-                {% if transcript.grades %}
-                    {% if transcript.grades == 'A' %} 
-                    <span style="background-color: green;">{{ transcript.grades }}</span>
-                    {% elif transcript.grades == 'D' %} 
-                    <span style="background-color: orange;">{{ transcript.grades }}</span> 
-                    {% elif transcript.grades > 'D' %} 
-                    <span style="background-color: green;">{{ transcript.grades }}</span>
-                    {% else %} 
-                    <span style="background-color: red;">{{ transcript.grades }}</span>
-                    {% endif %}
-                {% else %} 
-                    <span></span> 
-                {% endif %}
-                {% endfor %}
-              </td>
+          <td class="grade-{{ oldcatalog.grade }}">{{ oldcatalog.semester }}</td>
+          <td class="grade-{{ oldcatalog.grade }}">{{ oldcatalog.course_code }}</td>
+          <td class="grade-{{ oldcatalog.grade }}">{{ oldcatalog.title }}</td>
+          <td class="grade-{{ oldcatalog.grade }}">{{ oldcatalog.category }}</td>
+          <td class="grade-{{ oldcatalog.grade }}"> Lecture: {{ oldcatalog.hours_lecture }} Tutorial: {{ oldcatalog.hours_tutorial }} Lab: {{ oldcatalog.hours_lab }} </td>    
+          <td class="grade-{{ oldcatalog.grade }}">{{ oldcatalog.total_credits }}</td>
+          <td class="grade-{{ oldcatalog.grade }}">{{ oldcatalog.pre_requisite }}</td>
+          <td class="grade-{{ oldcatalog.grade }}">{{ oldcatalog.ects_credit }}</td>
+          <td class="grade-{{ oldcatalog.grade }}">{{ oldcatalog.grade }}</td>
         </tr>
         {% endfor %}
     </tbody>

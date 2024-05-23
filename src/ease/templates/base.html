@@ -95,24 +95,33 @@
         #sidebar.hide {
       display: none;
         }
+        .card {
+          background-color: #fff;
+          border-radius: 5px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          padding: 1rem;
+        }
+
       
     </style>
 
 </head>
-<body class="show-sidebar">
 
-    <div id="container" >
-        <button id="sidebar-toggle">=</button><h4>
-    </div>
+<body class="show-sidebar">
+    
+    <div id="container">
+        <button id="sidebar-toggle">=</button>
+    </div>   
 
     <div id="sidebar" class="sidebar">
-    
+        
         <li><a href="{% url 'home' %}">Home</a></li>
         <li><a href="{% url 'course_catalog' %}">Course Catalog</a></li>
         <li><a href="{% url 'transcript' %}">Transcript</a></li>
         <li><a href="{% url 'logout' %}">Logout</a></li>
         <li><a href="{% url 'upload_transcript' %}">Upload_transcript</a></li>
-    </div>
+    </div> 
+</div>
    
     <main>
         {% block content %}
