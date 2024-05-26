@@ -4,198 +4,198 @@
 
 <head>
     
-  <!-- DataTables --> 
-  <link rel="stylesheet" href="{%static 'datatables/dataTables.css' %}">
+    <!-- DataTables --> 
+    <link rel="stylesheet" href="{%static 'datatables/dataTables.css' %}">
 
-<style>
+    <style>
 
-    body{
-        padding: 8px 60px;
-    }
+        body{
+            padding: 8px 60px;
+        }
 
-    table {
-  border-collapse: collapse;
-  width: 100%;
-    }
-
-    th, td {
-  border: 1px solid black;
-  padding: 8px;
-  text-align: center;
-    }
-
-    th {
-  background-color: #f2f2f2;
-    }
-    .logo img {
-        height: 40px; /* Adjust the height as needed */
-        width: auto; 
-    }
-</style>
-<style>
-    .dashboard {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-gap: 1rem;
-      padding: 1rem;
-    }
-
-    .card {
-      background-color: #fff;
-      border-radius: 5px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      padding: 1rem;
-    }
-
-    .card h2 {
-      font-size: 1.5rem;
-      margin-top: 0;
-      margin-bottom: 0.5rem;
-    }
-
-    .card p {
-      font-size: 1rem;
-      margin-top: 0;
-      margin-bottom: 1rem;
-    }
-
-    @media (max-width: 768px) {
-      .dashboard {
-        grid-template-columns: 1fr;
+        table {
+      border-collapse: collapse;
+      width: 100%;
+        }
+    
+        th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: center;
+        }
+    
+        th {
+      background-color: #f2f2f2;
+        }
+        .logo img {
+            height: 40px; /* Adjust the height as needed */
+            width: auto; 
+        }
+    </style>
+    <style>
+        .dashboard {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          grid-gap: 1rem;
+          padding: 1rem;
+        }
+    
+        .card {
+          background-color: #fff;
+          border-radius: 5px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          padding: 1rem;
+        }
+    
+        .card h2 {
+          font-size: 1.5rem;
+          margin-top: 0;
+          margin-bottom: 0.5rem;
+        }
+    
+        .card p {
+          font-size: 1rem;
+          margin-top: 0;
+          margin-bottom: 1rem;
+        }
+    
+        @media (max-width: 768px) {
+          .dashboard {
+            grid-template-columns: 1fr;
+          }
+        }
+        #myTable {
+          font-size: 10px;
+        }
+    </style>
+    <style>
+      table .grade-A {
+        background-color: green;
       }
-    }
-    #myTable {
-      font-size: 10px;
-    }
-</style>
-<style>
-  table .grade-A {
-    background-color: green;
-  }
-  table .grade-A- {
-    background-color: green;
-  }
+      table .grade-A- {
+        background-color: green;
+      }
 
-  table .grade-B {
-    background-color: green;
-  }
+      table .grade-B {
+        background-color: green;
+      }
 
-  table .grade-B- {
-    background-color: green;
-  }
+      table .grade-B- {
+        background-color: green;
+      }
 
-  table .grade-C {
-    background-color: green;
-  }
-  table .grade-C- {
-    background-color: green;
-  }
+      table .grade-C {
+        background-color: green;
+      }
+      table .grade-C- {
+        background-color: green;
+      }
 
-  table .grade-D {
-    background-color: orange;
-  }
+      table .grade-D {
+        background-color: orange;
+      }
 
-  table .grade-D- {
-    background-color: red;
-  }
+      table .grade-D- {
+        background-color: red;
+      }
 
-  table .grade-F {
-    background-color: red;
-  }
+      table .grade-F {
+        background-color: red;
+      }
 
-  table .grade-NG {
-    background-color: red;
-  }
+      table .grade-NG {
+        background-color: red;
+      }
 
-  table .grade-B\+, table .grade-C\+, table .grade-D\+ {
-    background-color: green;
-  }
+      table .grade-B\+, table .grade-C\+, table .grade-D\+ {
+        background-color: green;
+      }
+      
+    </style>
+    <style>
+      .flex-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0px;
+      }
   
-</style>
-<style>
-  .flex-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 0px;
-  }
-
-  .left-side {
-  display: flex;
-  align-items: center;
-  }
-
-  .left-side > * {
-  margin-right: 10px;
-  }
-
-  .right-side {
-  margin-left: auto;
-  }
-
-  .logo2 img {
-          height: 200px; /* Adjust the height as needed */
-          width: auto; 
-  }
-
-  #main {
-      margin-top: 70px; /* adjust the value to match the height of the sidebar button */
-  }
-
-</style>
+      .left-side {
+      display: flex;
+      align-items: center;
+      }
+  
+      .left-side > * {
+      margin-right: 10px;
+      }
+  
+      .right-side {
+      margin-left: auto;
+      }
+  
+      .logo2 img {
+              height: 200px; /* Adjust the height as needed */
+              width: auto; 
+      }
+  
+      #main {
+          margin-top: 70px; /* adjust the value to match the height of the sidebar button */
+      }
+    
+    </style>
 
 </head>
 
 <body>
-  <div id="container">
-    <table>
-      <tr>
-        <th id="main" class="card">
-          <div class="logo"><img src="https://lms3.final.edu.tr/LMS/pluginfile.php/1/core_admin/logo/0x150/1633438538/ufulogoen4.png" alt="Logo of Final International University LMS 3" class="img-fluid"></div>
-            <h4 class="display">FACULTY OF ENGINEERING</h4> 
-            <h6>COMPUTER ENGINEERING Program of Courses</h6>
-        </th>
-      </tr>
+<div id="container">
+  <table>
+    <tr>
+      <th id="main" class="card">
+        <div class="logo"><img src="https://lms3.final.edu.tr/LMS/pluginfile.php/1/core_admin/logo/0x150/1633438538/ufulogoen4.png" alt="Logo of Final International University LMS 3" class="img-fluid"></div>
+        <h4 class="display">FACULTY OF ENGINEERING</h4> 
+        <h6>COMPUTER ENGINEERING Program of Courses</h6>
+      </th>
+    </tr>
+</table>
+</div>
+<div id="container" class="container">
+  <div class="card">
+
+    <table id="myTable" class="display">
+      <thead>
+        <tr>
+          <th>Semester</th>
+          <th>Course Code</th>
+          <th>Course Title</th>
+          <th> Course Category</th>
+          <th>Hours</th>
+          <th>total_credits</th>
+          <th>Pre-requisite</th>
+          <th>ECTS Credit</th>
+          <th>Grade</th>     
+        </tr>
+      </thead>
+      <tbody id="tablebody" class="myTable">
+      {% for oldcatalog in old_courses  %}
+        <tr>
+            <td class="grade-{{oldcatalog.grade}}">{{oldcatalog.semester }}</td>
+            <td class="grade-{{oldcatalog.grade}}">{{oldcatalog.course_code }}</td>
+            <td class="grade-{{oldcatalog.grade}}">{{ oldcatalog.title }}</td>
+            <td class="grade-{{oldcatalog.grade}}">{{ oldcatalog.category }}</td>
+            <td class="grade-{{oldcatalog.grade}}"> Lecture: {{ oldcataloghours_lecture }} Tutorial: {{ oldcatalog.hours_tutorial }} Lab: {{ oldcatalog.hours_lab }} </td>    
+            <td class="grade-{{oldcatalog.grade}}">{{ oldcatalog.total_credits }}</td>
+            <td class="grade-{{oldcatalog.grade}}">{{oldcatalog.pre_requisite }}</td>
+            <td class="grade-{{oldcatalog.grade}}">{{ oldcatalog.ects_credit }}</td>
+            <td class="grade-{{oldcatalog.grade }}">{{ oldcatalog.grade }}</td>
+          </tr>
+      {% endfor %}
+      </tbody>
     </table>
   </div>
-  <div id="container" class="container">
-    <div class="card">
-
-      <table id="myTable" class="display">
-        <thead>
-          <tr>
-            <th>Semester</th>
-            <th>Course Code</th>
-            <th>Course Title</th>
-            <th> Course Category</th>
-            <th>Hours</th>
-            <th>total_credits</th>
-            <th>Pre-requisite</th>
-            <th>ECTS Credit</th>
-            <th>Grade</th>     
-          </tr>
-        </thead>
-        <tbody id="tablebody" class="myTable">
-          {% for oldcatalog in old_courses %}
-            <tr>
-              <td class="grade-{{ oldcatalog.grade }}">{{ oldcatalog.semester }}</td>
-              <td class="grade-{{ oldcatalog.grade }}">{{ oldcatalog.course_code }}</td>
-              <td class="grade-{{ oldcatalog.grade }}">{{ oldcatalog.title }}</td>
-              <td class="grade-{{ oldcatalog.grade }}">{{ oldcatalog.category }}</td>
-              <td class="grade-{{ oldcatalog.grade }}"> Lecture: {{ oldcatalog.hours_lecture }} Tutorial: {{ oldcatalog.hours_tutorial }} Lab: {{ oldcatalog.hours_lab }} </td>    
-              <td class="grade-{{ oldcatalog.grade }}">{{ oldcatalog.total_credits }}</td>
-              <td class="grade-{{ oldcatalog.grade }}">{{ oldcatalog.pre_requisite }}</td>
-              <td class="grade-{{ oldcatalog.grade }}">{{ oldcatalog.ects_credit }}</td>
-              <td class="grade-{{ oldcatalog.grade }}">{{ oldcatalog.grade }}</td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-  </div>
+</div>
 </body>
 
-<!-- Jquery -->
+ <!-- Jquery -->
 
 <script src="{%static 'jquery/jquery-3.7.1.min.js' %}"></script>
 
