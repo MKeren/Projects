@@ -3,20 +3,13 @@
 {% block content %}
 
 <head>
-  <div id="container">
-    <h4> Welcome, {{ user.username }}!</h4>
-  </div>
-  <div id="container">
-  <div id="main" class="centered-table">
-      {% block title %}
-        <h1 class="my-4">Home-Acadedemic Report Sheet</h1>
-      {% endblock %}
-    </div>
-  </div>
-
   <style>
     body{
       padding: 8px 60px;
+    }
+
+    #main {
+    margin-top: 70px; /* adjust the value to match the height of the sidebar button */
     }
 
     .dashboard {
@@ -50,28 +43,54 @@
         grid-template-columns: 1fr;
       }
     }
+
+    .logo2 img {
+            height: 300px; /* Adjust the height as needed */
+            width: auto; 
+    }
   </style>
 </head>
 <body>
+
+  <div id="container">
+    <div id="main" >
+      {% block title %}
+	      <h1 class="card">Home - Acadedemic Report Sheet</h1>
+      {% endblock %}
+    </div>
+  </div>
+
 <div id="container">
-        
   <div class="dashboard">
     <div class="card">
       <h2>Section 1</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.</p>
     </div>
     <div class="card">
       <h2>Section 2</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.</p>
     </div>
     <div class="card">
-      <h2>Section 3</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.</p>
+      <h2>Old Catalog</h2>
     </div>
   </div>
   <!-- Main content here -->
     
-</div>                                                     
+</div>
+
+<script>
+  // Get the current date and time
+  var currentDate = new Date();
+
+  // Format the date and time
+  var dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  var timeOptions = { hour: 'numeric', minute: 'numeric', hour12: true };
+  var formattedDate = currentDate.toLocaleDateString(undefined, dateOptions);
+  var formattedTime = currentDate.toLocaleTimeString(undefined, timeOptions);
+
+  // Insert the formatted date and time into the HTML element
+  document.getElementById('date-time').innerHTML = formattedDate + ' ' + formattedTime;
+</script>
+
 </body>
 
 {% endblock %}

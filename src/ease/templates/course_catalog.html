@@ -4,14 +4,6 @@
 {% block content %}
 
 <head>
-  <div id="container">
-      <div id="main">
-          {% block title %}
-          <h1 class="my-4">Course Catalog</h1>
-          {% endblock %}
-      </div>
-  </div>
-
   <!-- DataTables --> 
   <link rel="stylesheet" href="{%static 'datatables/dataTables.css' %}">
 
@@ -36,7 +28,8 @@
     background-color: #f2f2f2;
       }
   </style>
-   <style>
+  
+  <style>
     .dashboard {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -68,19 +61,66 @@
         grid-template-columns: 1fr;
       }
     }
+  
+  
   </style>
+  
+  <style>
+    .flex-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0px;
+    }
+
+    .left-side {
+    display: flex;
+    align-items: center;
+    }
+
+    .left-side > * {
+    margin-right: 10px;
+    }
+
+    .right-side {
+    margin-left: auto;
+    }
+
+    .logo2 img {
+            height: 200px; /* Adjust the height as needed */
+            width: auto; 
+    }
+
+    #main {
+        margin-top: 70px; /* adjust the value to match the height of the sidebar button */
+        }
+  </style>
+
 </head>
+
 <body>
-  <div id="container" class="card-header">
-      
-        <form action="{% url 'old_catalog' %}" method="get">
-          <button type="submit" id="old-catalog-btn">Old Catalog</button>
-        </form>
-      
-          <form action="{% url 'new_catalog' %}" method="get">
-            <button type="submit" id="new-catalog-btn">New Catalog</button>
-          </form>
-        
+  
+  <div id="container">
+    <div id="main" >
+      {% block title %}
+	      <h1 class="card">Catalog of Courses</h1>
+      {% endblock %}
+    </div>
+  </div>
+
+  <div id="container" class="card" >
+    <div class="dashboard">
+      <div class="flex-container">
+      <div class=" card">
+          <div class="logo2"><img src="https://cdn.pixabay.com/photo/2019/04/30/10/47/background-4168284_1280.jpg"></div>
+          <p><a href="{% url 'old_catalog' %}"><h4>Old Catalog</h4></a></p>
+      </div>
+      <div class="card">
+        <div class="logo2"><img src="https://cdn.pixabay.com/photo/2016/11/21/13/29/yellow-1845394_1280.jpg"></div>
+        <p><a href="{% url 'new_catalog' %}"><h4>New Catalog</h4></a></p>
+      </div>
+      </div>
+    </div>
   </div>
 </body>
 {% endblock %}

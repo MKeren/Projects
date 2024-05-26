@@ -112,40 +112,71 @@
       }
       
     </style>
+    <style>
+      .flex-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0px;
+      }
+  
+      .left-side {
+      display: flex;
+      align-items: center;
+      }
+  
+      .left-side > * {
+      margin-right: 10px;
+      }
+  
+      .right-side {
+      margin-left: auto;
+      }
+  
+      .logo2 img {
+              height: 200px; /* Adjust the height as needed */
+              width: auto; 
+      }
+  
+      #main {
+          margin-top: 70px; /* adjust the value to match the height of the sidebar button */
+      }
+    
+    </style>
 
 </head>
 
 <body>
 <div id="container">
-<table>
+  <table>
     <tr>
-        <th>
-            <div class="logo"><img src="https://lms3.final.edu.tr/LMS/pluginfile.php/1/core_admin/logo/0x150/1633438538/ufulogoen4.png" alt="Logo of Final International University LMS 3" class="img-fluid"></div>
-            <h4 class="display">FACULTY OF ENGINEERING</h4> 
-            <h6>COMPUTER ENGINEERING Program of Courses</h6>
-        </th>
+      <th id="main" class="card">
+        <div class="logo"><img src="https://lms3.final.edu.tr/LMS/pluginfile.php/1/core_admin/logo/0x150/1633438538/ufulogoen4.png" alt="Logo of Final International University LMS 3" class="img-fluid"></div>
+        <h4 class="display">FACULTY OF ENGINEERING</h4> 
+        <h6>COMPUTER ENGINEERING Program of Courses</h6>
+      </th>
     </tr>
 </table>
 </div>
-<div id="container">
+<div id="container" class="container">
+  <div class="card">
 
-<table id="myTable" class="display">
-    <thead>
+    <table id="myTable" class="display">
+      <thead>
         <tr>
-            <th>Semester</th>
-            <th>Course Code</th>
-            <th>Course Title</th>
-            <th> Course Category</th>
-            <th>Hours</th>
-            <th>total_credits</th>
-            <th>Pre-requisite</th>
-            <th>ECTS Credit</th>
-            <th>Grade</th>
-      
+          <th>Semester</th>
+          <th>Course Code</th>
+          <th>Course Title</th>
+          <th> Course Category</th>
+          <th>Hours</th>
+          <th>total_credits</th>
+          <th>Pre-requisite</th>
+          <th>ECTS Credit</th>
+          <th>Grade</th>     
         </tr>
-    </thead>
-    <tbody id="tablebody" class="myTable">
-    {% for newcatalog in new_courses  %}
+      </thead>
+      <tbody id="tablebody" class="myTable">
+      {% for newcatalog in new_courses  %}
         <tr>
             <td class="grade-{{newcatalog.grade}}">{{ newcatalog.semester }}</td>
             <td class="grade-{{newcatalog.grade}}">{{ newcatalog.course_code }}</td>
@@ -156,10 +187,11 @@
             <td class="grade-{{newcatalog.grade}}">{{ newcatalog.pre_requisite }}</td>
             <td class="grade-{{newcatalog.grade}}">{{ newcatalog.ects_credit }}</td>
             <td class="grade-{{newcatalog.grade }}">{{ newcatalog.grade }}</td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+          </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </div>
 </body>
 

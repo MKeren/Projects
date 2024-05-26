@@ -5,14 +5,7 @@
 {% block content %}
 
 <head>
-    <div id="container">
-        <div id="main" class="centered-table">
-            {% block title %}
-            <h1 class="my-4">Transcript</h1>
-            {% endblock %}
-        </div>
-    </div>
-
+    
     <!-- DataTables --> 
     <link rel="stylesheet" href="{%static 'datatables/dataTables.css' %}">
 
@@ -37,11 +30,49 @@
       background-color: #f2f2f2;
         }
     </style>
+    <style>
+        .flex-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 0px;
+        }
+    
+        .left-side {
+        display: flex;
+        align-items: center;
+        }
+    
+        .left-side > * {
+        margin-right: 10px;
+        }
+    
+        .right-side {
+        margin-left: auto;
+        }
+    
+        .logo2 img {
+                height: 200px; /* Adjust the height as needed */
+                width: auto; 
+        }
+    
+        #main {
+            margin-top: 70px; /* adjust the value to match the height of the sidebar button */
+            }
+    </style>
 </head>
 <body>
     <div id="container">
-        
-    
+        <div id="main">
+            {% block title %}
+            <h1 class="card">Transcript</h1>
+            {% endblock %}
+        </div>
+    </div>
+
+    <div id="container" class="card" >
+        <div class="dashboard">
+            
     <table id="transcript-table" class="table table-striped">
         <thead>
             <tr>
