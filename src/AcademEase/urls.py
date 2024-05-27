@@ -31,5 +31,4 @@ urlpatterns = [
     path('new_catalog/', views.new_catalog, name='new_catalog'),
     path('upload_transcript/', views.upload_transcript, name='upload_transcript'),
     path('logout/', views.user_logout, name='logout'),
-
 ]
