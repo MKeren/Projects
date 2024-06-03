@@ -45,34 +45,51 @@
     }
 
     .logo2 img {
-            height: 300px; /* Adjust the height as needed */
+            height: 200px; /* Adjust the height as needed */
             width: auto; 
     }
   </style>
+  <style>
+  .slider {
+  width: 100%;
+  height: 500px;
+  position: relative;
+  }
+
+.slider img {
+  width: 100%;
+  height: 200px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  }
+
+.slider img:first-child {
+  display: block;
+  }
+</style>
 </head>
 <body>
 
   <div id="container">
     <div id="main" >
       {% block title %}
-	      <h1 class="card">Home - Acadedemic Report Sheet</h1>
+	      <h1 class="card">Home - Page</h1>
       {% endblock %}
     </div>
   </div>
 
-<div id="container">
-  <div class="dashboard">
-    <div class="card">
-      <h2>Section 1</h2>
-    </div>
-    <div class="card">
-      <h2>Section 2</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.</p>
-    </div>
-    <div class="card">
-      <h2>Old Catalog</h2>
-    </div>
+<div id="container" class="card">
+  
+  <div class="slider">
+    <img src="https://media.istockphoto.com/id/687479784/tr/foto%C4%9Fraf/kolay-mavi-%C3%BCzerinde-yaz%C4%B1t-klavye-anahtar-3d.jpg?s=612x612&w=0&k=20&c=1m1ZEliyiASqHxPyaXHeKF7IZu0k-2dRiVlVKT2DKUM=" alt="Image 1">
+    <img src="https://www.final.edu.tr/images/fakulte/akdm2sjpg[1539088188].jpg" alt="Image 2">
+    <img src="https://lms3.final.edu.tr/LMS/pluginfile.php/1/core_admin/logocompact/300x300/1633438538/logo.png" alt="FIU LMS 3">
+
   </div>
+      </div>
+</div>
   <!-- Main content here -->
     
 </div>
@@ -89,6 +106,19 @@
 
   // Insert the formatted date and time into the HTML element
   document.getElementById('date-time').innerHTML = formattedDate + ' ' + formattedTime;
+</script>
+
+<script>
+  var imgs = document.querySelectorAll('.slider img');
+  var currentImg = 0;
+
+  function changeSlide() {
+  imgs[currentImg].style.display = 'none';
+  currentImg = (currentImg + 1) % imgs.length;
+  imgs[currentImg].style.display = 'block';
+  }
+
+  setInterval(changeSlide, 3000); // change slide every 3 seconds
 </script>
 
 </body>
