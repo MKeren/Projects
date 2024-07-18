@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<head>
+  <!-- DataTables --> 
+  <link rel="stylesheet" href="{%static 'datatables/dataTables.css' %}">
+  <link rel="stylesheet" href="{%static 'css\ELT.css' %}">
+</head>
+
+<body>
+    <div id="main">
+      <div id="container" class="card">
+      <img src="https://www.final.edu.tr/images/bolum/ingilizce-ogretmenligijpg[1562917146].jpg" alt="Image 1">
+    </div>
+    
+    <div id="container" class="card">
+    <div class="dashboard">
+
+      <div class="card" role="listitem">
+          <div class="logo2"><img src="https://cdn.pixabay.com/photo/2019/04/30/10/47/background-4168284_1280.jpg"></div>
+          <p><a href="{% url 'ELTO_catalog' %}"><h4>Course Catalog</h4></a><h5>(Before 2018 - 2019 Academic Year)</h5></p>
+      </div>
+      <div class="card">
+        <div class="logo2"><img src="https://cdn.pixabay.com/photo/2016/11/21/13/29/yellow-1845394_1280.jpg"></div>
+        <p><a href="{% url 'ELTM_catalog' %}"><h4>Course Catalog</h4></a><h5>(2018 - 2021)</h5></p>
+      </div>
+      <div class="card">
+        <div class="logo2"><img src="https://cdn.pixabay.com/photo/2016/11/21/13/29/yellow-1845394_1280.jpg"></div>
+        <p><a href="{% url 'ELTN_catalog' %}"><h4>Course Catalog</h4></a><h5>(2021-2022 Academic Year and Beyond)</h5></p>
+      </div>
+      </div>
+    </div>
+  </div>
+</body>
+{% endblock %}

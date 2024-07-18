@@ -1,0 +1,32 @@
+
+.card4 {
+  background-color: #524e4e;
+  border-radius: 1px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 0rem;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  left: 0; 
+  right: 0;
+  z-index: 1;
+}
+
+.logo4 img {
+  height: 30px; 
+  width: auto; 
+  }
+  
+  .copyright1 {
+  display: inline; 
+  margin: 0;
+  color: #FFFFFF;  
+  }
+  
+  .footer-logo1 {
+    display: inline-block; 
+    vertical-align: middle;
+    margin-left: 10px;
+    
+  }

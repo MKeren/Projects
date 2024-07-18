@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<head>
+    
+  <!-- DataTables --> 
+  <link rel="stylesheet" href="{%static 'datatables/dataTables.css' %}">
+  <link rel="stylesheet" href="{%static 'css/custom2.css' %}">
+  
+</head>
+
+<body>
+<div id="container">
+  <table id="main">
+    <tr>
+      <th class="card">
+        <div class="logo"><img src="https://lms3.final.edu.tr/LMS/pluginfile.php/1/core_admin/logo/0x150/1633438538/ufulogoen4.png" alt="Logo of Final International University LMS 3" class="img-fluid"></div>
+        <h4 class="display">DİŞ HEKİMLİĞİ FAKÜLTESİ</h4> 
+        <h6>DİŞ HEKİMLİĞİ Ders Programı</h6>
+      </th>
+    </tr>
+</table>
+</div>
+
+<div id="container" class="container">
+  <div class="card">
+    <table id="myTable" class="display">
+      <thead>
+        <tr>
+          <th>Semester</th>
+          <th>Course Code</th>
+          <th>Course Title</th>
+          <th> Course Category</th>
+          <th>Hours</th>
+          <th>total_credits</th>
+          <th>Pre-requisite</th>
+          <th>ECTS Credit</th>
+          <th>Grade</th>     
+        </tr>
+      </thead>
+  
+      <tbody id="tablebody" class="myTable">
+
+      {% for newcatalog in courses  %}
+        <tr>
+            <td class="grade-{{newcatalog.grade}}">{{ newcatalog.semester }}</td>
+            <td class="grade-{{newcatalog.grade}}">{{ newcatalog.course_code }}</td>
+            <td class="grade-{{newcatalog.grade}}">{{ newcatalog.title }}</td>
+            <td class="grade-{{newcatalog.grade}}">{{ newcatalog.category }}</td>
+            <td class="grade-{{newcatalog.grade}}"> Lecture: {{ newcatalog.hours_lecture }} Tutorial: {{ newcatalog.hours_tutorial }} Lab: {{ newcatalog.hours_lab }} </td>    
+            <td class="grade-{{newcatalog.grade}}">{{ newcatalog.total_credits }}</td>
+            <td class="grade-{{newcatalog.grade}}">{{ newcatalog.pre_requisite }}</td>
+            <td class="grade-{{newcatalog.grade}}">{{ newcatalog.ects_credit }}</td>
+            <td class="grade-{{newcatalog.grade }}">{{ newcatalog.grade }}</td>
+          </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div id="container" class="container">
+  <div class="card">
+
+    <table id="myTable2" class="display">
+      <thead>
+        <tr>
+          <th>Course Code</th>
+          <th>Course Title</th>
+          <th> Course Category</th>
+          <th>Hours</th>
+          <th>total_credits</th>
+          <th>Pre-requisite</th>
+          <th>ECTS Credit</th>
+          <th>Grade</th>     
+        </tr>
+      </thead>
+      <tbody id="tablebody" class="myTable">
+      {% for AreaTechnicalElectiveCourse in elective_courses %}
+        <tr>
+            <td class="grade-{{AreaTechnicalElectiveCourse.grade}}">{{AreaTechnicalElectiveCourse.course_code }}</td>
+            <td class="grade-{{AreaTechnicalElectiveCourse.grade}}">{{ AreaTechnicalElectiveCourse.title }}</td>
+            <td class="grade-{{AreaTechnicalElectiveCourse.grade}}">{{ AreaTechnicalElectiveCourse.category }}</td>
+            <td class="grade-{{AreaTechnicalElectiveCourse.grade}}"> Lecture: {{ oAreaTechnicalElectiveCourse_lecture }} Tutorial: {{ AreaTechnicalElectiveCourse.hours_tutorial }} Lab: {{ AreaTechnicalElectiveCourse.hours_lab }} </td>    
+            <td class="grade-{{AreaTechnicalElectiveCourse.grade}}">{{ AreaTechnicalElectiveCourse.total_credits }}</td>
+            <td class="grade-{{AreaTechnicalElectiveCourse.grade}}">{{AreaTechnicalElectiveCourse.pre_requisite }}</td>
+            <td class="grade-{{AreaTechnicalElectiveCourse.grade}}">{{ AreaTechnicalElectiveCourse.ects_credit }}</td>
+            <td class="grade-{{AreaTechnicalElectiveCourse.grade }}">{{AreaTechnicalElectiveCourse.grade }}</td>
+          </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+
+ <!-- Jquery -->
+
+<script src="{%static 'jquery/jquery-3.7.1.min.js' %}"></script>
+
+ <!-- DataTables --> 
+
+ <script src="{%static 'datatables/dataTables.js' %}"></script>
+
+ <script>
+
+    let table = new DataTable('#myTable', {
+    // options
+    });
+
+ </script>
+
+<script>
+
+  let table2 = new DataTable('#myTable2', {
+  // options
+  });
+
+</script>
+
+{% endblock %}

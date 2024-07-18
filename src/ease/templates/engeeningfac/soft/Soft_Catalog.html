@@ -99,25 +99,18 @@
 </head>
 
 <body>
-  
-  <div id="container">
-    <div id="main" >
-      {% block title %}
-	      <h1 class="card">Catalog of Courses</h1>
-      {% endblock %}
-    </div>
-  </div>
-
+  <div id="main" >
   <div id="container" class="card" >
+    
     <div class="dashboard">
       <div class="flex-container">
       <div class=" card">
           <div class="logo2"><img src="https://cdn.pixabay.com/photo/2019/04/30/10/47/background-4168284_1280.jpg"></div>
-          <p><a href="{% url 'old_catalog' %}"><h4>Old Catalog</h4></a></p>
+          <p><a href="{% url 'soft_old_catalog' %}"><h4>Old Catalog</h4></a></p>
       </div>
       <div class="card">
         <div class="logo2"><img src="https://cdn.pixabay.com/photo/2016/11/21/13/29/yellow-1845394_1280.jpg"></div>
-        <p><a href="{% url 'new_catalog' %}"><h4>New Catalog</h4></a></p>
+        <p><a href="{% url 'soft_new_catalog' %}"><h4>New Catalog</h4></a></p>
       </div>
       </div>
     </div>

@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<head>
+  <link rel="stylesheet" href="{% static 'css/faculty.css' %}">
+</head>
+
+<body>
+    <div id="main" >
+  <div id="container" class="card" >
+    <div class="dashboard">
+      
+        <div class=" card">
+          <div style="background:#FFFFFF;border:1px solid #ccc;padding:5px 10px;"><span style="font-size:14px;"><strong _msttexthash="391898" _msthash="50"><h4>Faculty of Dentistry</h4></strong></span></div>
+          <div class="logo2"><img src="https://www.final.edu.tr/images/fakulte/dis-hekimligi-sosyal-medya-secilen-01jpg[1613148922].jpg"></div>
+          <ul>
+            <li><a href="{% url 'dentistryE_catalog' %}"><span style="color:#000000;" _msttexthash="349817" _msthash="51">Dentistry (English)</span></a>*</li>
+            <li><a href="{% url 'dentistryT_catalog' %}"><span style="color:#000000;" _msttexthash="357227" _msthash="52">Dentistry (Turkish)</span></a>*</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div style="background:#dc8f8f;border:1px solid #ccc;padding:5px 10px;"><span style="font-size:14px;"><strong _msttexthash="347126" _msthash="53"><h4>Faculty of Pharmacy</h4></strong></span></div>
+            <div class="logo2"><img src="https://www.final.edu.tr/images/fakulte/fakulted.png"></div>
+            <ul>
+              <li><a href="{% url 'pharmacyE_catalog' %}"><span style="color:#000000;" _msttexthash="311675" _msthash="54">Pharmacy (English)</span></a>*</li>
+              <li><a href="{% url 'pharmacyTM_catalog' %}"><span style="color:#000000;" _msttexthash="318669" _msthash="55">Pharmacy (Turkish)</span></a>*</li>
+            </ul>
+        </div>
+        <div class="card">
+            <div style="background:#AF5FBA;border:1px solid #ccc;padding:5px 10px;"><span style="color:#FFFFFF;"><span style="font-size:14px;"><strong _msttexthash="771888" _msthash="56"><h4>Faculty of Educational Sciences</h4></strong></span></span></div>
+            <div class="logo2"><img src="https://www.final.edu.tr/images/fakulte/img-4010jpg[1493246613].jpg"></div>
+              <ul>
+                <li><a href="{% url 'ELT_catalog' %}"><span style="color:#000000;" _msttexthash="898924" _msthash="57">English Language Teaching (English)</span></a></li>
+                <li><a href="{% url 'PE_catalog' %}"><span style="color:#000000;" _msttexthash="691457" _msthash="58">Preschool Education (Turkish)</span></a></li>
+                <li><a href="{% url 'SET_catalog' %}"><span style="color:#000000;" _msttexthash="965900" _msthash="59">Special Education Teaching (Turkish)</span></a></li>
+                <li><a href="{% url 'GPC_catalog' %}"><span style="color:#000000;" _msttexthash="1567852" _msthash="60">Guidance and Psychological Counseling (Turkish)</span></a></li>
+                <li><a href="{% url 'TLT_catalog' %}"><span style="color:#000000;" _msttexthash="915408" _msthash="61">Turkish Language Teaching (Turkish)</span></a></li>
+                <li><a href="{% url 'PFCP_catalog' %}"><span style="color:#000000;" _msttexthash="915408" _msthash="61">Pedagogical formation certificate program</span></a></li>
+              </ul>
+        </div>
+        <div class="card">
+          <div style="background:#828282;border:1px solid #ccc;padding:5px 10px;"><span style="color:#FFFFFF;"><span style="font-size:14px;"><strong _msttexthash="596986" _msthash="62"><h4>Faculty of Arts and Sciences</h4></strong></span></span></div>
+            <div class="logo2"><img src="https://www.final.edu.tr/images/fakulte/img-4065sjpg[1494878506].jpg"></div>
+            <ul>
+              <li><a href="{% url 'PSYE_catalog' %}"><span style="color:#000000;" _msttexthash="380770" _msthash="63">Psychology (English)</span></a></li>
+              <li><a href="{% url 'PSYT_catalog' %}"><span style="color:#000000;" _msttexthash="388596" _msthash="64">Psychology (Turkish)</span></a></li>
+            </ul>
+        </div>
+        <div class="card">
+          <div style="background:#1FC2DB;border:1px solid #ccc;padding:5px 10px;"><span style="color:#FFFFFF;"><span style="font-size:14px;"><strong _msttexthash="156559" _msthash="65"><h4>Law Faculty</h4></strong></span></span></div>
+            <div class="logo2"><img src="https://www.final.edu.tr/images/fakulte/img-3977jpg[1529653423].jpg"></div>
+            <ul>
+              <li><a href="{% url 'LAW_catalog' %}"><span style="color:#000000;" _msttexthash="182104" _msthash="66">Law (Turkish)</span></a></li>
+              <li><a href="{% url 'INTLAW_catalog' %}"><span style="color:#000000;" _msttexthash="593892" _msthash="67">International Law (English)</span></a>*</li>
+            </ul>
+        </div>
+        <div class="card">
+          <div style="background:#0D2E82;border:1px solid #ccc;padding:5px 10px;"><span style="color:#FFFFFF;"><span style="font-size:14px;"><strong _msttexthash="1633333" _msthash="68"><h4>Faculty of Economics and Administrative Sciences</h4></strong></span></span></div>
+            <div class="logo2"><img src="https://www.final.edu.tr/images/fakulte/iktisadi-ve-idari-bilimlerjpeg[1564495871].jpeg"></div>
+            <ul>
+              <li><a href="{% url 'BFA_catalog' %}"><span style="color:#000000;" _msttexthash="1159808" _msthash="69">Banking, Finance and Accounting (English)</span></a>*</li>
+              <li><a href="{% url 'ECO_catalog' %}"><span style="color:#000000;" _msttexthash="343200" _msthash="70">Economics (English)</span></a>*</li>
+              <li><a href="{% url 'BA_catalog' %}"><span style="color:#000000;" _msttexthash="877474" _msthash="71">Business Administration (English)</span></a></li>
+              <li><a href="{% url 'BE_catalog' %}"><span style="color:#000000;" _msttexthash="1625741" _msthash="72">Business (Entrepreneurship) - Ulster University</span></a></li>
+              <li><a href="{% url 'BAM_catalog' %}"><span style="color:#000000;" _msttexthash="2101242" _msthash="73">Business Administration (Marketing) - Ulster University</span></a></li>
+              <li><a href="{% url 'MDM_catalog' %}"><span style="color:#000000;" _msttexthash="833573" _msthash="74">Marketing - Digital Media (English)</span></a></li>
+              <li><a href="{% url 'PSIR_catalog' %}"><span style="color:#000000;" _msttexthash="2042911" _msthash="75">Political Science and International Relations (English)</span></a>*</li>
+              <li><a href="{% url 'IFB_catalog' %}"><span style="color:#000000;" _msttexthash="1279213" _msthash="76">International Finance and Banking (English)</span></a></li>
+              <li><a href="{% url 'ITB_catalog' %}"><span style="color:#000000;" _msttexthash="1241435" _msthash="77">International Trade and Business (English)</span></a>*</li>
+              <li><a href="{% url 'MIS_catalog' %}"><span style="color:#000000;" _msttexthash="1200784" _msthash="78">Management Information Systems (English)</span></a>*</li>
+            </ul>
+        </div>
+        <div class="card">
+          <div style="background:#C3DB69;border:1px solid #ccc;padding:5px 10px;"><span style="font-size:14px;"><strong _msttexthash="965588" _msthash="79"><h4>Faculty of Architecture and Fine Arts</h4></strong></span></div>
+            <div class="logo2"><img src="https://www.final.edu.tr/images/fakulte/mimarlik-ve-guzel-sanatlarjpeg[1564495892].jpeg"></div>
+            <ul>
+              <li><a href="{% url 'IA_catalog' %}"><span style="color:#000000;" _msttexthash="775892" _msthash="80">Interior Architecture (English)</span></a>*</li>
+              <li><a href="{% url 'ARCH_catalog' %}"><span style="color:#000000;" _msttexthash="446134" _msthash="81">Architecture (English)</span></a></li>
+            </ul>
+        </div>
+        <div class="card">
+            <div style="background:#FC7703;border:1px solid #ccc;padding:5px 10px;"><span style="color:#FFFFFF;"><span style="font-size:14px;"><strong _msttexthash="380185" _msthash="82"><h4>Engineering Faculty</h4></strong></span></span></div>
+            <div class="logo2"><img src="https://www.final.edu.tr/images/fakulte/bilgisayar-muhendisligijpeg[1564495853].jpeg"></div>
+            <ul>
+              <li><a href="{% url 'computer_catalog' %}"><span style="color:#000000;" _msttexthash="725686" _msthash="83">Computer Engineering (English)</span></a></li>
+              <li><a href="{% url 'electrical_catalog' %}"><span style="color:#000000;" _msttexthash="1609959" _msthash="84">Electrical and Electronics Engineering (English)</span></a></li>
+              <li><a href="{% url 'civil_catalog' %}"><span style="color:#000000;" _msttexthash="592891" _msthash="85">Civil Engineering (English)</span></a></li>
+              <li><a href="{% url 'AI_catalog' %}"><span style="color:#000000;" _msttexthash="1474005" _msthash="86">Artificial Intelligence Engineering (English)</span></a>*</li>
+              <li><a href="{% url 'software_catalog' %}"><span style="color:#000000;" _msttexthash="723996" _msthash="87">Software Engineering (English)</span></a></li>
+            </ul>
+        </div>
+        <div class="card">
+          <div style="background:#959db8;border:1px solid #ccc;padding:5px 10px;"><span style="font-size:14px;"><strong _msttexthash="480844" _msthash="88"><h4>Health Sciences Faculty</h4></strong></span></div>
+            <div class="logo2"><img src="https://www.final.edu.tr/images/fakulte/dsc-0497jpg[1529653027].jpg"></div>
+            <ul>
+              <li><a href="{% url 'NUTRI_catalog' %}"><span style="color:#000000;" _msttexthash="819533" _msthash="89">Nutrition and Dietetics (English)</span></a>*</li>
+              <li><a href="{% url 'PHYSIOE_catalog' %}"><span style="color:#000000;" _msttexthash="1310322" _msthash="90">Physiotherapy and Rehabilitation (English)</span></a>*</li>
+              <li><a href="{% url 'PHYSIOT_catalog' %}"><span style="color:#000000;" _msttexthash="1326468" _msthash="91">Physiotherapy and Rehabilitation (Turkish)</span></a></li>
+              <li><a href="{% url 'NURSE_catalog' %}"><span style="color:#000000;" _msttexthash="291317" _msthash="92">Nursing (Turkish)</span></a>*</li>
+            </ul>
+        </div>
+    </div>
+  </div>
+</body>
+{% endblock %}
