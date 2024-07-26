@@ -103,6 +103,10 @@ table .grade-B\+, table .grade-C\+, table .grade-D\+ {
 background-color: green;
 }
 
+table .grade-B\+.rst, table .grade-C\+.rst, table .grade-D\+.rst, table .grade-D.rst {
+  background-color: green;
+}
+
 
 .flex-container {
 display: flex;

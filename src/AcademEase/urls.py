@@ -99,8 +99,8 @@ urlpatterns = [
     path('LAWO_catalog/', views.LAW_OldCatalog, name='LAWO_catalog'),
 
     path('INTLAW_catalog/', views.INTLaw_Catalog, name='INTLAW_catalog'),
-    path('INTLAWN_catalog/', views.INTLAW_NewCatalog, name='LAWN_catalog'),
-    path('INTLAWO_catalog/', views.INTLAW_OldCatalog, name='LAWO_catalog'),
+    path('INTLAWN_catalog/', views.INTLAW_NewCatalog, name='INTLAWN_catalog'),
+    path('INTLAWO_catalog/', views.INTLAW_OldCatalog, name='INTLAWO_catalog'),
 
     path('BA_catalog/', views.BA_Catalog, name='BA_catalog'),
     path('BAN_catalog/', views.BA_NewCatalog, name='BAN_catalog'),

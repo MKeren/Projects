@@ -6,7 +6,7 @@
 <head>
   <!-- DataTables --> 
   <link rel="stylesheet" href="{%static 'datatables/dataTables.css' %}">
-  <link rel="stylesheet" href="{%static 'css/catalogmain.css' %}">
+  <link rel="stylesheet" href="{%static 'css/PE.css' %}">
 
 
 </head>
@@ -22,13 +22,13 @@
           
       <div class="card" role="listitem">
         <div><a href="{% url 'PEN_catalog' %}" class="logo2"><img src="https://cdn.pixabay.com/photo/2019/04/30/10/47/background-4168284_1280.jpg"></div>
-        <p><a href="{% url 'PEO_catalog' %}"><h4>Course Catalog (2021-2022 Academic Year and Beyond)</h4></a></p>
+        <p><a href="{% url 'PEO_catalog' %}"><h4>Course Catalog</h4><h5></a>(Before 2018 - 2019 Academic Year)</h5></p>
       </div>
-      <div class="card">
+      <div class="card" role="listitem">
         <div><a href="{% url 'PEN_catalog' %}" class="logo2"><img src="https://cdn.pixabay.com/photo/2019/04/30/10/47/background-4168284_1280.jpg"></div>
-        <p><a href="{% url 'PEM_catalog' %}"><h4>Course Catalog (2018 - 2021)</h4></a></p>
+        <p><a href="{% url 'PEM_catalog' %}"><h4>Course Catalog</h4><h5></a>(2018 - 2021)</h5></p>
       </div>
-      <div class="card">
+      <div class="card" role="listitem">
         <div><a href="{% url 'PEN_catalog' %}" class="logo2"><img src="https://cdn.pixabay.com/photo/2019/04/30/10/47/background-4168284_1280.jpg"></a></div>
         <p><a href="{% url 'PEN_catalog' %}"><h4>Course Catalog</h4></a><h5>(2021-2022 Academic Year and Beyond)</h5></p>
       </div>

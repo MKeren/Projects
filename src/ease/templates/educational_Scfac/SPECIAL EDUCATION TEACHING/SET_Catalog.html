@@ -6,118 +6,27 @@
 <head>
   <!-- DataTables --> 
   <link rel="stylesheet" href="{%static 'datatables/dataTables.css' %}">
+  <link rel="stylesheet" href="{%static 'css/SET.css' %}">
 
-  <style>
-
-      body{
-          padding: 8px 60px;
-      }
-
-      table {
-    border-collapse: collapse;
-    width: 100%;
-      }
   
-      th, td {
-    border: 1px solid black;
-    padding: 8px;
-    text-align: center;
-      }
-  
-      th {
-    background-color: #f2f2f2;
-      }
-  </style>
-  
-  <style>
-    .dashboard {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-gap: 1rem;
-      padding: 1rem;
-    }
-
-    .card {
-      background-color: #fff;
-      border-radius: 5px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      padding: 1rem;
-    }
-
-    .card h2 {
-      font-size: 1.5rem;
-      margin-top: 0;
-      margin-bottom: 0.5rem;
-    }
-
-    .card p {
-      font-size: 1rem;
-      margin-top: 0;
-      margin-bottom: 1rem;
-    }
-
-    @media (max-width: 768px) {
-      .dashboard {
-        grid-template-columns: 1fr;
-      }
-    }
-  
-  
-  </style>
-  
-  <style>
-    .flex-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 0px;
-    }
-
-    .left-side {
-    display: flex;
-    align-items: center;
-    }
-
-    .left-side > * {
-    margin-right: 10px;
-    }
-
-    .right-side {
-    margin-left: auto;
-    }
-
-    .logo2 img {
-            height: 200px; /* Adjust the height as needed */
-            width: auto; 
-    }
-
-    #main {
-        margin-top: 70px; /* adjust the value to match the height of the sidebar button */
-        }
-  </style>
-
 </head>
 
 <body>
     <div id="main">
-        <div id="container" class="card">
-          <img src="https://www.final.edu.tr/images/bolum/ozel-egitim-18jpg[1626350456].jpg" alt="Image 1">
-        </div>
+      <div id="container" class="card">
+      <img src="https://www.final.edu.tr/images/bolum/ozel-egitim-18jpg[1626350456].jpg" alt="Image 1">
+    </div>
 
-    <div id="main" >
     <div id="container" class="card" >
-    
     <div class="dashboard">
-      <div class="flex-container">
-      <div class=" card">
-          <div class="logo2"><img src="https://cdn.pixabay.com/photo/2019/04/30/10/47/background-4168284_1280.jpg"></div>
-          <p><a href="{% url 'comp_old_catalog' %}"><h4>Curriculum and Course Catalog (2018 - 2021)
 
-          </h4></a></p>
+      <div class="card" role="listitem">
+          <div><a href="{% url 'SETO_catalog' %}"class="logo2"><img src="https://cdn.pixabay.com/photo/2019/04/30/10/47/background-4168284_1280.jpg"></a></div>
+          <p><a href="{% url 'SETO_catalog' %}"><h4>Course Catalog</h4></a><h5>(2018 - 2021)</h5></p>
       </div>
-      <div class="card">
-        <div class="logo2"><img src="https://cdn.pixabay.com/photo/2016/11/21/13/29/yellow-1845394_1280.jpg"></div>
-        <p><a href="{% url 'comp_new_catalog' %}"><h4>Curriculum and Course Catalog (2021 - 2022 Academic Year and Beyond)</h4></a></p>
+      <div class="card" role="listitem">
+        <div><a href="{% url 'SETN_catalog' %}" class="logo2"><img src="https://cdn.pixabay.com/photo/2016/11/21/13/29/yellow-1845394_1280.jpg"></a></div>
+        <p><a href="{% url 'SETN_catalog' %}"><h4>Course Catalog</h4></a><h5>(2021 - 2022 Academic Year and Beyond)</h5></p>
       </div>
       </div>
     </div>

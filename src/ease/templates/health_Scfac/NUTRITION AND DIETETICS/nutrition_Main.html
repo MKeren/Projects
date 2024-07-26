@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<head>
+  <!-- DataTables --> 
+  <link rel="stylesheet" href="{%static 'datatables/dataTables.css' %}">
+  <link rel="stylesheet" href="{%static 'css/TLT.css' %}">
+
+  
+</head>
+
+<body>
+    <div id="main">
+    <div class="logo2"><a href="{% url 'faculties' %}">
+    <div id="container" class="card">
+        <img src="https://www.final.edu.tr/images/bolum/isletmejpg[1563450804].jpg" alt="Image 1"></a></div>
+    </div>
+    
+    <div id="container" class="card" >
+    <div class="dashboard">
+
+      <div class="card" role="listitem">
+          <div><a href="{% url 'nutri_catalog' %}"class="logo2"><img src="https://cdn.pixabay.com/photo/2019/04/30/10/47/background-4168284_1280.jpg"></a></div>
+          <p><a href="{% url 'nutri_catalog' %}"><h4>Course Catalog</h4></a></p>
+      </div>
+      </div>
+    </div>
+  </div>
+</body>
+{% endblock %}

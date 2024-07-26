@@ -32,12 +32,32 @@
     
     <!-- Sidebar -->
     <sidebar id="main">
-        <div id="sidebar" class="sidebar">
+        <div id="sidebar" class="sidebar" role="listitem">
+            <style>
+                #sidebar {
+                  background-color: #f0f0f0;
+                  padding: 20px;
+                  border: 1px solid #ccc;
+                }
+                #sidebar p {
+                  margin-bottom: 10px;
+                }
+                #sidebar a {
+                  text-decoration: none;
+                  color: #000000;
+                }
+                #sidebar a:hover {
+                  color: #0f7bd9;
+                }
+                #sidebar p:not(:last-child) {
+                  border-bottom: 1px solid #ccc;
+                }
+            </style>
           <p><a href="{% url 'home' %}">🏠 Home</a></p>
           <p><a href="{% url 'transcript' %}">📝 Transcript</a></p>
           <p><a href="{% url 'upload_transcript' %}">📁 Upload Transcript</a></p>
-          <p><a href="{% url 'logout' %}">🚪 Logout</a></p>
           <p><a href="{% url 'faculties' %}">🚪 Faculties</a></p>
+          <p><a href="{% url 'logout' %}">🚪 Logout</a></p>
         </div>
       </sidebar>
    
