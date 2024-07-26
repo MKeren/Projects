@@ -266,6 +266,7 @@ class Health_Sciences_Course(models.Model):
 
     def __str__(self):
         return self.course_code
+    
 class nutrition_catalog(Health_Sciences_Course):
     pass
 class physiotherapy_engl_catalog(Health_Sciences_Course):

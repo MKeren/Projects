@@ -677,6 +677,7 @@ def Nursing_Catalog(request):
 #///////////////////////////////////////////////////////////////////////////////////////////////////////////#
 
 @login_required
+@transaction.atomic
 def upload_transcript(request):
     if request.method == 'POST':
         form = TranscriptUploadForm(request.POST, request.FILES)
@@ -684,6 +685,7 @@ def upload_transcript(request):
             file = form.cleaned_data['file']
             df = None
 
+            # Process file based on its extension
             if file.name.endswith('.csv'):
                 df = process_csv(file)
             elif file.name.endswith('.xlsx') or file.name.endswith('.xls'):
@@ -699,8 +701,17 @@ def upload_transcript(request):
                     'form': form,
                     'error': 'Unsupported file format.'
                 })
-                
-            # Assume df is a DataFrame and filter/clean it based on the course catalog
+
+            # Log DataFrame info
+            if df is not None:
+                print("DataFrame loaded successfully")
+                print(df.head())
+            else:
+                return render(request, 'upload_transcript.html', {
+                    'form': form,
+                    'error': 'Failed to process the file.'
+                })
+
             catalogs = {
                 'Computer_Newcatalog': Computer_Newcatalog,
                 'Computer_OldCatalog': Computer_OldCatalog,
@@ -768,8 +779,8 @@ def upload_transcript(request):
             }
 
             for catalog_name, catalog_model in catalogs.items():
-                parent_model = None
-                if issubclass(catalog_model, physiotherapy_engl_catalog):
+                # Determine parent model
+                if issubclass(catalog_model, Health_Sciences_Course):
                     parent_model = Health_Sciences_Course
                 elif issubclass(catalog_model, Arts_and_Sciences_Course):
                     parent_model = Arts_and_Sciences_Course
@@ -781,78 +792,52 @@ def upload_transcript(request):
                     parent_model = Engineering_Course
                 elif issubclass(catalog_model, Architecture_and_Fine_Arts_Course):
                     parent_model = Architecture_and_Fine_Arts_Course
-                elif issubclass(catalog_model, Arts_and_Sciences_Course):
-                    parent_model = Arts_and_Sciences_Course
                 elif issubclass(catalog_model, Dentistry_Course):
                     parent_model = Dentistry_Course
                 elif issubclass(catalog_model, Educational_Sciences_Course):
                     parent_model = Educational_Sciences_Course
+                elif issubclass(catalog_model, Phamarcy_Course):
+                    parent_model = Phamarcy_Course
                 else:
                     print(f"Skipping {catalog_name} because it's not a subclass of a known parent model.")
-                continue
+                    continue
 
-            course_codes = set(catalog_model.objects.values_list(f'{parent_model.__name__.lower()}__course_code', flat=True))
-            #course_codes = set(catalog_model.objects.values_list('course_code', flat=True))
-            catalog_df = df[df['Code'].isin(course_codes)]
-            # do something with catalog_df
+                course_codes = set(catalog_model.objects.values_list('course_code', flat=True))
+                catalog_df = df[df['Code'].isin(course_codes)]
 
-                
-            if not catalog_df.empty:
-                # Ensure the DataFrame has the correct columns
-                columns = ['Code', 'Title of Course', 'ECTS Credits', 'Grade', 'Credits', 'Gr.Pts']
-                catalog_df = catalog_df.reindex(columns=columns)
+                if not catalog_df.empty:
+                    print(f"Processing DataFrame for {catalog_name}")
+                    print(catalog_df.head())
 
-                # remove any extra columns
-                catalog_df = catalog_df[columns]
+                    # Ensure the DataFrame has the correct columns
+                    columns = ['Code', 'Title of Course', 'ECTS Credits', 'Grade', 'Credits', 'Gr.Pts']
+                    catalog_df = catalog_df.reindex(columns=columns)
+
+                    # Remove any extra columns
+                    catalog_df = catalog_df[columns]
 
                     # Update the grades in the respective catalog model
-                for index, row in catalog_df.iterrows():
-                    code = row['Code']
-                    grade = row['Grade']
+                    for index, row in catalog_df.iterrows():
+                        code = row['Code']
+                        grade = row['Grade']
 
-                    for catalog_name, catalog_model in catalogs.items():
-                        parent_model = None
-                        if issubclass(catalog_model, Health_Sciences_Course):
-                            parent_model = Health_Sciences_Course
-                        elif issubclass(catalog_model, Arts_and_Sciences_Course):
-                            parent_model = Arts_and_Sciences_Course
-                        elif issubclass(catalog_model, Economics_and_Administrative_Sciences_Course):
-                            parent_model = Economics_and_Administrative_Sciences_Course
-                        elif issubclass(catalog_model, Law_Course):
-                            parent_model = Law_Course
-                        elif issubclass(catalog_model, Engineering_Course):
-                            parent_model = Engineering_Course
-                        elif issubclass(catalog_model, Architecture_and_Fine_Arts_Course):
-                            parent_model = Architecture_and_Fine_Arts_Course
-                        elif issubclass(catalog_model, Arts_and_Sciences_Course):
-                            parent_model = Arts_and_Sciences_Course
-                        elif issubclass(catalog_model, Dentistry_Course):
-                            parent_model = Dentistry_Course
-                        elif issubclass(catalog_model, Educational_Sciences_Course):
-                            parent_model = Educational_Sciences_Course
-                        else:
-                            print(f"Skipping {catalog_name} because it's not a subclass of a known parent model.")
-                            continue
+                        course, created = catalog_model.objects.get_or_create(course_code=code)
+                        print(f"Updating course {course.course_code} in {catalog_name} with grade {grade}")
+                        course.grade = grade
+                        course.save()
 
-                        #for code, grade in zip(code, grade):
-                            #if parent_model:
-                                #course, created = catalog_model.objects.get_or_create(**{f'{parent_model.__name__.lower()}__course_code': code})
-                            #else:
-                    course, created = catalog_model.objects.get_or_create(course_code=code)
-                    print(f"Updating course {course.course_code} in {catalog_name} with grade {grade}")
-                    course.grade = grade
-                    course.save()
+                        transcript, created = Transcript.objects.update_or_create(code=code, defaults={'grades': grade})
+                        if not created:
+                            transcript.grades = grade
+                            transcript.save()
+                else:
+                    print(f"No matching courses found in {catalog_name}")
 
-                    transcript, created = Transcript.objects.update_or_create(code=code)
-                    transcript.grades = grade
-                    transcript.save()
-            
             return redirect('faculties')
 
     else:
         form = TranscriptUploadForm()
     return render(request, 'upload_transcript.html', {'form': form})
-
 
 def process_csv(file: io.BufferedReader) -> pd.DataFrame:
     df = pd.read_csv(file)
@@ -878,6 +863,9 @@ def process_docx(file: io.BufferedReader) -> pd.DataFrame:
 def process_txt(file: io.BufferedReader) -> pd.DataFrame:
     text = file.read().decode('utf-8')
     return process_text_data(text)
+
+    #def process_txt(file):
+    #return pd.read_csv(file, delimiter="\t")
 
 def process_text_data(text: str) -> pd.DataFrame:
     data = {
