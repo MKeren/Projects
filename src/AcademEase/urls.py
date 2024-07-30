@@ -25,8 +25,10 @@ urlpatterns = [
     path('', views.user_login, name='login'),
     path('home/', views.Home, name='home'), 
     path('transcript/', views.StudentTranscriptView, name='transcript'),
-    path('faculties/', views.Faculties, name='faculties'),
-
+    path('upload_transcript/', views.upload_transcript, name='upload_transcript'),
+    path('logout/', views.user_logout, name='logout'),
+     path('faculties/', views.Faculties, name='faculties'),
+    
     path('computer_catalog/', views.Comp_Catalog, name='computer_catalog'),
     path('comp_old_catalog/', views.Comp_OldCatalog, name='comp_old_catalog'),
     path('comp_new_catalog/', views.Comp_NewCatalog, name='comp_new_catalog'),
@@ -158,39 +160,4 @@ urlpatterns = [
     path('NURSE_catalog/', views.Nursing_Main_Catalog, name='NURSE_catalog'),
     path('nurse_catalog/', views.Nursing_Catalog, name='nurse_catalog'),
 
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-    
-   
-    path('upload_transcript/', views.upload_transcript, name='upload_transcript'),
-    path('logout/', views.user_logout, name='logout'),
-    path("set_language/", views.set_language, name="set_language"),
 ]

@@ -4,39 +4,10 @@ import docx
 import pandas as pd
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from AcademEase.settings import LANGUAGE_QUERY_PARAMETER
-from ease import models
 from ease.forms import TranscriptUploadForm
 from ease.models import AI_Catalog, Architecture_and_Fine_Arts_Course, AreaTechnicalElectiveCourse, Arts_and_Sciences_Course, BA_New_catalog, BA_Old_catalog, BAM_catalog, BE_catalog, BFA_New_catalog, BFA_Old_catalog, Civil_Newcatalog, Dent_English_catalog, Dent_Turkish_catalog, EE_Newcatalog, EE_OldCatalog, Econo_catalog, Economics_and_Administrative_Sciences_Course, Edu_ELT2018_catalog, Edu_ELT2021_catalog, Edu_ELT_catalog, Edu_GPC2018_catalog, Edu_GPC2021_catalog, Edu_GPC_catalog, Edu_PE2018_catalog, Edu_PE2021_catalog, Edu_PE_catalog, Edu_PFCP_catalog, Edu_SET2018_catalog, Edu_SET2021_catalog, Edu_TLT2018_catalog, Edu_TLT2021_catalog, Edu_TLT_catalog, Educational_Sciences_Course, Engineering_Course, Computer_Newcatalog,Computer_OldCatalog, Faculty, Health_Sciences_Course, IFB_New_catalog, IFB_Old_catalog, ITB_New_catalog, ITB_Old_catalog, Int_Law_New_catalog, Int_Law_Old_catalog, Law_Course, Law_New_catalog, Law_Old_catalog, MIS_New_catalog, MIS_Old_catalog, MarkDigM_catalog, PSIR_New_catalog, PSIR_Old_catalog,Phamarcy_Course,Dentistry_Course, Pharmay_English_Mpharm_catalog, Pharmay_English_PharmD_catalog, Pharmay_Turkish_English_PharmD_catalog, Pharmay_Turkish_catalog, Psychologyy_Turkish_New_catalog, Psychologyy_Turkish_Old_catalog, Psycholoy_English_New_catalog, Psycholoy_English_Old_catalog, Software_Newcatalog, Software_Oldcatalog,Transcript, archi_New_catalog, archi_Old_catalog, civil_OldCatalog, interior_New_catalog, interior_Old_catalog, nursing_catalog, nutrition_catalog, physiotherapy_engl_catalog, physiotherapy_turk_new_catalog, physiotherapy_turk_old_catalog
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
-from django.conf import settings
-from django.http import HttpResponseRedirect
-from django.urls import translate_url
-from django.utils.http import url_has_allowed_host_and_scheme
-from django.utils.translation import check_for_language
-
-def set_language(request):
-    next_url = request.POST.get("next", request.GET.get("next"))
-    if not url_has_allowed_host_and_scheme(next_url, allowed_hosts={request.get_host()}, require_https=request.is_secure()):
-        next_url = "/"
-    lang_code = request.POST.get(LANGUAGE_QUERY_PARAMETER)
-    if lang_code and check_for_language(lang_code):
-        if next_url:
-            next_trans = translate_url(next_url, lang_code)
-            if next_trans != next_url:
-                response = HttpResponseRedirect(next_trans)
-        response.set_cookie(
-            settings.LANGUAGE_COOKIE_NAME,
-            lang_code,
-            max_age=settings.LANGUAGE_COOKIE_AGE,
-            path=settings.LANGUAGE_COOKIE_PATH,
-            domain=settings.LANGUAGE_COOKIE_DOMAIN,
-            secure=settings.LANGUAGE_COOKIE_SECURE,
-            httponly=settings.LANGUAGE_COOKIE_HTTPONLY,
-            samesite=settings.LANGUAGE_COOKIE_SAMESITE,
-        )
-    return response
 
 def user_login(request):
     if request.method == 'POST':
@@ -53,6 +24,17 @@ def user_login(request):
 
 @login_required
 def user_logout(request):
+    Engineering_Course.objects.all().update(grade=None)
+    Phamarcy_Course.objects.all().update(grade=None)
+    Educational_Sciences_Course.objects.all().update(grade=None)
+    Law_Course.objects.all().update(grade=None)
+    Health_Sciences_Course.objects.all().update(grade=None)
+    Architecture_and_Fine_Arts_Course.objects.all().update(grade=None)
+    Arts_and_Sciences_Course.objects.all().update(grade=None)
+    Economics_and_Administrative_Sciences_Course.objects.all().update(grade=None)
+    Dentistry_Course.objects.all().update(grade=None)
+    AreaTechnicalElectiveCourse.objects.all().update(grade=None)
+
     logout(request)
     return redirect('login')
 
@@ -67,9 +49,7 @@ def StudentTranscriptView(request):
 
 @login_required
 def Faculties(request):
-    faculties = Faculty.objects.all()
-    return render(request, 'faculties.html', {'faculties': faculties})
-
+    return render(request, 'faculties.html')
 #/////////////////////////////////ENGINEERING FACULTY//////////////////////////////////////#
 
 #//////COMPUTER/////#
@@ -799,39 +779,89 @@ def upload_transcript(request):
                 elif issubclass(catalog_model, Phamarcy_Course):
                     parent_model = Phamarcy_Course
                 else:
-                    print(f"Skipping {catalog_name} because it's not a subclass of a known parent model.")
+                    #print(f"Skipping {catalog_name} because it's not a subclass of a known parent model.")
                     continue
-
+                # Get all course codes from the catalog model
                 course_codes = set(catalog_model.objects.values_list('course_code', flat=True))
+
+                # Filter DataFrame for courses that exist in the catalog model
                 catalog_df = df[df['Code'].isin(course_codes)]
 
                 if not catalog_df.empty:
-                    print(f"Processing DataFrame for {catalog_name}")
-                    print(catalog_df.head())
+                    #print(f"Processing DataFrame for {catalog_name}")
+                    #print(catalog_df.head())
+                
 
-                    # Ensure the DataFrame has the correct columns
+                # Ensure the DataFrame has the correct columns
                     columns = ['Code', 'Title of Course', 'ECTS Credits', 'Grade', 'Credits', 'Gr.Pts']
                     catalog_df = catalog_df.reindex(columns=columns)
 
-                    # Remove any extra columns
+                # Remove any extra columns
                     catalog_df = catalog_df[columns]
 
-                    # Update the grades in the respective catalog model
-                    for index, row in catalog_df.iterrows():
+                # Update the grades in the respective catalog model
+                for index, row in catalog_df.iterrows():
                         code = row['Code']
                         grade = row['Grade']
+                        title = row['Title of Course']
+                        ects_credit = row['ECTS Credits']
+                        credit = row['Credits']
 
                         course, created = catalog_model.objects.get_or_create(course_code=code)
-                        print(f"Updating course {course.course_code} in {catalog_name} with grade {grade}")
+                        #print(f"Updating course {course.course_code} in {catalog_name} with grade {grade}")
                         course.grade = grade
                         course.save()
 
-                        transcript, created = Transcript.objects.update_or_create(code=code, defaults={'grades': grade})
+                        transcript, created = Transcript.objects.update_or_create(code=code, defaults={'grades': grade},title=title,ects_credits=ects_credit,credits=credit)
                         if not created:
                             transcript.grades = grade
                             transcript.save()
-                else:
-                    print(f"No matching courses found in {catalog_name}")
+                
+                # Identify courses not in the catalog model
+                remaining_df = df[~df['Code'].isin(course_codes)]
+
+                if not remaining_df.empty:
+                    #print(f"Processing remaining DataFrame for elective courses")
+                    #print(remaining_df.head())
+
+                # Ensure the DataFrame has the correct columns
+                    columns = ['Code', 'Title of Course', 'ECTS Credits', 'Grade', 'Credits', 'Gr.Pts']
+                    remaining_df = remaining_df.reindex(columns=columns)
+
+                # Remove any extra columns
+                    remaining_df = remaining_df[columns]
+
+                # Add remaining courses to AreaTechnicalElectiveCourse table
+                for index, row in remaining_df.iterrows():
+                    code = row['Code']
+                    grade = row['Grade']
+                    title = row['Title of Course']
+                    ects_credit = row['ECTS Credits']
+                    credit = row['Credits']
+
+                 # Check if the course exists in AreaTechnicalElectiveCourse
+                    if not AreaTechnicalElectiveCourse.objects.filter(course_code=code).exists():
+                        elective = AreaTechnicalElectiveCourse(
+                        course_code=code,
+                        grade=grade,
+                        title=title,
+                        ects_credit=ects_credit,
+                        total_credits=credit
+                        )
+                        elective.save()
+                        #print(f"Added new elective course {code} with grade {grade}")
+
+                # Always update or create the transcript entry for all courses
+                    transcript, created = Transcript.objects.update_or_create(
+                    code=code, 
+                    defaults={'grades': grade, 'title': title, 'ects_credits': ects_credit, 'credits': credit}
+                    )
+                    if not created:
+                        transcript.grades = grade
+                        transcript.save()
+
+                #print("Processing completed.")       
+                        
 
             return redirect('faculties')
 
@@ -891,7 +921,7 @@ def process_text_data(text: str) -> pd.DataFrame:
             fields = line.split()
             if len(fields) >= 6:
                 data['Code'].append(fields[-5])
-                data['Title of Course'].append(' '.join(fields[1:-4]))
+                data['Title of Course'].append(' '.join(fields[0:-5]))
                 data['ECTS Credits'].append(fields[-3])
                 data['Grade'].append(fields[-4])
                 data['Credits'].append(fields[-2])
