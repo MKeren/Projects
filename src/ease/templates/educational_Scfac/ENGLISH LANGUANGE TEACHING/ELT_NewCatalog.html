@@ -6,24 +6,25 @@
     
   <!-- DataTables --> 
   <link rel="stylesheet" href="{%static 'datatables/dataTables.css' %}">
-  <link rel="stylesheet" href="{%static 'css/custom2.css' %}">
+  <link rel="stylesheet" href="{%static 'css/catalog.css' %}">
+    <link rel="stylesheet" href="{%static 'css/tablestyle.css' %}">
   
 </head>
 
 <body>
-<div id="container">
-  <table id="main">
-    <tr>
-      <th class="card">
-        <div class="logo"><img src="https://lms3.final.edu.tr/LMS/pluginfile.php/1/core_admin/logo/0x150/1633438538/ufulogoen4.png" alt="Logo of Final International University LMS 3" class="img-fluid"></div>
-        <h4 class="display">FACULTY OF ENGINEERING</h4> 
-        <h6>COMPUTER ENGINEERING Program of Courses</h6>
-      </th>
-    </tr>
-</table>
-</div>
+  <div id="container">
+    <table id="main">
+      <tr>
+        <th class="card">
+          <div class="logo"> <a href="{% url 'ELT_catalog' %}"><img src="https://lms3.final.edu.tr/LMS/pluginfile.php/1/core_admin/logo/0x150/1633438538/ufulogoen4.png" alt="Logo of Final International University LMS 3" class="img-fluid"></a>
+          <h4 class="display">FACULTY OF EDUCATION</h4> 
+          <h6>ENGLISH LANGUAGE TEACHING Program of Courses</h6></div>
+        </th>
+      </tr>
+  </table>
+  </div>
 
-<div id="container" class="container">
+<div id="container">
   <div class="card">
     <table id="myTable" class="display">
       <thead>
@@ -60,7 +61,7 @@
   </div>
 </div>
 
-<div id="container" class="container">
+<div id="container">
   <div class="card">
 
     <table id="myTable2" class="display">

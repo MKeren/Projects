@@ -390,19 +390,19 @@ def LAW_OldCatalog(request):
 
 @login_required
 def INTLaw_Catalog(request):
-    return render(request, 'lawfac\INTERNATIONAL LAW\Law_Main.html')
+    return render(request, 'lawfac\INTERNATIONAL LAW\intLaw_Main.html')
 
 @login_required
 def INTLAW_NewCatalog(request):
     new_courses = Int_Law_New_catalog.objects.all()
     new_elective_courses = AreaTechnicalElectiveCourse.objects.all
-    return render(request, 'lawfac\INTERNATIONAL LAW\LAW_NewCatalog.html', {'new_courses': new_courses, 'new_elective_courses': new_elective_courses})
+    return render(request, 'lawfac\INTERNATIONAL LAW\intLAW_NewCatalog.html', {'new_courses': new_courses, 'new_elective_courses': new_elective_courses})
 
 @login_required
 def INTLAW_OldCatalog(request):
     old_courses = Int_Law_Old_catalog.objects.all()
     old_elective_courses = AreaTechnicalElectiveCourse.objects.all()
-    return render(request, 'lawfac\INTERNATIONAL LAW\LAW_OldCatalog.html',{'old_courses': old_courses, 'old_elective_courses': old_elective_courses})
+    return render(request, 'lawfac\INTERNATIONAL LAW\intLAW_OldCatalog.html',{'old_courses': old_courses, 'old_elective_courses': old_elective_courses})
 
 #/////////////////////////////////ECONOMICS AND ADMINISTRATIVE SCIENCE FACULTY//////////////////////////////////////#
 
@@ -685,7 +685,7 @@ def upload_transcript(request):
             # Log DataFrame info
             if df is not None:
                 print("DataFrame loaded successfully")
-                print(df.head())
+                #print(df.head())
             else:
                 return render(request, 'upload_transcript.html', {
                     'form': form,
@@ -791,7 +791,6 @@ def upload_transcript(request):
                     #print(f"Processing DataFrame for {catalog_name}")
                     #print(catalog_df.head())
                 
-
                 # Ensure the DataFrame has the correct columns
                     columns = ['Code', 'Title of Course', 'ECTS Credits', 'Grade', 'Credits', 'Gr.Pts']
                     catalog_df = catalog_df.reindex(columns=columns)
@@ -839,9 +838,12 @@ def upload_transcript(request):
                     ects_credit = row['ECTS Credits']
                     credit = row['Credits']
 
+                    # Check if the course is in the catalog model
+                    if not catalog_model.objects.filter(course_code=code).exists():
+
                  # Check if the course exists in AreaTechnicalElectiveCourse
-                    if not AreaTechnicalElectiveCourse.objects.filter(course_code=code).exists():
-                        elective = AreaTechnicalElectiveCourse(
+                        if not AreaTechnicalElectiveCourse.objects.filter(course_code=code).exists():
+                            elective = AreaTechnicalElectiveCourse(
                         course_code=code,
                         grade=grade,
                         title=title,
@@ -859,10 +861,7 @@ def upload_transcript(request):
                     if not created:
                         transcript.grades = grade
                         transcript.save()
-
-                #print("Processing completed.")       
-                        
-
+     
             return redirect('faculties')
 
     else:

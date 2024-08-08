@@ -6,7 +6,7 @@
 <head>
   <!-- DataTables --> 
   <link rel="stylesheet" href="{%static 'datatables/dataTables.css' %}">
-  <link rel="stylesheet" href="{%static 'css/SET.css' %}">
+  <link rel="stylesheet" href="{%static 'css/custom3.css' %}">
 
   
 </head>
@@ -22,17 +22,18 @@
     <div class="dashboard">
 
       <div class="card" role="listitem">
-          <div><a href="{% url 'GPCO_catalog' %}"class="logo2"><img src="https://cdn.pixabay.com/photo/2019/04/30/10/47/background-4168284_1280.jpg"></a></div>
-          <p><a href="{% url 'GPCO_catalog' %}"><h4>Course Catalog</h4></a><h5> (Before 2018-2019 Academic Year)</h5></p>
+        <div><a href="{% url 'GPCO_catalog' %}" class="logo2"><img src="https://cdn.pixabay.com/photo/2019/04/30/10/47/background-4168284_1280.jpg"></div>
+        <p><a href="{% url 'GPCO_catalog' %}"><h4>Course Catalog</h4><h5></a>(Before 2018 - 2019 Academic Year)</h5></p>
       </div>
       <div class="card" role="listitem">
-        <div><a href="{% url 'GPCM_catalog' %}"class="logo2"><img src="https://cdn.pixabay.com/photo/2019/04/30/10/47/background-4168284_1280.jpg"></a></div>
-        <p><a href="{% url 'GPCM_catalog' %}"><h4>Course Catalog</h4></a><h5>(2018 - 2021)</h5></p>
-    </div>
-      <div class="card" role="listitem">
-        <div><a href="{% url 'GPCN_catalog' %}" class="logo2"><img src="https://cdn.pixabay.com/photo/2016/11/21/13/29/yellow-1845394_1280.jpg"></a></div>
-        <p><a href="{% url 'GPCN_catalog' %}"><h4>Course Catalog</h4></a><h5>(2021 - 2022 Academic Year and Beyond)</h5></p>
+        <div><a href="{% url 'GPCM_catalog' %}" class="logo2"><img src="https://cdn.pixabay.com/photo/2016/01/19/21/31/background-1150512_1280.jpg"></div>
+        <p><a href="{% url 'GPCM_catalog' %}"><h4>Course Catalog</h4><h5></a>(2018 - 2021)</h5></p>
       </div>
+      <div class="card" role="listitem">
+        <div><a href="{% url 'GPCN_catalog' %}" class="logo2"><img src="https://cdn.pixabay.com/photo/2016/01/19/21/31/background-1150511_1280.jpg"></a></div>
+        <p><a href="{% url 'GPCN_catalog' %}"><h4>Course Catalog</h4></a><h5>(2021-2022 Academic Year and Beyond)</h5></p>
+      </div>
+      
       </div>
     </div>
   </div>

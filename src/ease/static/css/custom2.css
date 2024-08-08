@@ -1,7 +1,5 @@
-
-
 body{
-  padding: 0;
+  padding: 8px 60px;
 }
 
 table {
@@ -18,10 +16,6 @@ text-align: center;
 th {
 background-color: #f2f2f2;
 }
-.logo img {
-  height: 40px; /* Adjust the height as needed */
-  width: auto; 
-}
 
 .dashboard {
 display: grid;
@@ -35,74 +29,36 @@ background-color: #fff;
 border-radius: 5px;
 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 padding: 1rem;
+overflow: hidden;
+
 }
 
-.card h2 {
-font-size: 1.5rem;
-margin-top: 0;
-margin-bottom: 0.5rem;
+.card2 {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  margin-bottom: 1rem;
 }
 
-.card p {
-font-size: 1rem;
-margin-top: 0;
-margin-bottom: 1rem;
+.card2 h2 {
+  font-size: 1.5rem;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
 }
+
+.card2 p {
+  font-size: 1rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
 
 @media (max-width: 768px) {
 .dashboard {
-  grid-template-columns: 1fr;
+grid-template-columns: 1fr;
 }
 }
-#myTable {
-font-size: 10px;
-}
-#myTable2 {
-font-size: 10px;
-}
-
-table .grade-A {
-background-color: green;
-}
-table .grade-A- {
-background-color: green;
-}
-
-table .grade-B {
-background-color: green;
-}
-
-table .grade-B- {
-background-color: green;
-}
-
-table .grade-C {
-background-color: green;
-}
-table .grade-C- {
-background-color: green;
-}
-
-table .grade-D {
-background-color: orange;
-}
-
-table .grade-D- {
-background-color: red;
-}
-
-table .grade-F {
-background-color: red;
-}
-
-table .grade-NG {
-background-color: red;
-}
-
-table .grade-B\+, table .grade-C\+, table .grade-D\+ {
-background-color: green;
-}
-
 
 .flex-container {
 display: flex;
@@ -125,10 +81,19 @@ margin-left: auto;
 }
 
 .logo2 img {
+   
+  max-width: 100%; 
+    height: auto; 
+    margin: 0 auto;
+    border-radius: 5px;
+}
+
+.logo3 img {
+  
     height: 200px; /* Adjust the height as needed */
     width: auto; 
 }
 
 #main {
-margin-top: 70px; /* adjust the value to match the height of the sidebar button */
-}
+margin-top: 70px;
+} 

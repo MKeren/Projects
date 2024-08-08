@@ -4,28 +4,28 @@
 
 <head>
     
-  <!-- DataTables --> 
-  <link rel="stylesheet" href="{%static 'datatables/dataTables.css' %}">
-  <link rel="stylesheet" href="{%static 'css/catalog.css' %}">
-    <link rel="stylesheet" href="{%static 'css/tablestyle.css' %}">
+    <!-- DataTables --> 
+    <link rel="stylesheet" href="{%static 'datatables/dataTables.css' %}">
+    <link rel="stylesheet" href="{%static 'css/catalog.css' %}">
+  <link rel="stylesheet" href="{%static 'css/tablestyle.css' %}">
   
 </head>
 
 <body>
-  <div id="container">
-    <table id="main">
-      <tr>
+<div id="container">
+  <table id="main">
+    <tr>
         <th class="card">
-          <div class="logo"> <a href="{% url 'GPC_catalog' %}"><img src="https://lms3.final.edu.tr/LMS/pluginfile.php/1/core_admin/logo/0x150/1633438538/ufulogoen4.png" alt="Logo of Final International University LMS 3" class="img-fluid"></a>
-          <h4 class="display">EĞİTİM FAKÜLTESİ</h4> 
-          <h6>REHBERLİK VE PSİKOLOJİK DANIŞMANLIK Ders Programı</h6></div>
-        </th>
-      </tr>
-  </table>
-  </div>
-
+            <div class="logo"> <a href="{% url 'INTLAW_catalog' %}"><img src="https://lms3.final.edu.tr/LMS/pluginfile.php/1/core_admin/logo/0x150/1633438538/ufulogoen4.png" alt="Logo of Final International University LMS 3" class="img-fluid"></a>
+            <h4 class="display">FACULTY OF LAW</h4>
+            <h6>INTERNATIONAL LAW Program of Courses</h6></div>
+          </th>
+    </tr>
+</table>
+</div>
 <div id="container">
   <div class="card">
+
     <table id="myTable" class="display">
       <thead>
         <tr>
@@ -40,20 +40,18 @@
           <th>Grade</th>     
         </tr>
       </thead>
-  
       <tbody id="tablebody" class="myTable">
-
-      {% for newcatalog in new_courses  %}
+      {% for oldcatalog in old_courses  %}
         <tr>
-            <td class="grade-{{newcatalog.grade}}">{{ newcatalog.semester }}</td>
-            <td class="grade-{{newcatalog.grade}}">{{ newcatalog.course_code }}</td>
-            <td class="grade-{{newcatalog.grade}}">{{ newcatalog.title }}</td>
-            <td class="grade-{{newcatalog.grade}}">{{ newcatalog.category }}</td>
-            <td class="grade-{{newcatalog.grade}}"> Lecture: {{ newcatalog.hours_lecture }} Tutorial: {{ newcatalog.hours_tutorial }} Lab: {{ newcatalog.hours_lab }} </td>    
-            <td class="grade-{{newcatalog.grade}}">{{ newcatalog.total_credits }}</td>
-            <td class="grade-{{newcatalog.grade}}">{{ newcatalog.pre_requisite }}</td>
-            <td class="grade-{{newcatalog.grade}}">{{ newcatalog.ects_credit }}</td>
-            <td class="grade-{{newcatalog.grade }}">{{ newcatalog.grade }}</td>
+            <td class="grade-{{oldcatalog.grade}}">{{oldcatalog.semester }}</td>
+            <td class="grade-{{oldcatalog.grade}}">{{oldcatalog.course_code }}</td>
+            <td class="grade-{{oldcatalog.grade}}">{{ oldcatalog.title }}</td>
+            <td class="grade-{{oldcatalog.grade}}">{{ oldcatalog.category }}</td>
+            <td class="grade-{{oldcatalog.grade}}"> Lecture: {{ oldcataloghours_lecture }} Tutorial: {{ oldcatalog.hours_tutorial }} Lab: {{ oldcatalog.hours_lab }} </td>    
+            <td class="grade-{{oldcatalog.grade}}">{{ oldcatalog.total_credits }}</td>
+            <td class="grade-{{oldcatalog.grade}}">{{oldcatalog.pre_requisite }}</td>
+            <td class="grade-{{oldcatalog.grade}}">{{ oldcatalog.ects_credit }}</td>
+            <td class="grade-{{oldcatalog.grade }}">{{ oldcatalog.grade }}</td>
           </tr>
       {% endfor %}
       </tbody>
@@ -78,7 +76,7 @@
         </tr>
       </thead>
       <tbody id="tablebody" class="myTable">
-      {% for AreaTechnicalElectiveCourse in new_elective_courses %}
+      {% for AreaTechnicalElectiveCourse in old_elective_courses %}
         <tr>
             <td class="grade-{{AreaTechnicalElectiveCourse.grade}}">{{AreaTechnicalElectiveCourse.course_code }}</td>
             <td class="grade-{{AreaTechnicalElectiveCourse.grade}}">{{ AreaTechnicalElectiveCourse.title }}</td>

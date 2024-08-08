@@ -5,6 +5,11 @@
 
 <head>
   <link rel="stylesheet" href="{% static 'css/faculty.css' %}">
+  <script>
+    function scrollWindow() {
+      window.scrollBy(0, 800);
+    }
+    </script>
 
   <style>
     .card ul li {
@@ -28,8 +33,12 @@
 </head>
 
 <body>
+  
+
   <div id="main" >
+    <input type="button" onclick="scrollWindow()" value="Scroll" />
   <div id="container" class="card" >
+    
     <div class="dashboard">
 
       <div class="card" role="listitem">
@@ -44,7 +53,7 @@
       </div>
       
       <div class="card"  role="listitem">
-        <div style="background:#dc8f8f;border:1px solid #ccc;padding:5px 10px;"><span style="font-size:14px;"><strong _msttexthash="347126" _msthash="53"><h4>Faculty of Pharmacy</h4></strong></span></div>
+        <div style="background:#ffffff;border:1px solid #ccc;padding:5px 10px;"><span style="font-size:14px;"><strong _msttexthash="347126" _msthash="53"><h4>Faculty of Pharmacy</h4></strong></span></div>
         <div class="logo2"><img src="https://www.final.edu.tr/images/fakulte/fakulted.png"></div>
           <p>
             <ul>  
@@ -117,7 +126,7 @@
         </div>
         
         <div class="card">
-          <div style="background:#959db8;border:1px solid #ccc;padding:5px 10px;"><span style="font-size:14px;"><strong _msttexthash="480844" _msthash="88"><h4>Health Sciences Faculty</h4></strong></span></div>
+          <div style="background:#f4f5f7;border:1px solid #ffffff;padding:5px 10px;"><span style="font-size:14px;"><strong _msttexthash="480844" _msthash="88"><h4>Health Sciences Faculty</h4></strong></span></div>
             <div class="logo2"><img src="https://www.final.edu.tr/images/fakulte/dsc-0497jpg[1529653027].jpg"></div>
             </P><ul>
               <li><a href="{% url 'NUTRI_catalog' %}"><span style="color:#000000;" _msttexthash="819533" _msthash="89">Nutrition and Dietetics (English)</span></a>*</li>

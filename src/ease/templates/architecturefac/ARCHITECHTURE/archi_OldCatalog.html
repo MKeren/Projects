@@ -2,51 +2,28 @@
 {% load static %}
 {% block content %}
 
-<head>
-    
+<head>  
     <!-- DataTables --> 
     <link rel="stylesheet" href="{%static 'datatables/dataTables.css' %}">
-    <link rel="stylesheet" href="{%static 'css/custom.css' %}">
-    <style>
-      table {
-  table-layout: fixed;
-  width: 100%;
-}
-
-th, td {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 1%;
-}
-
-th:nth-child(1), td:nth-child(1) {
-  width: 1%;
-}
-
-th:nth-child(2), td:nth-child(2) {
-  width: 2%;
-}
-
-/* Add similar styles for each column */
-    </style>
-   
+    <link rel="stylesheet" href="{%static 'css/catalog.css' %}">
+    <link rel="stylesheet" href="{%static 'css/tablestyle.css' %}">
 </head>
 
 <body>
-<div id="container">
-  <table id="main">
-    <tr>
-      <th class="card">
-        <div class="logo"><img src="https://lms3.final.edu.tr/LMS/pluginfile.php/1/core_admin/logo/0x150/1633438538/ufulogoen4.png" alt="Logo of Final International University LMS 3" class="img-fluid"></div>
-        <h4 class="display">FACULTY OF ENGINEERING</h4> 
-        <h6>COMPUTER ENGINEERING Program of Courses</h6>
-      </th>
-    </tr>
-</table>
-</div>
-<div id="container" class="container">
-  <div class="card">
+  <div id="container">
+    <table id="main">
+      <tr>
+        <th class="card">
+          <div class="logo"><a href="{% url 'ARCH_catalog' %}"><img src="https://lms3.final.edu.tr/LMS/pluginfile.php/1/core_admin/logo/0x150/1633438538/ufulogoen4.png" alt="Logo of Final International University LMS 3" class="img-fluid"></a>
+          <h4 class="display">FACULTY OF ARCHITECTURE AND FINE ARTS</h4> 
+          <h6>ARCHITECTURE Program of Courses</h6></div>
+        </th>
+      </tr>
+    </table>
+  </div>
+
+  <div id="container">
+    <div class="card">
 
     <table id="myTable" class="display">
       <thead>
@@ -81,7 +58,7 @@ th:nth-child(2), td:nth-child(2) {
   </div>
 </div>
 
-<div id="container" class="container">
+<div id="container">
   <div class="card">
 
     <table id="myTable2" class="display">
