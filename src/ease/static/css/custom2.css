@@ -83,14 +83,14 @@ margin-left: auto;
 .logo2 img {
    
   max-width: 100%; 
-    height: auto; 
-    margin: 0 auto;
-    border-radius: 5px;
+  height: auto; 
+  margin: 0 auto;
+  border-radius: 5px;
 }
 
 .logo3 img {
   
-    height: 200px; /* Adjust the height as needed */
+    height: 200px;
     width: auto; 
 }
 

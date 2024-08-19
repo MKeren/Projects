@@ -6,114 +6,27 @@
 <head>
   <!-- DataTables --> 
   <link rel="stylesheet" href="{%static 'datatables/dataTables.css' %}">
-
-  <style>
-
-      body{
-          padding: 8px 60px;
-      }
-
-      table {
-    border-collapse: collapse;
-    width: 100%;
-      }
-  
-      th, td {
-    border: 1px solid black;
-    padding: 8px;
-    text-align: center;
-      }
-  
-      th {
-    background-color: #f2f2f2;
-      }
-  </style>
-  
-  <style>
-    .dashboard {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-gap: 1rem;
-      padding: 1rem;
-    }
-
-    .card {
-      background-color: #fff;
-      border-radius: 5px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      padding: 1rem;
-    }
-
-    .card h2 {
-      font-size: 1.5rem;
-      margin-top: 0;
-      margin-bottom: 0.5rem;
-    }
-
-    .card p {
-      font-size: 1rem;
-      margin-top: 0;
-      margin-bottom: 1rem;
-    }
-
-    @media (max-width: 768px) {
-      .dashboard {
-        grid-template-columns: 1fr;
-      }
-    }
-  
-  
-  </style>
-  
-  <style>
-    .flex-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 0px;
-    }
-
-    .left-side {
-    display: flex;
-    align-items: center;
-    }
-
-    .left-side > * {
-    margin-right: 10px;
-    }
-
-    .right-side {
-    margin-left: auto;
-    }
-
-    .logo2 img {
-            height: 200px; /* Adjust the height as needed */
-            width: auto; 
-    }
-
-    #main {
-        margin-top: 70px; /* adjust the value to match the height of the sidebar button */
-        }
-  </style>
+  <link rel="stylesheet" href="{%static 'css/custom2.css' %}"> 
 
 </head>
 
 <body>
 
   <div id="main">
-    <div id="container" class="card">
-      <img src="https://www.final.edu.tr/images/bolum/sliderlar-eczacilik-pharmacyi-03jpg[1651755332].jpg" alt="Image 1">
+    <div class="logo2">
+    <div id="container" class="card"><h1>PHARMACY</h1><a href="{% url 'faculties' %}">
+      <img src="https://www.final.edu.tr/images/bolum/sliderlar-eczacilik-pharmacyi-03jpg[1651755332].jpg" alt="Image 1"></a></div>
     </div>
-  <div id="container" class="card" >
 
+  <div id="container" class="card" >
     <div class="dashboard">
-      <div class="flex-container">
-      <div class=" card">
-          <div class="logo2"><img src="https://cdn.pixabay.com/photo/2019/04/30/10/47/background-4168284_1280.jpg"></div>
+
+      <div class="card2" role="listitem">
+          <div><a href="{% url 'pharmacyEM_catalog' %}" class="logo3"><img src="https://cdn.pixabay.com/photo/2018/09/01/07/07/pharmacist-3646195_1280.jpg"></div>
           <p><a href="{% url 'pharmacyEM_catalog' %}"><h4>5 Years Pharmacy (MPharm)</h4></a></p>
       </div>
-      <div class="card">
-        <div class="logo2"><img src="https://cdn.pixabay.com/photo/2016/11/21/13/29/yellow-1845394_1280.jpg"></div>
+      <div class="card2" role="listitem">
+        <div><a href="{% url 'pharmacyEP_catalog' %}" class="logo3"><img src="https://cdn.pixabay.com/photo/2022/10/06/15/24/pharmacist-7502987_1280.png"></div>
         <p><a href="{% url 'pharmacyEP_catalog' %}"><h4>6 Years Pharmacy (PharmD)
 
         </h4></a></p>

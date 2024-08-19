@@ -46,18 +46,22 @@
                   text-decoration: none;
                   color: #000000;
                 }
-                #sidebar a:hover {
+                #sidebar li:hover {
                   color: #0f7bd9;
+                  background-color: rgb(142, 37, 37);
                 }
                 #sidebar p:not(:last-child) {
                   border-bottom: 1px solid #ccc;
                 }
             </style>
-          <p><a href="{% url 'home' %}">🏠 Home</a></p>
-          <p><a href="{% url 'transcript' %}">📝 Transcript</a></p>
-          <p><a href="{% url 'upload_transcript' %}">📁 Upload Transcript</a></p>
-          <p><a href="{% url 'faculties' %}">🚪 Faculties</a></p>
-          <p><a href="{% url 'logout' %}">🚪 Logout</a></p>
+          <ul class="nav nav-tabs">
+            <p><a href="{% url 'home' %}">🏠 Home</a></p>
+            <p><a href="{% url 'transcript' %}">📝 Transcript</a></p>
+            <p><a href="{% url 'upload_transcript' %}">📁 Upload Transcript</a></p>
+            <p><a href="{% url 'faculties' %}">🚪 Faculties</a></p>
+            <p><a href="{% url 'logout' %}">🚪 Logout</a></p>
+            <li><a data-toggle="tab" href="#menu1">Menu 1</a></li>
+          </ul>
         </div>
       </sidebar>
    

@@ -194,12 +194,6 @@ def PharmacyT_Catalog(request):
     elective_courses = AreaTechnicalElectiveCourse.objects.all
     return render(request, 'pharmacyfac\PharmT.html', {'courses': courses, 'elective_courses': elective_courses})
 
-@login_required
-def PharmacyTE_Catalog(request):
-    courses = Pharmay_Turkish_English_PharmD_catalog.objects.all()
-    elective_courses = AreaTechnicalElectiveCourse.objects.all
-    return render(request, 'pharmacyfac\PharmTE.html', {'courses': courses, 'elective_courses': elective_courses})
-
 #/////////////////////////////////EDUCATIONAL SCIENCES FACULTY//////////////////////////////////////#
 
 #////ENGLISH LANGUAGE TEACHING////#

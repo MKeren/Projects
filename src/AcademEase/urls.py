@@ -59,7 +59,7 @@ urlpatterns = [
 
     path('pharmacyTM_catalog/', views.PharmacyTM_Catalog, name='pharmacyTM_catalog'),
     path('pharmacyT_catalog/', views.PharmacyT_Catalog, name='pharmacyT_catalog'),
-    path('pharmacyTE_catalog/', views.PharmacyTE_Catalog, name='pharmacyTE_catalog'),
+    
 
     path('ELT_catalog/', views.ELT_Catalog, name='ELT_catalog'),
     path('ELTN_catalog/', views.ELT_NewCatalog, name='ELTN_catalog'),
