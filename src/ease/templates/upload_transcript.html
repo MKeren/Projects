@@ -1,31 +1,118 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block content %}
-
 <head>
+  <link rel="stylesheet" href="{% static 'css/home.css' %}">
 
-  <link rel="stylesheet" href="{%static 'css/upload.css' %}">
+<style>
+  #main {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+  }
+
+  #header {
+    background-color: #3a3a3a;
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+  }
+
+  #header h1 {
+    margin: 0;
+  }
+
+  #upload-container {
+    margin: 20px;
+  }
+
+  .card {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+  }
+
+  label {
+    font-weight: bold;
+    color: #333;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+  }
+
+  button[type="submit"] {
+    background-color: #3a3a3a;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 8px;
+    width: 100%;
+    transition: background-color 0.3s;
+  }
+
+  button[type="submit"]:hover {
+    color: #ffffff;
+    background-color: rgb(229, 105, 105);
+  }
+
+  #call-to-action {
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  #call-to-action button {
+    background-color: #3a3a3a;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+  }
+
+  #call-to-action button:hover {
+    background-color: rgb(229, 105, 105);
+
+  }
+</style>
 
 </head>
 
 <body>
+  <div id="main">
+    <div id="container" class="card">
+      <div id="header">
+        <h1>Upload Transcript</h1>
+      </div>
 
-  <div id="container">
-    <div id="main">
-        {% block title %}
-        <h1 class="card">Upload Transcript</h1>
-        {% endblock %}
-    </div>
-  </div>
-  <div id="container" class="card">
-    <div class="dashboard">
-        
-      <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <label for="transcript_file">Transcript File:</label>
-        <button type="submit">Upload</button>
-      </form>
+      <div id="upload-container">
+        <div class="card">
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary btn-block mt-4">Upload</button>
+          </form>
+        </div>
+      </div>
+      
+
+      <div id="call-to-action">
+        <a href="{% url 'home' %}"><button>Return to Home</button></a>
+      </div>
     </div>
   </div>
 </body>

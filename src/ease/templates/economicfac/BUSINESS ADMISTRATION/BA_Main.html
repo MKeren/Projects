@@ -7,14 +7,15 @@
   <!-- DataTables --> 
   <link rel="stylesheet" href="{%static 'datatables/dataTables.css' %}">
   <link rel="stylesheet" href="{%static 'css/custom2.css' %}">
+  <link rel="stylesheet" href="{%static 'css/scrolling.css' %}">
   
 </head>
 
 <body>
-    <div id="main">
+  <div id="main">
     <div class="logo2"><a href="{% url 'faculties' %}">
-    <div id="container" class="card">
-        <img src="https://www.final.edu.tr/images/bolum/isletmejpg[1563450804].jpg" alt="Image 1"></a></div>
+    <div id="container" class="card" style="padding: 0.5rem;">
+        <img src="https://www.final.edu.tr/images/bolum/isletmejpg[1563450804].jpg" style="padding: 0.5rem;" alt="Image 1"></a></div>
     </div>
     
     <div id="container" class="card" >
@@ -25,7 +26,7 @@
           <p><a href="{% url 'BAO_catalog' %}"><h4>Course Catalog</h4></a><h5> (Before 2018-2019 Academic Year)</h5></p>
       </div>
       <div class="card2" role="listitem">
-        <div><a href="{% url 'BAN_catalog' %}" class="logo3"><img src="https://cdn.pixabay.com/photo/2016/11/21/13/29/yellow-1845394_1280.jpg"></a></div>
+        <div><a href="{% url 'BAN_catalog' %}" class="logo3"><img src="https://cdn.pixabay.com/photo/2022/09/20/05/47/organization-chart-7467091_1280.png"></a></div>
         <p><a href="{% url 'BAN_catalog' %}"><h4>Course Catalog</h4></a><h5>(2021 - 2022 Academic Year and Beyond)</h5></p>
       </div>
       </div>

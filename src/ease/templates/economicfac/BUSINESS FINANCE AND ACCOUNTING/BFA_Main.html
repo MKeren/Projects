@@ -7,24 +7,25 @@
   <!-- DataTables --> 
   <link rel="stylesheet" href="{%static 'datatables/dataTables.css' %}">
   <link rel="stylesheet" href="{%static 'css/custom2.css' %}">
+  <link rel="stylesheet" href="{%static 'css/scrolling.css' %}">
 </head>
 
 <body>
-    <div id="main">
-    <div class="logo2"><a href="{% url 'faculties' %}">
-    <div id="container" class="card">
-        <img src="https://www.final.edu.tr/images/bolum/isletmejpg[1563450804].jpg" alt="Image 1"></a></div>
+  <div id="main">
+    <div class="logo2">   
+      <div id="container" class="card" style="padding: 0.5rem;"><a href="{% url 'faculties' %}">
+        <img src="https://www.final.edu.tr/images/bolum/isletmejpg[1563450804].jpg" style="padding: 0.5rem;" alt="Image 1"></a></div>
     </div>
     
     <div id="container" class="card" >
     <div class="dashboard">
 
       <div class="card2" role="listitem">
-          <div><a href="{% url 'BFAO_catalog' %}"class="logo3"><img src="https://cdn.pixabay.com/photo/2019/04/30/10/47/background-4168284_1280.jpg"></a></div>
+          <div><a href="{% url 'BFAO_catalog' %}"class="logo3"><img src="https://cdn.pixabay.com/photo/2020/08/09/14/25/business-5475660_1280.jpg"></a></div>
           <p><a href="{% url 'BFAO_catalog' %}"><h4>Course Catalog</h4></a><h5> (Before 2018-2019 Academic Year)</h5></p>
       </div>
       <div class="card2" role="listitem">
-        <div><a href="{% url 'BFAN_catalog' %}" class="logo3"><img src="https://cdn.pixabay.com/photo/2016/11/21/13/29/yellow-1845394_1280.jpg"></a></div>
+        <div><a href="{% url 'BFAN_catalog' %}" class="logo3"><img src="https://cdn.pixabay.com/photo/2020/03/02/19/27/banking-4896669_1280.jpg"></a></div>
         <p><a href="{% url 'BFAN_catalog' %}"><h4>Course Catalog</h4></a><h5>(2021 - 2022 Academic Year and Beyond)</h5></p>
       </div>
       </div>

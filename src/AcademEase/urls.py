@@ -15,8 +15,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 from ease import views
+from django.conf.urls.i18n import i18n_patterns
 
 urlpatterns = [
     
@@ -27,8 +28,11 @@ urlpatterns = [
     path('transcript/', views.StudentTranscriptView, name='transcript'),
     path('upload_transcript/', views.upload_transcript, name='upload_transcript'),
     path('logout/', views.user_logout, name='logout'),
-     path('faculties/', views.Faculties, name='faculties'),
+    path('faculties/', views.Faculties, name='faculties'),
+    path('switch_language/', views.switch_language, name='switch_language'),
+    path('i18n/', include('django.conf.urls.i18n')),
     
+
     path('computer_catalog/', views.Comp_Catalog, name='computer_catalog'),
     path('comp_old_catalog/', views.Comp_OldCatalog, name='comp_old_catalog'),
     path('comp_new_catalog/', views.Comp_NewCatalog, name='comp_new_catalog'),

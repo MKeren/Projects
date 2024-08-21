@@ -4,10 +4,13 @@ import docx
 import pandas as pd
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from AcademEase import settings
 from ease.forms import TranscriptUploadForm
 from ease.models import AI_Catalog, Architecture_and_Fine_Arts_Course, AreaTechnicalElectiveCourse, Arts_and_Sciences_Course, BA_New_catalog, BA_Old_catalog, BAM_catalog, BE_catalog, BFA_New_catalog, BFA_Old_catalog, Civil_Newcatalog, Dent_English_catalog, Dent_Turkish_catalog, EE_Newcatalog, EE_OldCatalog, Econo_catalog, Economics_and_Administrative_Sciences_Course, Edu_ELT2018_catalog, Edu_ELT2021_catalog, Edu_ELT_catalog, Edu_GPC2018_catalog, Edu_GPC2021_catalog, Edu_GPC_catalog, Edu_PE2018_catalog, Edu_PE2021_catalog, Edu_PE_catalog, Edu_PFCP_catalog, Edu_SET2018_catalog, Edu_SET2021_catalog, Edu_TLT2018_catalog, Edu_TLT2021_catalog, Edu_TLT_catalog, Educational_Sciences_Course, Engineering_Course, Computer_Newcatalog,Computer_OldCatalog, Faculty, Health_Sciences_Course, IFB_New_catalog, IFB_Old_catalog, ITB_New_catalog, ITB_Old_catalog, Int_Law_New_catalog, Int_Law_Old_catalog, Law_Course, Law_New_catalog, Law_Old_catalog, MIS_New_catalog, MIS_Old_catalog, MarkDigM_catalog, PSIR_New_catalog, PSIR_Old_catalog,Phamarcy_Course,Dentistry_Course, Pharmay_English_Mpharm_catalog, Pharmay_English_PharmD_catalog, Pharmay_Turkish_English_PharmD_catalog, Pharmay_Turkish_catalog, Psychologyy_Turkish_New_catalog, Psychologyy_Turkish_Old_catalog, Psycholoy_English_New_catalog, Psycholoy_English_Old_catalog, Software_Newcatalog, Software_Oldcatalog,Transcript, archi_New_catalog, archi_Old_catalog, civil_OldCatalog, interior_New_catalog, interior_Old_catalog, nursing_catalog, nutrition_catalog, physiotherapy_engl_catalog, physiotherapy_turk_new_catalog, physiotherapy_turk_old_catalog
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
+from django.utils.translation import gettext as _
+from django.utils.translation import activate
 
 def user_login(request):
     if request.method == 'POST':
@@ -41,6 +44,17 @@ def user_logout(request):
 @login_required
 def Home(request):
     return render(request, 'home.html')
+
+
+def switch_language(request):
+    print(request.GET) 
+    lang = request.GET.get('lang','')
+    next_url = request.GET.get('next','/')
+    activate(lang)
+    response = redirect(next_url)
+    response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang)
+    return response
+
 
 @login_required
 def StudentTranscriptView(request):
@@ -848,13 +862,13 @@ def upload_transcript(request):
                         #print(f"Added new elective course {code} with grade {grade}")
 
                 # Always update or create the transcript entry for all courses
-                    transcript, created = Transcript.objects.update_or_create(
-                    code=code, 
-                    defaults={'grades': grade, 'title': title, 'ects_credits': ects_credit, 'credits': credit}
-                    )
-                    if not created:
-                        transcript.grades = grade
-                        transcript.save()
+                    #transcript, created = Transcript.objects.update_or_create(
+                    #code=code, 
+                    #defaults={'grades': grade, 'title': title, 'ects_credits': ects_credit, 'credits': credit}
+                   # )
+                    #if not created:
+                       # transcript.grades = grade
+                       # transcript.save()
      
             return redirect('faculties')
 

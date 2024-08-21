@@ -56,35 +56,6 @@ body {
   display: block;
 }
 
-.upload-form {
-  padding: 20px;
-  background-color: #f7f7f7;
-  border-top: 1px solid #ddd;
-  margin-top: -250px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-}
-
-.upload-form input[type="file"] {
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-}
-
-.upload-form button[type="submit"] {
-  background-color: #4CAF50;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.upload-form button[type="submit"]:hover {
-  background-color: #3e8e41;
-}
-
 @media (max-width: 768px) {
   .dashboard {
     grid-template-columns: 1fr;
@@ -100,33 +71,3 @@ body {
   }
 }
 
-@media (max-width: 480px) {
-  .dashboard {
-    grid-template-columns: 1fr;
-  }
-  .card {
-    margin: 0.2rem;
-  }
-  .slider {
-    height: 200px;
-  }
-  .slider img {
-    height: 100px;
-  }
-}
-
-
-@media (max-width: 320px) {
-  .dashboard {
-    grid-template-columns: 1fr;
-  }
-  .card {
-    margin: 0.1rem;
-  }
-  .slider {
-    height: 150px;
-  }
-  .slider img {
-    height: 75px;
-  }
-}

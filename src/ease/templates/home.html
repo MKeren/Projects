@@ -4,42 +4,210 @@
 {% block content %}
 <head>
   <link rel="stylesheet" href="{% static 'css/home.css' %}">
+
+<style>
+  #main {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+#header {
+background-color: #3a3a3a;
+color: #ffffff;
+padding: 20px;
+text-align: center;
+}
+
+#header h1 {
+margin: 0;
+}
+
+#slider-container {
+margin: 20px;
+}
+
+.slider {
+position: relative;
+width: 100%;
+height: 200px;
+overflow: hidden;
+}
+
+.slider img {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+object-fit: cover;
+display: none;
+}
+
+.slider img:first-child {
+display: block;
+}
+
+#features {
+margin: 20px;
+}
+
+#features h2 {
+margin-top: 0;
+}
+
+#features ul {
+list-style: none;
+padding: 0;
+margin: 0;
+}
+
+#features li {
+margin-bottom: 10px;
+}
+
+#features i {
+margin-right: 10px;
+font-size: 24px;
+color: #666;
+}
+
+#call-to-action {
+text-align: center;
+margin: 20px;
+}
+
+#call-to-action button {
+background-color: #3a3a3a;
+color: #fff;
+border: none;
+padding: 10px 20px;
+font-size: 18px;
+cursor: pointer;
+}
+
+#call-to-action button:hover {
+  background-color: rgb(229, 105, 105);
+
+}
+</style>
+<style>
+  #features {
+  background-color: #ffffff; 
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+#features h2 {
+  font-size: 2.5rem;
+  color: #333333;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #ff6f61;
+  display: inline-block;
+  padding-bottom: 10px;
+}
+
+#features ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#features ul li {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  padding-left: 40px;
+  position: relative;
+  text-align: left;
+}
+
+#features ul li i {
+  font-size: 1.5rem;
+  color: #ff6f61;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#features ul li:nth-child(2) i {
+  color: #28a785;
+}
+
+#features ul li:nth-child(3) i {
+  color: #ffc107;
+}
+
+.checkmark {
+  color: red;
+  margin-left: 10px;
+}
+
+
+</style>
+
 </head>
 
 <body>
   <div id="main">
     <div id="container" class="card">
+    <div id="header">
+      <h1>Welcome to AcademEase</h1>
+    </div>
+
+    <div id="slider-container">
       <div class="slider">
         <img src="https://media.istockphoto.com/id/687479784/tr/foto%C4%9Fraf/kolay-mavi-%C3%BCzerinde-yaz%C4%B1t-klavye-anahtar-3d.jpg?s=612x612&w=0&k=20&c=1m1ZEliyiASqHxPyaXHeKF7IZu0k-2dRiVlVKT2DKUM=" alt="Image 1">
         <img src="https://www.final.edu.tr/images/fakulte/akdm2sjpg[1539088188].jpg" alt="Image 2">
-        <img src="https://lms3.final.edu.tr/LMS/pluginfile.php/1/core_admin/logocompact/300x300/1633438538/logo.png" alt="FIU LMS 3">
+        <img src="https://www.final.edu.tr/images/galeri/final-aday-galeri-29jpg[1567756787].jpg" alt="Image 3">
+        <img src="https://cdn.pixabay.com/photo/2016/07/23/10/44/download-1536639_1280.png" alt="Image 4">
+        <img src="https://cdn.pixabay.com/photo/2022/01/14/07/48/digitization-6936701_1280.jpg" alt="Image 4">
+        <img src="https://cdn.pixabay.com/photo/2017/03/13/21/41/scientist-2141259_1280.jpg" alt="Image 4">
+        <img src="https://cdn.pixabay.com/photo/2024/02/16/06/26/dentist-8576790_1280.png" alt="Image 4">
+        <img src="https://cdn.pixabay.com/photo/2018/01/27/10/09/perception-3110812_1280.jpg" alt="Image 4">
+        <img src="https://cdn.pixabay.com/photo/2014/10/14/20/14/library-488690_1280.jpg" alt="Image 4">
+        <img src="https://cdn.pixabay.com/photo/2020/08/09/14/25/business-5475661_1280.jpg" alt="Image 4">
+        <img src="https://cdn.pixabay.com/photo/2020/08/09/14/25/business-5475660_1280.jpg" alt="Image 11">
+        <img src="https://cdn.pixabay.com/photo/2019/08/06/14/51/hard-hat-4388518_1280.jpg" alt="Image 11">
+        <img src="https://cdn.pixabay.com/photo/2015/09/05/20/02/coding-924920_1280.jpg" alt="Image 11">
+        <img src="https://cdn.pixabay.com/photo/2018/07/13/23/03/planning-3536757_1280.jpg" alt="Image 11">
+        <img src="https://cdn.pixabay.com/photo/2017/03/13/20/24/architecture-2141065_1280.jpg" alt="Image 11">
+        <img src="https://cdn.pixabay.com/photo/2016/11/09/15/27/dna-1811955_1280.jpg" alt="Image 11">
+        <img src="https://cdn.pixabay.com/photo/2021/11/27/06/12/hospital-6827347_1280.png" alt="Image 11">
+        <img src="https://cdn.pixabay.com/photo/2017/07/10/23/49/club-2492011_1280.jpg" alt="Image 11">
+
+      
       </div>
     </div>
 
-    <div id="container" class="card">
-      <div class="upload-form">
-        <form method="post" enctype="multipart/form-data">
-          {% csrf_token %}
-          <label for="transcript">Upload Transcript:</label>
-          <input type="file" id="transcript" name="transcript">
-          <button type="submit">Upload</button>
-        </form>
-      </div>
+    <div id="features">
+      <h2>Features</h2>
+      <ul>
+        <li><i class="fas fa-file-upload"></i><span class="checkmark"></span> Upload your transcript and get instant grade updates on the course catalog</li>
+        <li><i class="fas fa-check-circle"></i><span class="checkmark"></span> Eliminate manual verification and gain time</li>
+        <li><i class="fas fa-book"></i><span class="checkmark"></span> Access a comprehensive course catalogue with color-coded grades (green, orange, and red) for easy tracking</li>
+      </ul> 
     </div>
+
+    <div id="call-to-action">
+      <a href="{% url 'upload_transcript' %}"><button>Get Started</button></a>
+    </div>
+
+    <script>
+      var imgs = document.querySelectorAll('.slider img');
+      var currentImg = 0;
+
+      function changeSlide() {
+        imgs[currentImg].style.display = 'none';
+        currentImg = (currentImg + 1) % imgs.length;
+        imgs[currentImg].style.display = 'block';
+      }
+
+      setInterval(changeSlide, 3000);
+    </script>
   </div>
-
-  <script>
-    var imgs = document.querySelectorAll('.slider img');
-    var currentImg = 0;
-
-    function changeSlide() {
-      imgs[currentImg].style.display = 'none';
-      currentImg = (currentImg + 1) % imgs.length;
-      imgs[currentImg].style.display = 'block';
-    }
-
-    setInterval(changeSlide, 3000); // change slide every 3 seconds
-  </script>
-</body>
 
 {% endblock %}
