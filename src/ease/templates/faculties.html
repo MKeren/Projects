@@ -4,43 +4,27 @@
 {% block content %}
 
 <head>
-  <link rel="stylesheet" href="{% static 'css/faculty.css' %}">
+  <link rel="stylesheet" href="{% static 'css/fac.css' %}">
   <script>
     function scrollWindow() {
       window.scrollBy(0, 800);
     }
-    </script>
-
-  <style>
-    .card ul li {
-      border-bottom: 1px solid #ccc;
-      padding-bottom: 10px;
-      margin-bottom: 10px;
-    }
-    .card ul li:last-child {
-      border-bottom: none;
-    }
-    .card ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    .card ul li {
-      padding-left: 20px;
-      text-indent: -20px;
-    }
-  </style>
+  </script>
+  
 </head>
 
 <body>
-  
-
-  <div id="main" >
-    <input type="button" onclick="scrollWindow()" value="Scroll" />
-  <div id="container" class="card" >
     
-    <div class="dashboard">
+  <div id="main">
+  
+  <div id="container" class="card" >
 
+    <input type="button" onclick="scrollWindow()" value="Scroll" />
+    <ul class="pager">
+      <li><a href="#">Previous</a></li>
+      <li><a href="#">Next</a></li>
+    </ul>
+    <div class="dashboard">
       <div class="card" role="listitem">
         <div style="background:#FFFFFF;border:1px solid #ccc;padding:5px 10px;"><span style="font-size:14px;"><strong _msttexthash="391898" _msthash="50"><h4>Faculty of Dentistry</h4></strong></span></div>
         <div class="logo2"><img src="https://www.final.edu.tr/images/fakulte/dis-hekimligi-sosyal-medya-secilen-01jpg[1613148922].jpg"></div>

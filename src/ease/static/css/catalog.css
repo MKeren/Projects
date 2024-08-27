@@ -90,18 +90,20 @@ table .grade-C-,
 table .grade-D\+, 
 table .grade-B\+, 
 table .grade-C\+ {
-  background-color: green;
+  background-color: rgb(92, 152, 92);
 }
 
 table .grade-D {
-  background-color: orange;
+  background-color: rgb(255, 194, 81);
 }
 
 table .grade-D-, 
 table .grade-F, 
 table .grade-NG {
-  background-color: red;
+  background-color: rgb(239, 74, 74);
+
 }
+  
 
 .flex-container {
 display: flex;

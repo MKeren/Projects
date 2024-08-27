@@ -292,6 +292,7 @@ class AreaTechnicalElectiveCourse(models.Model):
 
     def __str__(self):
         return self.course_code
+    
 
 class Transcript(models.Model):
     code = models.CharField(max_length=255, blank=True, null=True)

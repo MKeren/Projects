@@ -37,6 +37,8 @@ def user_logout(request):
     Economics_and_Administrative_Sciences_Course.objects.all().update(grade=None)
     Dentistry_Course.objects.all().update(grade=None)
     AreaTechnicalElectiveCourse.objects.all().update(grade=None)
+    Transcript.objects.all().delete()
+    
 
     logout(request)
     return redirect('login')
@@ -44,7 +46,6 @@ def user_logout(request):
 @login_required
 def Home(request):
     return render(request, 'home.html')
-
 
 def switch_language(request):
     print(request.GET) 
@@ -55,7 +56,6 @@ def switch_language(request):
     response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang)
     return response
 
-
 @login_required
 def StudentTranscriptView(request):
     transcripts = Transcript.objects.all()  
@@ -64,6 +64,7 @@ def StudentTranscriptView(request):
 @login_required
 def Faculties(request):
     return render(request, 'faculties.html')
+
 #/////////////////////////////////ENGINEERING FACULTY//////////////////////////////////////#
 
 #//////COMPUTER/////#
@@ -76,7 +77,8 @@ def Comp_Catalog(request):
 def Comp_NewCatalog(request):
     new_courses = Computer_Newcatalog.objects.all()
     new_elective_courses = AreaTechnicalElectiveCourse.objects.all
-    return render(request, 'engeeningfac\comp\Comp_NewCatalog.html', {'new_courses': new_courses, 'new_elective_courses': new_elective_courses})
+    new_technical_courses = AreaTechnicalElectiveCourse.objects.all
+    return render(request, 'engeeningfac\comp\Comp_NewCatalog.html', {'new_courses': new_courses, 'new_elective_courses': new_elective_courses, 'new_technical_courses': new_technical_courses})
 
 @login_required
 def Comp_OldCatalog(request):
@@ -815,7 +817,6 @@ def upload_transcript(request):
                         credit = row['Credits']
 
                         course, created = catalog_model.objects.get_or_create(course_code=code)
-                        #print(f"Updating course {course.course_code} in {catalog_name} with grade {grade}")
                         course.grade = grade
                         course.save()
 
@@ -823,58 +824,20 @@ def upload_transcript(request):
                         if not created:
                             transcript.grades = grade
                             transcript.save()
+                        
+                        elective, created = AreaTechnicalElectiveCourse.objects.update_or_create(course_code=code, defaults={'grade': grade},title=title,ects_credit=ects_credit)
+                        if not created:
+                            elective.grade = grade
+                            elective.save()
                 
-                # Identify courses not in the catalog model
-                remaining_df = df[~df['Code'].isin(course_codes)]
-
-                if not remaining_df.empty:
-                    #print(f"Processing remaining DataFrame for elective courses")
-                    #print(remaining_df.head())
-
-                # Ensure the DataFrame has the correct columns
-                    columns = ['Code', 'Title of Course', 'ECTS Credits', 'Grade', 'Credits', 'Gr.Pts']
-                    remaining_df = remaining_df.reindex(columns=columns)
-
-                # Remove any extra columns
-                    remaining_df = remaining_df[columns]
-
-                # Add remaining courses to AreaTechnicalElectiveCourse table
-                for index, row in remaining_df.iterrows():
-                    code = row['Code']
-                    grade = row['Grade']
-                    title = row['Title of Course']
-                    ects_credit = row['ECTS Credits']
-                    credit = row['Credits']
-
-                    # Check if the course is in the catalog model
-                    if not catalog_model.objects.filter(course_code=code).exists():
-
-                 # Check if the course exists in AreaTechnicalElectiveCourse
-                        if not AreaTechnicalElectiveCourse.objects.filter(course_code=code).exists():
-                            elective = AreaTechnicalElectiveCourse(
-                        course_code=code,
-                        grade=grade,
-                        title=title,
-                        ects_credit=ects_credit,
-                        total_credits=credit
-                        )
-                        elective.save()
-                        #print(f"Added new elective course {code} with grade {grade}")
-
-                # Always update or create the transcript entry for all courses
-                    #transcript, created = Transcript.objects.update_or_create(
-                    #code=code, 
-                    #defaults={'grades': grade, 'title': title, 'ects_credits': ects_credit, 'credits': credit}
-                   # )
-                    #if not created:
-                       # transcript.grades = grade
-                       # transcript.save()
      
             return redirect('faculties')
 
     else:
         form = TranscriptUploadForm()
     return render(request, 'upload_transcript.html', {'form': form})
+
+
 
 def process_csv(file: io.BufferedReader) -> pd.DataFrame:
     df = pd.read_csv(file)

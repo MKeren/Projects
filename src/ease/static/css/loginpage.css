@@ -1,0 +1,137 @@
+
+body{
+    padding: 80px 60px;
+    text-align: left;
+    width: 100%;
+    background-image:  url("/static/image/background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center; 
+}
+
+.butt {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    font-weight: bold;
+    background-color: #b00808;
+    border-bottom: #dc3545;
+    color: #fff;
+}
+
+button:hover{
+    background-color: #dc3545;
+}
+
+.centered-table {
+    margin: 0 auto; 
+    border-collapse: collapse; 
+    border: 1px solid gray; 
+    width: 40%; 
+}
+
+.centered-table th,
+.centered-table td {
+    border: 1px solid grey; 
+    padding: 5px; 
+    text-align: center; 
+}
+
+.centered-table th {
+    background-color: white; 
+}
+
+.centered-table tr:nth-child(even) {
+    background-color: #f2f2f2; 
+}
+
+.centered-table tr:hover {
+    background-color: #ddd;
+}
+
+.centered-table2 {
+    margin: 0 auto; 
+    border-collapse: collapse; 
+    border: 1px solid gray; 
+    width: 40%; 
+}
+
+.centered-table2 th,
+.centered-table2 td {
+    border: 1px solid whitesmoke; 
+    padding: 5px; 
+    text-align: center; 
+}
+
+.centered-table2 th {
+    background-color: whitesmoke; 
+}
+
+.centered-table2 tr:nth-child(even) {
+    background-color: #f2f2f2; 
+}
+
+.centered-table2 tr:hover {
+    background-color: #ddd;
+}
+
+.card2  {
+    background-color: #2c2b2b;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 0rem;
+    position: absolute; 
+    bottom: 0; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    width: 100%;
+    text-align: center;
+}
+.logo3 img {
+height: 30px; 
+width: auto; 
+}
+
+.copyright {
+display: inline-block; 
+margin: 0;
+color: #FFFFFF; 
+}
+
+.footer-logo {
+display: inline-block; 
+vertical-align: middle;
+margin-left: 10px;
+
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.form-control {
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.form-check {
+    display: flex;
+    align-items: center;
+}
+
+.form-check-input {
+    margin-right: 10px;
+}
+
+.form-check-label {
+    text-align: left;
+}
+

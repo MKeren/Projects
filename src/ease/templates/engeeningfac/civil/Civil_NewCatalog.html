@@ -10,114 +10,169 @@
   <link rel="stylesheet" href="{%static 'css/tablestyle.css' %}">
   
 </head>
-
 <body>
 <div id="container">
   <table id="main">
     <tr>
       <th class="card">
-        <div class="logo"> <a href="{% url 'civil_catalog' %}"><img src="https://lms3.final.edu.tr/LMS/pluginfile.php/1/core_admin/logo/0x150/1633438538/ufulogoen4.png" alt="Logo of Final International University LMS 3" class="img-fluid"></a>
-        <h4 class="display">FACULTY OF ENGINEERING</h4> 
-        <h6>CIVIL ENGINEERING Program of Courses</h6></div>
+        <div class="logo"> <a href="{% url 'computer_catalog' %}"><img src="https://lms3.final.edu.tr/LMS/pluginfile.php/1/core_admin/logo/0x150/1633438538/ufulogoen4.png" alt="Logo of Final International University LMS 3" class="img-fluid"></a></div>
+        <h4 class="display">FACULTY OF ENGINEERING</h4>
+        <h6>COMPUTER ENGINEERING Program of Courses</h6></div>
       </th>
     </tr>
-</table>
+  </table>
 </div>
 
 <div id="container">
   <div class="card">
-    <table id="myTable" class="display">
-      <thead>
-        <tr>
-          <th>Semester</th>
-          <th>Course Code</th>
-          <th>Course Title</th>
-          <th> Course Category</th>
-          <th>Hours</th>
-          <th>total_credits</th>
-          <th>Pre-requisite</th>
-          <th>ECTS Credit</th>
-          <th>Grade</th>     
-        </tr>
-      </thead>
-  
-      <tbody id="tablebody" class="myTable">
-
-      {% for newcatalog in new_courses  %}
-        <tr>
-            <td class="grade-{{newcatalog.grade}}">{{ newcatalog.semester }}</td>
-            <td class="grade-{{newcatalog.grade}}">{{ newcatalog.course_code }}</td>
-            <td class="grade-{{newcatalog.grade}}">{{ newcatalog.title }}</td>
-            <td class="grade-{{newcatalog.grade}}">{{ newcatalog.category }}</td>
-            <td class="grade-{{newcatalog.grade}}"> Lecture: {{ newcatalog.hours_lecture }} Tutorial: {{ newcatalog.hours_tutorial }} Lab: {{ newcatalog.hours_lab }} </td>    
-            <td class="grade-{{newcatalog.grade}}">{{ newcatalog.total_credits }}</td>
-            <td class="grade-{{newcatalog.grade}}">{{ newcatalog.pre_requisite }}</td>
-            <td class="grade-{{newcatalog.grade}}">{{ newcatalog.ects_credit }}</td>
-            <td class="grade-{{newcatalog.grade }}">{{ newcatalog.grade }}</td>
-          </tr>
-      {% endfor %}
-      </tbody>
-    </table>
+      <div class="card-title">Course Catalog</div>
+      <table id="myTable" class="display">
+          <thead>
+              <tr>
+                  <th>Semester</th>
+                  <th>Course Code</th>
+                  <th>Course Title</th>
+                  <th>Course Category</th>
+                  <th>Hours</th>
+                  <th>Total Credits</th>
+                  <th>Pre-requisite</th>
+                  <th>ECTS Credit</th>
+                  <th>Grade</th>
+              </tr>
+          </thead>
+          <tbody id="tablebody" class="myTable">
+              {% for newcatalog in new_courses %}
+              <tr>
+                  <td class="grade-{{newcatalog.grade}}">{{ newcatalog.semester }}</td>
+                  <td class="grade-{{newcatalog.grade}}">{{ newcatalog.course_code }}</td>
+                  <td class="grade-{{newcatalog.grade}}">{{ newcatalog.title }}</td>
+                  <td class="grade-{{newcatalog.grade}}">{{ newcatalog.category }}</td>
+                  <td class="grade-{{newcatalog.grade}}">Lecture: {{ newcatalog.hours_lecture }} Tutorial: {{ newcatalog.hours_tutorial }} Lab: {{ newcatalog.hours_lab }}</td>
+                  <td class="grade-{{newcatalog.grade}}">{{ newcatalog.total_credits }}</td>
+                  <td class="grade-{{newcatalog.grade}}">{{ newcatalog.pre_requisite }}</td>
+                  <td class="grade-{{newcatalog.grade}}">{{ newcatalog.ects_credit }}</td>
+                  <td class="grade-{{newcatalog.grade}}">{{ newcatalog.grade }}</td>
+              </tr>
+              {% endfor %}
+          </tbody>
+      </table>
   </div>
 </div>
 
 <div id="container">
   <div class="card">
+      <div class="card-title">Area Elective Courses</div>
+      <table id="myTable2" class="display">
+              <thead>
+                  <tr>
+                      <th>Course Code</th>
+                      <th>Course Title</th>
+                      <th>Course Category</th>
+                      <th>Hours</th>
+                      <th>Total Credits</th>
+                      <th>Pre-requisite</th>
+                      <th>ECTS Credit</th>
+                      <th>Grade</th>
+                  </tr>
+              </thead>
+              <tbody id="tablebody" class="myTable">
+                  {% for AreaElectiveCourse in area_elective_courses %}
+                  <tr>
+                      <td class="grade-{{AreaElectiveCourse.grade}}">{{ AreaElectiveCourse.course_code }}</td>
+                      <td class="grade-{{AreaElectiveCourse.grade}}">{{ AreaElectiveCourse.title }}</td>
+                      <td class="grade-{{AreaElectiveCourse.grade}}">{{ AreaElectiveCourse.category }}</td>
+                      <td class="grade-{{AreaElectiveCourse.grade}}">Lecture: {{ AreaElectiveCourse.hours_lecture }} Tutorial: {{ AreaElectiveCourse.hours_tutorial }} Lab: {{ AreaElectiveCourse.hours_lab }}</td>
+                      <td class="grade-{{AreaElectiveCourse.grade}}">{{ AreaElectiveCourse.total_credits }}</td>
+                      <td class="grade-{{AreaElectiveCourse.grade}}">{{ AreaElectiveCourse.pre_requisite }}</td>
+                      <td class="grade-{{AreaElectiveCourse.grade}}">{{ AreaElectiveCourse.ects_credit }}</td>
+                      <td class="grade-{{AreaElectiveCourse.grade}}">{{ AreaElectiveCourse.grade }}</td>
+                  </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+      </div>
+</div>
 
-    <table id="myTable2" class="display">
-      <thead>
-        <tr>
-          <th>Course Code</th>
-          <th>Course Title</th>
-          <th> Course Category</th>
-          <th>Hours</th>
-          <th>total_credits</th>
-          <th>Pre-requisite</th>
-          <th>ECTS Credit</th>
-          <th>Grade</th>     
-        </tr>
-      </thead>
-      <tbody id="tablebody" class="myTable">
-      {% for AreaTechnicalElectiveCourse in new_elective_courses %}
-        <tr>
-            <td class="grade-{{AreaTechnicalElectiveCourse.grade}}">{{AreaTechnicalElectiveCourse.course_code }}</td>
-            <td class="grade-{{AreaTechnicalElectiveCourse.grade}}">{{ AreaTechnicalElectiveCourse.title }}</td>
-            <td class="grade-{{AreaTechnicalElectiveCourse.grade}}">{{ AreaTechnicalElectiveCourse.category }}</td>
-            <td class="grade-{{AreaTechnicalElectiveCourse.grade}}"> Lecture: {{ oAreaTechnicalElectiveCourse_lecture }} Tutorial: {{ AreaTechnicalElectiveCourse.hours_tutorial }} Lab: {{ AreaTechnicalElectiveCourse.hours_lab }} </td>    
-            <td class="grade-{{AreaTechnicalElectiveCourse.grade}}">{{ AreaTechnicalElectiveCourse.total_credits }}</td>
-            <td class="grade-{{AreaTechnicalElectiveCourse.grade}}">{{AreaTechnicalElectiveCourse.pre_requisite }}</td>
-            <td class="grade-{{AreaTechnicalElectiveCourse.grade}}">{{ AreaTechnicalElectiveCourse.ects_credit }}</td>
-            <td class="grade-{{AreaTechnicalElectiveCourse.grade }}">{{AreaTechnicalElectiveCourse.grade }}</td>
+<div id="container">      
+  <div class="card">
+    <div class="card-title">Area Technical Courses</div>
+      <table id="myTable3" class="display">  
+        <thead>
+          <tr>
+            <th>Course Code</th>
+            <th>Course Title</th>
+            <th>Course Category</th>
+            <th>Hours</th>
+            <th>Total Credits</th>
+            <th>Pre-requisite</th>
+            <th>ECTS Credit</th>
+            <th>Grade</th>
           </tr>
-      {% endfor %}
-      </tbody>
-    </table>
+        </thead>
+        <tbody id="tablebody" class="myTable">
+        {% for TechnicalElectiveCourse in technical_elective_courses %}
+        <tr>
+            <td class="grade-{{TechnicalElectiveCourse.grade}}">{{ TechnicalElectiveCourse.course_code }}</td>
+            <td class="grade-{{TechnicalElectiveCourse.grade}}">{{ TechnicalElectiveCourse.title }}</td>
+            <td class="grade-{{TechnicalElectiveCourse.grade}}">{{ TechnicalElectiveCourse.category }}</td>
+            <td class="grade-{{TechnicalElectiveCourse.grade}}">Lecture: {{ TechnicalElectiveCourse.hours_lecture }} Tutorial: {{ TechnicalElectiveCourse.hours_tutorial }} Lab: {{ TechnicalElectiveCourse.hours_lab }}</td>
+            <td class="grade-{{TechnicalElectiveCourse.grade}}">{{ TechnicalElectiveCourse.total_credits }}</td>
+            <td class="grade-{{TechnicalElectiveCourse.grade}}">{{ TechnicalElectiveCourse.pre_requisite }}</td>
+            <td class="grade-{{TechnicalElectiveCourse.grade}}">{{ TechnicalElectiveCourse.ects_credit }}</td>
+            <td class="grade-{{TechnicalElectiveCourse.grade}}">{{ TechnicalElectiveCourse.grade }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
+
 </body>
 
- <!-- Jquery -->
+<!-- Jquery -->
 
 <script src="{%static 'jquery/jquery-3.7.1.min.js' %}"></script>
 
- <!-- DataTables --> 
+<!-- DataTables --> 
 
- <script src="{%static 'datatables/dataTables.js' %}"></script>
-
- <script>
-
-    let table = new DataTable('#myTable', {
-    // options
-    });
-
- </script>
+<script src="{%static 'datatables/dataTables.js' %}"></script>
 
 <script>
 
-  let table2 = new DataTable('#myTable2', {
+  let table = new DataTable('#myTable', {
   // options
+    paging: true,
+    searching: true,
+    info: true,
+    lengthMenu: [5, 10, 15],
+    pageLength: 5,
+    scrollX: true,  // Enable horizontal scrolling
+    autoWidth: false // Disable automatic column width calculation to allow manual adjustments
   });
 
+  let table2 = new DataTable('#myTable2', {
+  // options
+    paging: true,
+    searching: true,
+    info: true,
+    lengthMenu: [5, 10, 15],
+    pageLength: 5,
+    scrollX: true,  // Enable horizontal scrolling
+    autoWidth: false // Disable automatic column width calculation to allow manual adjustments
+  });
+
+  let table3 = new DataTable('#myTable3', {
+  // options
+    paging: true,
+    searching: true,
+    info: true,
+    lengthMenu: [5, 10, 15],
+    pageLength: 5,
+    scrollX: true,  // Enable horizontal scrolling
+    autoWidth: false // Disable automatic column width calculation to allow manual adjustments
+  });
 </script>
+
 
 {% endblock %}
