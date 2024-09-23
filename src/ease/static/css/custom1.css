@@ -20,7 +20,7 @@ body {
   
   .dashboard {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); 
+    grid-template-columns: repeat(1, 1fr); 
     grid-gap: 1rem;
     padding: 1rem;
     justify-content: center; 
@@ -45,25 +45,25 @@ body {
     text-align: center; 
   }
   
-  .card h4 {
+  .card2 h4 {
     font-size: 1.5rem;
     margin-top: 0;
     margin-bottom: 0.5rem;
     
   }
   
-  .card a {
+  .card2 a {
     color: #464646; 
     text-decoration: none; 
   }
   
-  .card a:hover {
+  .card2 a:hover {
     color: #000000; 
     text-decoration: underline;
   }
   
   
-  .card p {
+  .card2 p {
     font-size: 1rem;
     margin-top: 0;
     margin-bottom: 1rem;

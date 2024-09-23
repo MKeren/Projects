@@ -5,129 +5,252 @@
 
 <head>
   <link rel="stylesheet" href="{% static 'css/fac.css' %}">
-  <script>
-    function scrollWindow() {
-      window.scrollBy(0, 800);
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    .card {
+      margin-bottom: 20px;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      position: relative;
     }
+
+    .toggle-button {
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    .toggle-button:hover {
+      background-color: #8c8a8a;
+    }
+
+    .toggle-button:focus {
+      outline: none;
+    }
+
+    .logo2 img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .card div:first-of-type {
+      font-size: 16px;
+      font-weight: bold;
+      padding: 10px;
+      color: white
+
+    }
+
+    .extra-department {
+      display: none;
+    }
+
+    .card .department-list {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .card .department-list li {
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+    }
+
+    .card .department-list li a {
+      text-decoration: none;
+      color: #393636;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+    }
+    .card .department-list li a:hover {
+      background-color: rgba(178, 163, 163, 0.2);
+    }
+
+    .card .department-list li a i {
+      margin-right: 30px;
+      font-size: 18px;
+    }
+  </style>
+  <script>
+    function toggleDepartments(cardId) {
+      const card = document.getElementById(cardId);
+      const extraDepartments = card.querySelectorAll('.extra-department');
+      const toggleButton = card.querySelector('.toggle-button');
+
+      extraDepartments.forEach(dep => dep.style.display = dep.style.display === 'none' ? 'block' : 'none');
+      
+      if (toggleButton.innerText === 'Show More') {
+        toggleButton.innerText = 'Show Less';
+      } else {
+        toggleButton.innerText = 'Show More';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.extra-department').forEach(dep => dep.style.display = 'none');
+    });
   </script>
-  
 </head>
 
 <body>
-    
   <div id="main">
-  
-  <div id="container" class="card" >
-
-    <input type="button" onclick="scrollWindow()" value="Scroll" />
-    <ul class="pager">
-      <li><a href="#">Previous</a></li>
-      <li><a href="#">Next</a></li>
-    </ul>
-    <div class="dashboard">
-      <div class="card" role="listitem">
-        <div style="background:#FFFFFF;border:1px solid #ccc;padding:5px 10px;"><span style="font-size:14px;"><strong _msttexthash="391898" _msthash="50"><h4>Faculty of Dentistry</h4></strong></span></div>
-        <div class="logo2"><img src="https://www.final.edu.tr/images/fakulte/dis-hekimligi-sosyal-medya-secilen-01jpg[1613148922].jpg"></div>
-          <p>
-            <ul>
-              <li><a href="{% url 'dentistryE_catalog' %}"><span style="color:#000000;" _msttexthash="349817" _msthash="51"><h6>🎓 Dentistry (English)</h6></span></a></li>
-              <li><a href="{% url 'dentistryT_catalog' %}"><span style="color:#000000;" _msttexthash="357227" _msthash="52"><h6>🎓 Dentistry (Turkish)</h6></span></a></li>
-            </ul>
-          </p>
-      </div>
+    <div id="container" class="card">
       
-      <div class="card"  role="listitem">
-        <div style="background:#ffffff;border:1px solid #ccc;padding:5px 10px;"><span style="font-size:14px;"><strong _msttexthash="347126" _msthash="53"><h4>Faculty of Pharmacy</h4></strong></span></div>
-        <div class="logo2"><img src="https://www.final.edu.tr/images/fakulte/fakulted.png"></div>
+      <div class="dashboard">
+        <!-- Faculty of Dentistry -->
+        <div class="card" id="dentistry">
+          <div style="background:#ffffff;border:1px solid #ccc;">
+            <h4 style="color: #393636;">Faculty of Dentistry</h4>
+          </div>
+          <div class="logo2"><img src="https://www.final.edu.tr/images/fakulte/dis-hekimligi-sosyal-medya-secilen-01jpg[1613148922].jpg" alt="Dentistry"></div>
           <p>
-            <ul>  
-              <li><a href="{% url 'pharmacyE_catalog' %}"><span style="color:#000000;" _msttexthash="311675" _msthash="54"><h6>🎓Pharmacy (English)</h6></span></a></li>
-              <li><a href="{% url 'pharmacyTM_catalog' %}"><span style="color:#000000;" _msttexthash="318669" _msthash="55"><h6>🎓Pharmacy (Turkish)</h6></span></a></li>
-            </ul>
-          </p>
-      </div>
-
-      <div class="card">
-        <div style="background:#828282;border:1px solid #ccc;padding:5px 10px;"><span style="color:#FFFFFF;"><span style="font-size:14px;"><strong _msttexthash="596986" _msthash="62"><h4>Faculty of Arts and Sciences</h4></strong></span></span></div>
-          <div class="logo2"><img src="https://www.final.edu.tr/images/fakulte/img-4065sjpg[1494878506].jpg"></div>
-          <ul><P>
-            <li><a href="{% url 'PSYE_catalog' %}"><span style="color:#000000;" _msttexthash="380770" _msthash="63">Psychology (English)</span></a></li>
-            <li><a href="{% url 'PSYT_catalog' %}"><span style="color:#000000;" _msttexthash="388596" _msthash="64">Psychology (Turkish)</span></a></li>
-          </ul></P>
-      </div>
-
-      <div class="card" role="listitem">
-        <div style="background:#AF5FBA;border:1px solid #ccc;padding:5px 10px;"><span style="color:#FFFFFF;"><span style="font-size:14px;"><strong _msttexthash="771888" _msthash="56"><h4>Faculty of Educational Sciences</h4></strong></span></span></div>
-        <div class="logo2"><img src="https://www.final.edu.tr/images/fakulte/img-4010jpg[1493246613].jpg"></div>
-          <p>
-            <ul>
-              <li><a href="{% url 'ELT_catalog' %}"><span style="color:#000000;" _msttexthash="898924" _msthash="57"><h6>🎓English Language Teaching (English)</h6></span></a></li>
-              <li><a href="{% url 'PE_catalog' %}"><span style="color:#000000;" _msttexthash="691457" _msthash="58"><h6>🎓Preschool Education (Turkish)</h6></span></a></li>
-              <li><a href="{% url 'SET_catalog' %}"><span style="color:#000000;" _msttexthash="965900" _msthash="59"><h6>🎓Special Education Teaching (Turkish)</h6></span></a></li>
-              <li><a href="{% url 'GPC_catalog' %}"><span style="color:#000000;" _msttexthash="1567852" _msthash="60"><h6>🎓Guidance and Psychological Counseling (Turkish)</h6></span></a></li>
-              <li><a href="{% url 'TLT_catalog' %}"><span style="color:#000000;" _msttexthash="915408" _msthash="61"><h6>🎓Turkish Language Teaching (Turkish)</h6></span></a></li>
-              <li><a href="{% url 'PFCP_main_catalog' %}"><span style="color:#000000;" _msttexthash="915408" _msthash="61"><h6>🎓Pedagogical formation certificate program</h6></span></a></li>
-            </ul>
+          <ul class="department-list">
+            <li><a href="{% url 'dentistryE_catalog' %}"><i class="fas fa-tooth"></i> Dentistry (English)</a></li>
+            <li><a href="{% url 'dentistryT_catalog' %}"><i class="fas fa-tooth"></i> Dentistry (Turkish)</a></li>
+          </ul>
           </p>
         </div>
-        
-        <div class="card">
-          <div style="background:#0D2E82;border:1px solid #ccc;padding:5px 10px;"><span style="color:#FFFFFF;"><span style="font-size:14px;"><strong _msttexthash="1633333" _msthash="68"><h4>Faculty of Economics and Administrative Sciences</h4></strong></span></span></div>
-            <div class="logo2"><img src="https://www.final.edu.tr/images/fakulte/iktisadi-ve-idari-bilimlerjpeg[1564495871].jpeg"></div>
-            <P><ul>
-              <li><a href="{% url 'BFA_catalog' %}"><span style="color:#000000;" _msttexthash="1159808" _msthash="69">Banking, Finance and Accounting (English)</span></a>*</li>
-              <li><a href="{% url 'ECO_catalog' %}"><span style="color:#000000;" _msttexthash="343200" _msthash="70">Economics (English)</span></a>*</li>
-              <li><a href="{% url 'BA_catalog' %}"><span style="color:#000000;" _msttexthash="877474" _msthash="71">Business Administration (English)</span></a></li>
-              <li><a href="{% url 'BE_catalog' %}"><span style="color:#000000;" _msttexthash="1625741" _msthash="72">Business (Entrepreneurship) - Ulster University</span></a></li>
-              <li><a href="{% url 'BAM_catalog' %}"><span style="color:#000000;" _msttexthash="2101242" _msthash="73">Business Administration (Marketing) - Ulster University</span></a></li>
-              <li><a href="{% url 'MDM_catalog' %}"><span style="color:#000000;" _msttexthash="833573" _msthash="74">Marketing - Digital Media (English)</span></a></li>
-              <li><a href="{% url 'PSIR_catalog' %}"><span style="color:#000000;" _msttexthash="2042911" _msthash="75">Political Science and International Relations (English)</span></a>*</li>
-              <li><a href="{% url 'IFB_catalog' %}"><span style="color:#000000;" _msttexthash="1279213" _msthash="76">International Finance and Banking (English)</span></a></li>
-              <li><a href="{% url 'ITB_catalog' %}"><span style="color:#000000;" _msttexthash="1241435" _msthash="77">International Trade and Business (English)</span></a>*</li>
-              <li><a href="{% url 'MIS_catalog' %}"><span style="color:#000000;" _msttexthash="1200784" _msthash="78">Management Information Systems (English)</span></a>*</li>
-            </ul></P>
+
+         <!-- Faculty of Arts and Sciences -->
+         <div class="card" id="arts-sciences">
+          <div style="background:#828282;border:1px solid #ccc;">
+            <h4>Faculty of Arts and Sciences</h4>
+          </div>
+          <div class="logo2"><img src="https://www.final.edu.tr/images/fakulte/img-4065sjpg[1494878506].jpg" alt="Arts and Sciences"></div>
+          <p>
+          <ul class="department-list">
+            <li><a href="{% url 'PSYE_catalog' %}"><i class="fas fa-brain"></i> Psychology (English)</a></li>
+            <li><a href="{% url 'PSYT_catalog' %}"><i class="fas fa-brain"></i> Psychology (Turkish)</a></li>
+          </ul>
+          </p>
         </div>
 
-        <div class="card">
-          <div style="background:#FC7703;border:1px solid #ccc;padding:5px 10px;"><span style="color:#FFFFFF;"><span style="font-size:14px;"><strong _msttexthash="380185" _msthash="82"><h4>Engineering Faculty</h4></strong></span></span></div>
-          <div class="logo2"><img src="https://www.final.edu.tr/images/fakulte/bilgisayar-muhendisligijpeg[1564495853].jpeg"></div>
-          </P><ul>
-            <li><a href="{% url 'computer_catalog' %}"><span style="color:#000000;" _msttexthash="725686" _msthash="83">Computer Engineering (English)</span></a></li>
-            <li><a href="{% url 'electrical_catalog' %}"><span style="color:#000000;" _msttexthash="1609959" _msthash="84">Electrical and Electronics Engineering (English)</span></a></li>
-            <li><a href="{% url 'civil_catalog' %}"><span style="color:#000000;" _msttexthash="592891" _msthash="85">Civil Engineering (English)</span></a></li>
-            <li><a href="{% url 'AI_catalog' %}"><span style="color:#000000;" _msttexthash="1474005" _msthash="86">Artificial Intelligence Engineering (English)</span></a>*</li>
-            <li><a href="{% url 'software_catalog' %}"><span style="color:#000000;" _msttexthash="723996" _msthash="87">Software Engineering (English)</span></a></li>
-          </ul></P>
-        </div>
-        
-        <div class="card">
-          <div style="background:#C3DB69;border:1px solid #ccc;padding:5px 10px;"><span style="font-size:14px;"><strong _msttexthash="965588" _msthash="79"><h4>Faculty of Architecture and Fine Arts</h4></strong></span></div>
-            <div class="logo2"><img src="https://www.final.edu.tr/images/fakulte/mimarlik-ve-guzel-sanatlarjpeg[1564495892].jpeg"></div>
-            <P><ul>
-              <li><a href="{% url 'IA_catalog' %}"><span style="color:#000000;" _msttexthash="775892" _msthash="80">Interior Architecture (English)</span></a>*</li>
-              <li><a href="{% url 'ARCH_catalog' %}"><span style="color:#000000;" _msttexthash="446134" _msthash="81">Architecture (English)</span></a></li>
-            </ul></P>
-        </div>
-        
-        <div class="card">
-          <div style="background:#f4f5f7;border:1px solid #ffffff;padding:5px 10px;"><span style="font-size:14px;"><strong _msttexthash="480844" _msthash="88"><h4>Health Sciences Faculty</h4></strong></span></div>
-            <div class="logo2"><img src="https://www.final.edu.tr/images/fakulte/dsc-0497jpg[1529653027].jpg"></div>
-            </P><ul>
-              <li><a href="{% url 'NUTRI_catalog' %}"><span style="color:#000000;" _msttexthash="819533" _msthash="89">Nutrition and Dietetics (English)</span></a>*</li>
-              <li><a href="{% url 'PHYSIOE_catalog' %}"><span style="color:#000000;" _msttexthash="1310322" _msthash="90">Physiotherapy and Rehabilitation (English)</span></a>*</li>
-              <li><a href="{% url 'PHYSIOT_catalog' %}"><span style="color:#000000;" _msttexthash="1326468" _msthash="91">Physiotherapy and Rehabilitation (Turkish)</span></a></li>
-              <li><a href="{% url 'NURSE_catalog' %}"><span style="color:#000000;" _msttexthash="291317" _msthash="92">Nursing (Turkish)</span></a>*</li>
-            </ul></P>
+        <!-- Faculty of Pharmacy -->
+        <div class="card" id="pharmacy">
+          <div style="background:#ffffff;border:1px solid #ccc;">
+            <h4 style="color: #393636;">Faculty of Pharmacy</h4>
+          </div>
+          <div class="logo2"><img src="https://www.final.edu.tr/images/fakulte/fakulted.png" alt="Pharmacy"></div>
+          <p>
+          <ul class="department-list">
+            <li><a href="{% url 'pharmacyE_catalog' %}"><i class="fas fa-pills"></i> Pharmacy (English)</a></li>
+            <li><a href="{% url 'pharmacyTM_catalog' %}"><i class="fas fa-pills"></i> Pharmacy (Turkish)</a></li>
+          </ul>
+          </p>
         </div>
 
-        <div class="card">
-          <div style="background:#1FC2DB;border:1px solid #ccc;padding:5px 10px;"><span style="color:#FFFFFF;"><span style="font-size:14px;"><strong _msttexthash="156559" _msthash="65"><h4>Law Faculty</h4></strong></span></span></div>
-            <div class="logo2"><img src="https://www.final.edu.tr/images/fakulte/img-3977jpg[1529653423].jpg"></div>
-            <P><ul>
-              <li><a href="{% url 'LAW_catalog' %}"><span style="color:#000000;" _msttexthash="182104" _msthash="66">Law (Turkish)</span></a></li>
-              <li><a href="{% url 'INTLAW_catalog' %}"><span style="color:#000000;" _msttexthash="593892" _msthash="67">International Law (English)</span></a>*</li>
-            </ul></P>
+        <!-- Faculty of Educational Sciences -->
+        <div class="card" id="educational-sciences">
+          <div style="background:#AF5FBA;border:1px solid #ccc;">
+            <h4>Faculty of Educational Sciences</h4>
+          </div>
+          <div class="logo2"><img src="https://www.final.edu.tr/images/fakulte/img-4010jpg[1493246613].jpg" alt="Educational Sciences"></div>
+          <p>
+            <button class="toggle-button" style="background-color: #AF5FBA; " onclick="toggleDepartments('educational-sciences')">Show More</button>
+          <ul class="department-list">
+            <li><a href="{% url 'ELT_catalog' %}"><i class="fas fa-book"></i> English Language Teaching (English)</a></li>
+            <li><a href="{% url 'PE_catalog' %}"><i class="fas fa-book"></i> Preschool Education (Turkish)</a></li>
+            <li class="extra-department"><a href="{% url 'SET_catalog' %}"><i class="fas fa-book"></i> Special Education Teaching (Turkish)</a></li>
+            <li class="extra-department"><a href="{% url 'GPC_catalog' %}"><i class="fas fa-book"></i> Guidance and Psychological Counseling (Turkish)</a></li>
+            <li class="extra-department"><a href="{% url 'TLT_catalog' %}"><i class="fas fa-book"></i> Turkish Language Teaching (Turkish)</a></li>
+            <li class="extra-department"><a href="{% url 'PFCP_main_catalog' %}"><i class="fas fa-book"></i> Pedagogical Formation Certificate Program</a></li>
+          </ul>
+          </p>
         </div>
+
+        <!-- Faculty of Economics and Administrative Sciences -->
+        <div class="card" id="economics-admin">
+          <div style="background:#0D2E82;border:1px solid #ccc;">
+            <h4>Faculty of Economics and Administrative Sciences</h4>
+          </div>
+          <div class="logo2"><img src="https://www.final.edu.tr/images/fakulte/iktisadi-ve-idari-bilimlerjpeg[1564495871].jpeg" alt="Economics and Administrative Sciences"></div>
+          <p>
+            <button class="toggle-button" style="background-color: #0D2E82;" onclick="toggleDepartments('economics-admin')">Show More</button>
+          <ul class="department-list">
+            <li><a href="{% url 'BFA_catalog' %}"><i class="fas fa-chart-line"></i> Banking, Finance and Accounting (English)</a></li>
+            <li><a href="{% url 'ECO_catalog' %}"><i class="fas fa-chart-line"></i> Economics (English)</a></li>
+            <li class="extra-department"><a href="{% url 'BA_catalog' %}"><i class="fas fa-chart-line"></i> Business Administration (English)</a></li>
+            <li class="extra-department"><a href="{% url 'BE_catalog' %}"><i class="fas fa-chart-line"></i> Business (Entrepreneurship) - Ulster University</a></li>
+            <li class="extra-department"><a href="{% url 'BAM_catalog' %}"><i class="fas fa-chart-line"></i> Business Administration (Marketing) - Ulster University</a></li>
+            <li class="extra-department"><a href="{% url 'MDM_catalog' %}"><i class="fas fa-chart-line"></i> Marketing - Digital Media (English)</a></li>
+            <li class="extra-department"><a href="{% url 'PSIR_catalog' %}"><i class="fas fa-chart-line"></i> Political Science and International Relations (English)</a></li>
+            <li class="extra-department"><a href="{% url 'IFB_catalog' %}"><i class="fas fa-chart-line"></i> International Finance and Banking (English)</a></li>
+            <li class="extra-department"><a href="{% url 'ITB_catalog' %}"><i class="fas fa-chart-line"></i> International Trade and Business (English)</a></li>
+            <li class="extra-department"><a href="{% url 'MIS_catalog' %}"><i class="fas fa-chart-line"></i> Management Information Systems (English)</a></li>
+          </ul>
+          </p>
+        </div>
+
+        <!-- Faculty of Engineering -->
+        <div class="card" id="engineering">
+          <div style="background:#FC7703;border:1px solid #ccc;">
+            <h4>Faculty of Engineering</h4>
+          </div>
+          <div class="logo2"><img src="https://www.final.edu.tr/images/fakulte/bilgisayar-muhendisligijpeg[1564495853].jpeg" alt="Engineering"></div>
+          <p>
+            <button class="toggle-button" style="background-color: #FC7703;" onclick="toggleDepartments('engineering')">Show More</button>
+          <ul class="department-list">
+            <li><a href="{% url 'computer_catalog' %}"><i class="fas fa-laptop-code"></i> Computer Engineering (English)</a></li>
+            <li><a href="{% url 'electrical_catalog' %}"><i class="fas fa-plug"></i> Electrical and Electronics Engineering (English)</a></li>
+            <li class="extra-department"><a href="{% url 'civil_catalog' %}"><i class="fas fa-ruler-combined"></i> Civil Engineering (English)</a></li>
+            <li class="extra-department"><a href="{% url 'AI_catalog' %}"><i class="fas fa-robot"></i> Artificial Intelligence Engineering (English)</a></li>
+            <li class="extra-department"><a href="{% url 'software_catalog' %}"><i class="fas fa-code"></i> Software Engineering (English)</a></li>
+          </ul>
+          </p>
+        </div>
+
+        <!-- Faculty of Architecture and Fine Arts -->
+        <div class="card" id="architecture-fine-arts">
+          <div style="background:#C3DB69;border:1px solid #ccc;">
+            <h4>Faculty of Architecture and Fine Arts</h4>
+          </div>
+          <div class="logo2"><img src="https://www.final.edu.tr/images/fakulte/mimarlik-ve-guzel-sanatlarjpeg[1564495892].jpeg" alt="Architecture and Fine Arts"></div>
+          <p>
+          <ul class="department-list">
+            <li><a href="{% url 'IA_catalog' %}"><i class="fas fa-paint-brush"></i> Interior Architecture (English)</a></li>
+            <li><a href="{% url 'ARCH_catalog' %}"><i class="fas fa-building"></i> Architecture (English)</a></li>
+          </ul>
+          </p>
+        </div>
+
+        <!-- Faculty of Health Sciences -->
+        <div class="card" id="health-sciences">
+          <div style="background:#f4f5f7;border:1px solid #ffffff;">
+            <h4 style="color: #393636;">Health Sciences Faculty</h4>
+          </div>
+          <div class="logo2"><img src="https://www.final.edu.tr/images/fakulte/dsc-0497jpg[1529653027].jpg" alt="Health Sciences"></div>
+          <p>
+            <button class="toggle-button" style="background-color: #f4f5f7; color:#222121;" onclick="toggleDepartments('health-sciences')">Show More</button>
+          <ul class="department-list">
+            <li><a href="{% url 'NUTRI_catalog' %}"><i class="fas fa-apple-alt"></i> Nutrition and Dietetics (English)</a></li>
+            <li><a href="{% url 'PHYSIOE_catalog' %}"><i class="fas fa-stethoscope"></i> Physiotherapy and Rehabilitation (English)</a></li>
+            <li class="extra-department"><a href="{% url 'PHYSIOT_catalog' %}"><i class="fas fa-stethoscope"></i> Physiotherapy and Rehabilitation (Turkish)</a></li>
+            <li class="extra-department"><a href="{% url 'NURSE_catalog' %}"><i class="fas fa-user-nurse"></i> Nursing (Turkish)</a></li>
+          </ul>
+          </p>
+        </div>
+
+        <!-- Faculty of Law -->
+        <div class="card" id="law">
+          <div style="background:#1FC2DB;border:1px solid #ccc;">
+            <h4>Law Faculty</h4>
+          </div>
+          <div class="logo2"><img src="https://www.final.edu.tr/images/fakulte/img-3977jpg[1529653423].jpg" alt="Law"></div>
+          <p>
+          <ul class="department-list">
+            <li><a href="{% url 'LAW_catalog' %}"><i class="fas fa-gavel"></i> Law (Turkish)</a></li>
+            <li><a href="{% url 'INTLAW_catalog' %}"><i class="fas fa-gavel"></i> International Law (English)</a></li>
+          </ul>
+          </p>
+        </div>
+
+      </div>
     </div>
   </div>
 </body>

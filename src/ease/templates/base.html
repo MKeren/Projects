@@ -9,14 +9,39 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{% static 'css/dashboard.css' %}">
     <link rel="stylesheet" href="{% static 'css/BAS.css' %}">
-    <link rel="stylesheet" href="{% static 'css/sidebAR.css' %}">
+    <link rel="stylesheet" href="{% static 'css/stylesidebar.css' %}">
     <link rel="stylesheet" href="{% static 'css/footer.css' %}">
     <link rel="stylesheet" href="{% static 'css/lang.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
-    <style>
-     
- 
-    </style>     
+<style>
+   
+</style>    
+
+<script>
+    function toggleFacultySection() {
+    const facultyMenu = document.getElementById('faculty-submenu');
+    facultyMenu.style.display = facultyMenu.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function toggleSubmenu(submenuId) {
+    const submenu = document.getElementById(submenuId);
+    submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+    }
+</script>
+<script>
+    
+        window.addEventListener('load', function() {
+            const activeSidebarItem = document.querySelector('#sidebar .active');
+    
+            if (activeSidebarItem) {
+                activeSidebarItem.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+</script>
+
 </head>
 
 <body class="show-sidebar">
@@ -43,28 +68,147 @@
     </div>
        
 <sidebar id="main">
-    <div id="sidebar" class="sidebar" role="listitem">
-        <ul class="nav nav-tabs">
-            <p class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">
-                <a href="{% url 'home' %}"><i class="fas fa-home"></i> Home</a>
-            </p>
-            <p class="{% if request.resolver_match.url_name == 'upload_transcript' %}active{% endif %}">
-                <a href="{% url 'upload_transcript' %}"><i class="fas fa-file-upload"></i> Upload Transcript</a>
-            </p>
-            <p class="{% if request.resolver_match.url_name == 'faculties' %}active{% endif %}">
-                <a href="{% url 'faculties' %}"><i class="fas fa-door-open"></i> Faculties</a>
-            </p>
-            <p class="{% if request.resolver_match.url_name == 'transcript' %}active{% endif %}">
-                <a href="{% url 'transcript' %}"><i class="fas fa-file-alt"></i> Transcript</a>
-            </p>
-            <p class="{% if request.resolver_match.url_name == 'logout' %}active{% endif %}">
-                <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
-            </p>
-        </ul>
-    </div>
-</sidebar>
+   
+    <sidebar id="main">
+        <div id="sidebar" class="sidebar" role="listitem">
+            <ul class="nav nav-tabs">
+                <!-- Home Link -->
+                <p class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+                    <a href="{% url 'home' %}"><i class="fas fa-home"></i> Home</a>
+                </p>
+    
+                <!-- Upload Transcript Link -->
+                <p class="{% if request.resolver_match.url_name == 'upload_transcript' %}active{% endif %}">
+                    <a href="{% url 'upload_transcript' %}"><i class="fas fa-file-upload"></i> Upload Transcript</a>
+                </p>
+    
+                <!-- Faculties Link (Expandable) -->
+                <p class="{% if request.resolver_match.url_name == 'faculties' %}active{% endif %}">
+                    <a href="javascript:void(0);" onclick="toggleFacultySection()"><i class="fas fa-door-open"></i> Faculties</a>
+                    <ul id="faculty-submenu" class="department-list">
+    
+                    <!-- Faculty of Dentistry -->
+                        <li>
+                            <a href="javascript:void(0);" onclick="toggleSubmenu('dentistry-submenu')" style="font-weight: bold; text-align: center; display: block;">Faculty of Dentistry</a>
+                            <ul id="dentistry-submenu" class="department-list">
+                                <li class="{% if request.resolver_match.url_name == 'dentistryE_catalog' %}active{% endif %}">
+                                    <a href="{% url 'dentistryE_catalog' %}"><i class="fas fa-tooth"></i> Dentistry (English)</a>
+                                </li>
+                                <li class="{% if request.resolver_match.url_name == 'dentistryT_catalog' %}active{% endif %}">
+                                    <a href="{% url 'dentistryT_catalog' %}"><i class="fas fa-tooth"></i> Dentistry (Turkish)</a>
+                                </li>
+                            </ul>
+                        </li>
 
     
+                        <!-- Faculty of Arts and Sciences -->
+                        <li>
+                            <a href="javascript:void(0);" onclick="toggleSubmenu('arts-submenu')" style="font-weight: bold; text-align: center; display: block;">Faculty of Arts and Sciences</a>
+                            <ul id="arts-submenu" class="department-list">
+                                <li class="{% if request.resolver_match.url_name == 'PSYE_catalog' %}active{% endif %}">
+                                    <a href="{% url 'PSYE_catalog' %}"><i class="fas fa-brain"></i> Psychology (English)</a>
+                                </li>
+                                <li class="{% if request.resolver_match.url_name == 'PSYT_catalog' %}active{% endif %}">
+                                    <a href="{% url 'PSYT_catalog' %}"><i class="fas fa-brain"></i> Psychology (Turkish)</a>
+                                </li>
+                            </ul>
+                        </li>
+    
+                        <!-- Faculty of Pharmacy -->
+                        <li>
+                            <a href="javascript:void(0);" onclick="toggleSubmenu('pharmacy-submenu')" style="font-weight: bold; text-align: center; display: block;">Faculty of Pharmacy</a>
+                            <ul id="pharmacy-submenu" class="department-list">
+                                <li class="{% if request.resolver_match.url_name == 'pharmacyE_catalog' %}active{% endif %}"><a href="{% url 'pharmacyE_catalog' %}"><i class="fas fa-pills"></i> Pharmacy (English)</a></li>
+                                <li class="{% if request.resolver_match.url_name == 'pharmacyTM_catalog' %}active{% endif %}"><a href="{% url 'pharmacyTM_catalog' %}"><i class="fas fa-pills"></i> Pharmacy (Turkish)</a></li>
+                            </ul>
+                        </li>
+    
+                        <!-- Faculty of Educational Sciences -->
+                        <li>
+                            <a href="javascript:void(0);" onclick="toggleSubmenu('education-submenu')" style="font-weight: bold; text-align: center; display: block;">Faculty of Educational Sciences</a>
+                            <ul id="education-submenu" class="department-list">
+                                <li class="{% if request.resolver_match.url_name == 'ELT_catalog' %}active{% endif %}"><a href="{% url 'ELT_catalog' %}"><i class="fas fa-book"></i> English Language Teaching (English)</a></li>
+                                <li class="{% if request.resolver_match.url_name == 'PE_catalog' %}active{% endif %}"><a href="{% url 'PE_catalog' %}"><i class="fas fa-book"></i> Preschool Education (Turkish)</a></li>
+                                <li class="{% if request.resolver_match.url_name == 'SET_catalog' %}active{% endif %}"><a href="{% url 'SET_catalog' %}"><i class="fas fa-book"></i> Special Education Teaching (Turkish)</a></li>
+                                <li class="{% if request.resolver_match.url_name == 'GPC_catalog' %}active{% endif %}"><a href="{% url 'GPC_catalog' %}"><i class="fas fa-book"></i> Guidance and Psychological Counseling (Turkish)</a></li>
+                                <li class="{% if request.resolver_match.url_name == 'TLT_catalog' %}active{% endif %}"><a href="{% url 'TLT_catalog' %}"><i class="fas fa-book"></i> Turkish Language Teaching (Turkish)</a></li>
+                                <li class="{% if request.resolver_match.url_name == 'PFCP_main_catalog' %}active{% endif %}"><a href="{% url 'PFCP_main_catalog' %}"><i class="fas fa-book"></i> Pedagogical Formation Certificate Program</a></li>
+                            </ul>
+                        </li>
+    
+                        <!-- Faculty of Economics and Administrative Sciences -->
+                        <li>
+                            <a href="javascript:void(0);" onclick="toggleSubmenu('economics-submenu')" style="font-weight: bold; text-align: center; display: block;">Faculty of Economics and Administrative Sciences</a>
+                            <ul id="economics-submenu" class="department-list">
+                                <li class="{% if request.resolver_match.url_name == 'BFA_catalog' %}active{% endif %}"><a href="{% url 'BFA_catalog' %}"><i class="fas fa-chart-line"></i> Banking, Finance and Accounting (English)</a></li>
+                                <li class="{% if request.resolver_match.url_name == 'ECO_catalog' %}active{% endif %}"><a href="{% url 'ECO_catalog' %}"><i class="fas fa-chart-line"></i> Economics (English)</a></li>
+                                <li class="{% if request.resolver_match.url_name == 'BA_catalog' %}active{% endif %}"><a href="{% url 'BA_catalog' %}"><i class="fas fa-chart-line"></i> Business Administration (English)</a></li>
+                                <li class="{% if request.resolver_match.url_name == 'BE_catalog' %}active{% endif %}"><a href="{% url 'BE_catalog' %}"><i class="fas fa-chart-line"></i> Business (Entrepreneurship) - Ulster University</a></li>
+                                <li class="{% if request.resolver_match.url_name == 'BAM_catalog' %}active{% endif %}"><a href="{% url 'BAM_catalog' %}"><i class="fas fa-chart-line"></i> Business Administration (Marketing) - Ulster University</a></li>
+                                <li class="{% if request.resolver_match.url_name == 'MDM_catalog' %}active{% endif %}"><a href="{% url 'MDM_catalog' %}"><i class="fas fa-chart-line"></i> Marketing - Digital Media (English)</a></li>
+                                <li class="{% if request.resolver_match.url_name == 'PSIR_catalog' %}active{% endif %}"><a href="{% url 'PSIR_catalog' %}"><i class="fas fa-chart-line"></i> Political Science and International Relations (English)</a></li>
+                                <li class="{% if request.resolver_match.url_name == 'IFB_catalog' %}active{% endif %}"><a href="{% url 'IFB_catalog' %}"><i class="fas fa-chart-line"></i> International Finance and Banking (English)</a></li>
+                                <li class="{% if request.resolver_match.url_name == 'ITB_catalog' %}active{% endif %}"><a href="{% url 'ITB_catalog' %}"><i class="fas fa-chart-line"></i> International Trade and Business (English)</a></li>
+                                <li class="{% if request.resolver_match.url_name == 'MIS_catalog' %}active{% endif %}"><a href="{% url 'MIS_catalog' %}"><i class="fas fa-chart-line"></i> Management Information Systems (English)</a></li>
+                            </ul>
+                        </li>
+    
+                        <!-- Faculty of Engineering -->
+                        <li>
+                            <a href="javascript:void(0);" onclick="toggleSubmenu('engineering-submenu')" style="font-weight: bold; text-align: center; display: block;">Faculty of Engineering</a>
+                            <ul id="engineering-submenu" class="department-list">
+                                <li class="{% if request.resolver_match.url_name == 'computer_catalog' %}active{% endif %}"><a href="{% url 'computer_catalog' %}"><i class="fas fa-laptop-code"></i> Computer Engineering (English)</a></li>
+                                <li class="{% if request.resolver_match.url_name == 'electrical_catalog' %}active{% endif %}"><a href="{% url 'electrical_catalog' %}"><i class="fas fa-plug"></i> Electrical and Electronics Engineering (English)</a></li>
+                                <li class="{% if request.resolver_match.url_name == 'civil_catalog' %}active{% endif %}"><a href="{% url 'civil_catalog' %}"><i class="fas fa-building"></i> Civil Engineering (English)</a></li>
+                                <li class="{% if request.resolver_match.url_name == 'AI_catalog' %}active{% endif %}"><a href="{% url 'AI_catalog' %}"><i class="fas fa-robot"></i> Artificial Intelligence Engineering (English)</a></li>
+                                <li class="{% if request.resolver_match.url_name == 'software_catalog' %}active{% endif %}"><a href="{% url 'software_catalog' %}"><i class="fas fa-code"></i> Software Engineering (English)</a></li>
+                                <li class="{% if request.resolver_match.url_name == 'IA_catalog' %}active{% endif %}"><a href="{% url 'IA_catalog' %}"><i class="fas fa-tools"></i> Industrial Automation (Turkish)</a></li>
+                            </ul>
+                        </li>
+    
+                        <!-- Faculty of Architecture -->
+                        <li>
+                            <a href="javascript:void(0);" onclick="toggleSubmenu('architecture-submenu')" style="font-weight: bold; text-align: center; display: block;">Faculty of Architecture</a>
+                            <ul id="architecture-submenu" class="department-list">
+                                <li class="{% if request.resolver_match.url_name == 'IA_catalog' %}active{% endif %}"><a href="{% url 'IA_catalog' %}"><i class="fas fa-paint-brush"></i> Interior Architecture (English)</a></li>
+                                <li class="{% if request.resolver_match.url_name == 'ARCH_catalog' %}active{% endif %}"><a href="{% url 'ARCH_catalog' %}"><i class="fas fa-drafting-compass"></i> Architecture (English)</a></li>
+                            </ul>
+                        </li>
+    
+                        <!-- Faculty of Health Sciences -->
+                        <li>
+                            <a href="javascript:void(0);" onclick="toggleSubmenu('health-sciences-submenu')" style="font-weight: bold; text-align: center; display: block;">Faculty of Health Sciences</a>
+                            <ul id="health-sciences-submenu" class="department-list">
+                                <li class="{% if request.resolver_match.url_name == 'NUTRI_catalog' %}active{% endif %}"><a href="{% url 'NUTRI_catalog' %}"><i class="fas fa-apple-alt"></i> Nutrition and Dietetics (English)</a></li>
+                                <li class="{% if request.resolver_match.url_name == 'PHYSIOE_catalog' %}active{% endif %}"><a href="{% url 'PHYSIOE_catalog' %}"><i class="fas fa-walking"></i> Physiotherapy and Rehabilitation (English)</a></li>
+                                <li class="{% if request.resolver_match.url_name == 'PHYSIOT_catalog' %}active{% endif %}"><a href="{% url 'PHYSIOT_catalog' %}"><i class="fas fa-walking"></i> Physiotherapy and Rehabilitation (Turkish)</a></li>
+                                <li class="{% if request.resolver_match.url_name == 'NURSE_catalog' %}active{% endif %}"><a href="{% url 'NURSE_catalog' %}"><i class="fas fa-user-nurse"></i> Nursing (Turkish)</a></li>
+                            </ul>
+                        </li>
+    
+                        <!-- Faculty of Law -->
+                        <li>
+                            <a href="javascript:void(0);" onclick="toggleSubmenu('law-submenu')" style="font-weight: bold; text-align: center; display: block;">Faculty of Law</a>
+                            <ul id="law-submenu" class="department-list">
+                                <li class="{% if request.resolver_match.url_name == 'LAW_catalog' %}active{% endif %}"><a href="{% url 'LAW_catalog' %}"><i class="fas fa-balance-scale"></i> Law (Turkish)</a></li>
+                                <li class="{% if request.resolver_match.url_name == 'INTLAW_catalog' %}active{% endif %}"><a href="{% url 'INTLAW_catalog' %}"><i class="fas fa-balance-scale"></i> International Law (English)</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </p>
+                 <!-- Add Course Link -->
+                <p class="{% if request.resolver_match.url_name == 'add_area_elective_course' %}active{% endif %}">
+                    <a href="{% url 'add_area_elective_course' %}"><i class="fas fa-book"></i> Add Course</a>
+                </p>
+    
+                <!-- Logout Link -->
+                <p class="{% if request.resolver_match.url_name == 'logout' %}active{% endif %}">
+                    <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </p>
+            </ul>
+        </div>
+    </sidebar>
+
     <main>
       {% block content %}
       {% endblock %}

@@ -1,0 +1,135 @@
+body {
+    padding: 60 80px;
+    font-family: Arial, sans-serif;
+  }
+  
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 10px 0;
+  }
+  
+  th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  #dashboard {
+    display: flex;
+    flex-direction:column;
+    align-items: center; 
+    padding: 1rem;
+  }
+  
+  .card {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    margin-bottom: 0.1rem;
+    margin-right: -3%;
+    margin-top: -3%;
+  }
+
+  .card h2 {
+    font-size: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+  }
+  
+  .card p {
+    font-size: 1rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+  
+  #main {
+    margin: 20px auto;
+    padding: 20px;
+    width: calc(100% - 10px);
+    transition: width 0.3s ease;
+    margin-top: 2%;
+  }
+  
+  @media (max-width: 768px) {
+    .dashboard {
+      flex-direction: column;
+      align-items: stretch; 
+    }
+  
+    .card {
+      margin: 10px;
+      padding: 10px;
+    }
+  
+    th, td {
+      padding: 8px;
+    }
+  
+    .display {
+      font-size: 1.2em;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    th, td {
+      font-size: 14px;
+    }
+  }
+  
+  #myTable, #myTable2, #myTable3 {
+    font-size: 12px;
+  }
+  
+  table .grade-A, 
+  table .grade-A-, 
+  table .grade-B, 
+  table .grade-B-, 
+  table .grade-C, 
+  table .grade-C-, 
+  table .grade-D\+, 
+  table .grade-B\+, 
+  table .grade-C\+ {
+    background-color: rgb(92, 152, 92);
+  }
+  
+  table .grade-D {
+    background-color: rgb(255, 194, 81);
+  }
+  
+  table .grade-D-, 
+  table .grade-F, 
+  table .grade-NG {
+    background-color: rgb(239, 74, 74);
+  }
+  
+  #container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .left-side {
+    display: flex;
+    align-items: center;
+  }
+  
+  .left-side > * {
+    margin-right: 10px;
+  }
+  
+  .right-side {
+    margin-left: auto;
+  }
+  
+  .logo2 img {
+    height: 200px; 
+    width: 100%; 
+    object-fit: cover; 
+    border-radius: 2px 2px 0 0; 
+  }

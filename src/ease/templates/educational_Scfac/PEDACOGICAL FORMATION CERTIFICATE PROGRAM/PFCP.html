@@ -1,19 +1,161 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-
+              
 <head>
-    
-    <!-- DataTables --> 
-    <link rel="stylesheet" href="{%static 'datatables/dataTables.css' %}">
-    <link rel="stylesheet" href="{%static 'css/catalog.css' %}">
-    <link rel="stylesheet" href="{%static 'css/tablestyle.css' %}">
-  
-</head>
+                  
+  <!-- DataTables --> 
+  <link rel="stylesheet" href="{%static 'css/course.css' %}">
+  <link rel="stylesheet" href="{%static 'datatables/dataTables.css' %}">
+  <link rel="stylesheet" href="{%static 'css/tablestyle.css' %}">
+              
+  <style>
+  body {
+    padding: 60 80px;
+    font-family: Arial, sans-serif;
+  }
+                
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 10px 0;
+  }
+                
+  th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+  }
+                
+  th {
+    background-color: #f2f2f2;
+  }
+                
+  #dashboard {
+    display: flex;
+    flex-direction:column;
+    align-items: center; 
+    padding: 1rem;
+  }
+                
+  .card {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    margin-bottom: 0.1rem;
+    margin-right: -3%;
+    margin-top: -3%;
+  }
+             
 
+ .card h2 {
+    font-size: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+  }
+                
+  .card p {
+    font-size: 1rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+                
+  #main {
+    margin: 20px auto;
+    padding: 20px;
+    width: calc(100% - 10px);
+    transition: width 0.3s ease;
+    margin-top: 2%;
+  }
+                
+  @media (max-width: 768px) {
+    .dashboard {
+      flex-direction: column;
+      align-items: stretch; 
+    }
+                
+    .card {
+      margin: 10px;
+      padding: 10px;
+    }
+                
+    th, td {
+    padding: 8px;
+    }
+                
+    .display {
+      font-size: 1.2em;
+      }
+   
+  }
+                
+  @media screen and (max-width: 480px) {
+    th, td {
+      font-size: 14px;
+    }
+  
+  }
+                
+  #myTable, #myTable2, #myTable3 {
+    font-size: 12px;
+  }
+                
+  table .grade-A, 
+  table .grade-A-, 
+  table .grade-B, 
+  table .grade-B-, 
+  table .grade-C, 
+  table .grade-C-, 
+  table .grade-D\+, 
+  table .grade-B\+, 
+  table .grade-C\+ {
+    background-color: rgb(92, 152, 92);
+  }
+                
+  table .grade-D {
+    background-color: rgb(255, 194, 81);
+  }
+               
+  table .grade-D-, 
+  table .grade-F, 
+  table .grade-NG {
+    background-color: rgb(239, 74, 74);
+  }
+                
+  #container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+                
+  .left-side {
+    display: flex;
+    align-items: center;
+  }
+                
+  .left-side > * {
+    margin-right: 10px;
+  }
+                
+  .right-side {
+    margin-left: auto;
+  }
+                
+  .logo2 img {
+    height: 200px; 
+    width: 100%; 
+    object-fit: cover; 
+    border-radius: 2px 2px 0 0; 
+  }
+  </style>
+              
+</head>
+            
 <body>
+  <div id="main">
   <div id="container">
-    <table id="main">
+    <table>
       <tr>
         <th class="card">
           <div class="logo"> <a href="{% url 'PFCP_main_catalog' %}"><img src="https://lms3.final.edu.tr/LMS/pluginfile.php/1/core_admin/logo/0x150/1633438538/ufulogoen4.png" alt="Logo of Final International University LMS 3" class="img-fluid"></a>
@@ -21,101 +163,159 @@
           <h6>Pedagojik Formasyon Eğitimi Sertifika Programında Yer Alan Dersler</h6></div>
         </th>
       </tr>
-  </table>
-  </div>
-<div id="container">
-  <div class="card">
-
-    <table id="myTable" class="display">
-      <thead>
-        <tr>
-          <th>Semester</th>
-          <th>Course Code</th>
-          <th>Course Title</th>
-          <th> Course Category</th>
-          <th>Hours</th>
-          <th>total_credits</th>
-          <th>Pre-requisite</th>
-          <th>ECTS Credit</th>
-          <th>Grade</th>     
-        </tr>
-      </thead>
-      <tbody id="tablebody" class="myTable">
-      {% for oldcatalog in old_courses  %}
-        <tr>
-            <td class="grade-{{oldcatalog.grade}}">{{oldcatalog.semester }}</td>
-            <td class="grade-{{oldcatalog.grade}}">{{oldcatalog.course_code }}</td>
-            <td class="grade-{{oldcatalog.grade}}">{{ oldcatalog.title }}</td>
-            <td class="grade-{{oldcatalog.grade}}">{{ oldcatalog.category }}</td>
-            <td class="grade-{{oldcatalog.grade}}"> Lecture: {{ oldcataloghours_lecture }} Tutorial: {{ oldcatalog.hours_tutorial }} Lab: {{ oldcatalog.hours_lab }} </td>    
-            <td class="grade-{{oldcatalog.grade}}">{{ oldcatalog.total_credits }}</td>
-            <td class="grade-{{oldcatalog.grade}}">{{oldcatalog.pre_requisite }}</td>
-            <td class="grade-{{oldcatalog.grade}}">{{ oldcatalog.ects_credit }}</td>
-            <td class="grade-{{oldcatalog.grade }}">{{ oldcatalog.grade }}</td>
-          </tr>
-      {% endfor %}
-      </tbody>
     </table>
   </div>
-</div>
-
-<div id="container">
-  <div class="card">
-
-    <table id="myTable2" class="display">
-      <thead>
-        <tr>
-          <th>Course Code</th>
-          <th>Course Title</th>
-          <th> Course Category</th>
-          <th>Hours</th>
-          <th>total_credits</th>
-          <th>Pre-requisite</th>
-          <th>ECTS Credit</th>
-          <th>Grade</th>     
-        </tr>
-      </thead>
-      <tbody id="tablebody" class="myTable">
-      {% for AreaTechnicalElectiveCourse in old_elective_courses %}
-        <tr>
-            <td class="grade-{{AreaTechnicalElectiveCourse.grade}}">{{AreaTechnicalElectiveCourse.course_code }}</td>
-            <td class="grade-{{AreaTechnicalElectiveCourse.grade}}">{{ AreaTechnicalElectiveCourse.title }}</td>
-            <td class="grade-{{AreaTechnicalElectiveCourse.grade}}">{{ AreaTechnicalElectiveCourse.category }}</td>
-            <td class="grade-{{AreaTechnicalElectiveCourse.grade}}"> Lecture: {{ oAreaTechnicalElectiveCourse_lecture }} Tutorial: {{ AreaTechnicalElectiveCourse.hours_tutorial }} Lab: {{ AreaTechnicalElectiveCourse.hours_lab }} </td>    
-            <td class="grade-{{AreaTechnicalElectiveCourse.grade}}">{{ AreaTechnicalElectiveCourse.total_credits }}</td>
-            <td class="grade-{{AreaTechnicalElectiveCourse.grade}}">{{AreaTechnicalElectiveCourse.pre_requisite }}</td>
-            <td class="grade-{{AreaTechnicalElectiveCourse.grade}}">{{ AreaTechnicalElectiveCourse.ects_credit }}</td>
-            <td class="grade-{{AreaTechnicalElectiveCourse.grade }}">{{AreaTechnicalElectiveCourse.grade }}</td>
-          </tr>
-      {% endfor %}
-      </tbody>
-    </table>
+              
+  <div id="container">
+    <div class="card">
+      <div class="card-title">Course Catalog</div>
+        <table id="myTable" class="display">
+          <thead>
+            <tr> 
+              <th>Semester</th>
+              <th>Course Code</th>
+              <th>Course Title</th>
+              <th>Course Category</th>
+              <th>Hours</th>
+              <th>Total Credits</th>
+              <th>Pre-requisite</th>
+              <th>ECTS Credit</th>
+              <th>Grade</th>
+            </tr>
+          </thead>
+                        
+          <tbody id="tablebody" class="myTable">
+            {% for newcatalog in courses %}
+              <tr>
+                <td class="grade-{{newcatalog.grade}}">{{ newcatalog.semester }}</td>
+                <td class="grade-{{newcatalog.grade}}">{{ newcatalog.course_code }}</td>
+                <td class="grade-{{newcatalog.grade}}">{{ newcatalog.title }}</td>
+                <td class="grade-{{newcatalog.grade}}">{{ newcatalog.category }}</td>
+                <td class="grade-{{newcatalog.grade}}">Lecture: {{ newcatalog.hours_lecture }} Tutorial: {{ newcatalog.hours_tutorial }} Lab: {{ newcatalog.hours_lab }}</td>
+                <td class="grade-{{newcatalog.grade}}">{{ newcatalog.total_credits }}</td>
+                <td class="grade-{{newcatalog.grade}}">{{ newcatalog.pre_requisite }}</td>
+                <td class="grade-{{newcatalog.grade}}">{{ newcatalog.ects_credit }}</td>
+                <td class="grade-{{newcatalog.grade}}">{{ newcatalog.grade }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
   </div>
-</div>
-</body>
-
- <!-- Jquery -->
-
-<script src="{%static 'jquery/jquery-3.7.1.min.js' %}"></script>
-
- <!-- DataTables --> 
-
- <script src="{%static 'datatables/dataTables.js' %}"></script>
-
- <script>
-
+              
+  <div id="container">
+    <div class="card">
+      <div class="card-title">Area Elective Courses
+      <a href="{% url 'add_area_elective_course' %}" class="btn btn-primary" style="float:right; margin-top: 10px;">Add Course</a>
+      </div>
+        <table id="myTable2" class="display">
+          <thead>
+            <tr>
+              <th>Course Code</th>
+              <th>Course Title</th>
+              <th>Course Category</th>
+              <th>Hours</th>
+              <th>Total Credits</th>
+              <th>Pre-requisite</th>
+              <th>ECTS Credit</th>
+              <th>Grade</th>
+            </tr>
+          </thead>
+          <tbody id="tablebody" class="myTable">
+            {% for AreaElectiveCourse in elective_courses %}
+              <tr>
+                <td class="grade-{{AreaElectiveCourse.grade}}">{{ AreaElectiveCourse.course_code }}</td>
+                <td class="grade-{{AreaElectiveCourse.grade}}">{{ AreaElectiveCourse.title }}</td>
+                <td class="grade-{{AreaElectiveCourse.grade}}">{{ AreaElectiveCourse.category }}</td>
+                <td class="grade-{{AreaElectiveCourse.grade}}">Lecture: {{ AreaElectiveCourse.hours_lecture }} Tutorial: {{ AreaElectiveCourse.hours_tutorial }} Lab: {{ AreaElectiveCourse.hours_lab }}</td>
+                <td class="grade-{{AreaElectiveCourse.grade}}">{{ AreaElectiveCourse.total_credits }}</td>
+                <td class="grade-{{AreaElectiveCourse.grade}}">{{ AreaElectiveCourse.pre_requisite }}</td>
+                <td class="grade-{{AreaElectiveCourse.grade}}">{{ AreaElectiveCourse.ects_credit }}</td>
+                <td class="grade-{{AreaElectiveCourse.grade}}">{{ AreaElectiveCourse.grade }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+  </div>
+              
+  <div id="container">      
+    <div class="card">
+      <div class="card-title">Area Technical Courses</div>
+        <table id="myTable3" class="display">  
+          <thead>
+            <tr>
+              <th>Course Code</th>
+              <th>Course Title</th>
+              <th>Course Category</th>
+              <th>Hours</th>
+              <th>Total Credits</th>
+              <th>Pre-requisite</th>
+              <th>ECTS Credit</th>
+              <th>Grade</th>
+            </tr>
+          </thead>
+          <tbody id="tablebody" class="myTable">
+            {% for TechnicalElectiveCourse in technical_courses %}
+              <tr>
+                <td class="grade-{{TechnicalElectiveCourse.grade}}">{{ TechnicalElectiveCourse.course_code }}</td>
+                <td class="grade-{{TechnicalElectiveCourse.grade}}">{{ TechnicalElectiveCourse.title }}</td>
+                <td class="grade-{{TechnicalElectiveCourse.grade}}">{{ TechnicalElectiveCourse.category }}</td>
+                <td class="grade-{{TechnicalElectiveCourse.grade}}">Lecture: {{ TechnicalElectiveCourse.hours_lecture }} Tutorial: {{ TechnicalElectiveCourse.hours_tutorial }} Lab: {{ TechnicalElectiveCourse.hours_lab }}</td>
+                <td class="grade-{{TechnicalElectiveCourse.grade}}">{{ TechnicalElectiveCourse.total_credits }}</td>
+                <td class="grade-{{TechnicalElectiveCourse.grade}}">{{ TechnicalElectiveCourse.pre_requisite }}</td>
+                <td class="grade-{{TechnicalElectiveCourse.grade}}">{{ TechnicalElectiveCourse.ects_credit }}</td>
+                <td class="grade-{{TechnicalElectiveCourse.grade}}">{{ TechnicalElectiveCourse.grade }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  </body>
+              
+  <!-- Jquery -->
+              
+  <script src="{%static 'jquery/jquery-3.7.1.min.js' %}"></script>
+              
+  <!-- DataTables --> 
+              
+  <script src="{%static 'datatables/dataTables.js' %}"></script>
+              
+  <script>
+              
     let table = new DataTable('#myTable', {
     // options
+      paging: true,
+      searching: true,
+      info: true,
+      lengthMenu: [5, 10, 15],
+      pageLength: 5,
+      scrollX: true,  // Enable horizontal scrolling
+      autoWidth: false // Disable automatic column width calculation to allow manual adjustments
     });
-
- </script>
-
-<script>
-
-  let table2 = new DataTable('#myTable2', {
-  // options
-  });
-
-</script>
-
+              
+    let table2 = new DataTable('#myTable2', {
+    // options
+      paging: true,
+      searching: true,
+      info: true,
+      lengthMenu: [5, 10, 15],
+      pageLength: 5,
+      scrollX: true,  // Enable horizontal scrolling
+      autoWidth: false // Disable automatic column width calculation to allow manual adjustments
+    });
+              
+    let table3 = new DataTable('#myTable3', {
+    // options
+      paging: true,
+      searching: true,
+      info: true,
+      lengthMenu: [5, 10, 15],
+      pageLength: 5,
+      scrollX: true,  // Enable horizontal scrolling
+      autoWidth: false // Disable automatic column width calculation to allow manual adjustments
+    });
+  </script>
 {% endblock %}

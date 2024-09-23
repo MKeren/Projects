@@ -1,0 +1,314 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/add_new_course.css' %}">
+
+  <style>
+    .form-group {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+    }
+
+    .form-group > div {
+        flex: 1 1 45%;
+        margin-right: 5%;
+    }
+
+    .form-group > div:last-child {
+        margin-right: 0;
+    }
+
+    .course {
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        position: relative;
+    }
+
+    .course h3 {
+        margin-top: 0;
+        color: #333;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border: none;
+        color: white;
+        margin-top: 10px;
+        position: relative;
+        display: block;
+        margin-left: auto;
+        margin-right: 0;
+        width: 120px;
+        text-align: center;
+        bottom: 0;
+    }
+
+    .btn-danger:hover {
+        background-color: #c82333;
+    }
+
+    .logo2 {
+        text-align: center;
+        margin: 20px 0;
+    }
+
+    .logo2 img {
+        height: 100px;
+        width: auto;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        margin-bottom: 20px;
+    }
+
+    button[type="submit"], #add-course-btn {
+        background-color: #3a3a3a;
+        color: #fff;
+        border: none;
+        padding: 5px 10px;
+        font-size: 18px; /* Reduced font size */
+        cursor: pointer;
+        border-radius: 1px;
+        width: 100%;
+        transition: background-color 0.3s;
+    }
+
+    button[type="submit"]:hover, #add-course-btn:hover {
+        color: #ffffff;
+        background-color: rgb(229, 105, 105);
+    }
+
+    #button-container {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+        gap: 10px; /* Reduces the space between the buttons */
+    }
+
+    #button-container > div {
+        flex: 1 1 45%;
+        padding: 0; /* Ensure there's no additional padding */
+    }
+  </style>
+</head>
+
+<body>
+  <div id="main">
+    <div id="container" class="card">
+      <div id="header">
+        
+        <div class="logo">
+            <img src="https://cdn.pixabay.com/photo/2017/11/10/05/24/upload-2935442_1280.png" alt="Logo">
+        </div>
+        
+      </div>
+
+      <div id="upload-container">
+        <div class="card">
+          <form method="post" action="{% url 'add_area_elective_course' %}">
+            {% csrf_token %}
+            <div id="courses-container">
+              <div class="form-group">
+                <div>
+                  <label for="course_code_1">Course Code</label>
+                  <input type="text" name="course_code_1" id="course_code_1" class="form-control">
+                </div>
+                <div>
+                  <label for="course_title_1">Course Title</label>
+                  <input type="text" name="course_title_1" id="course_title_1" class="form-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <div>
+                  <label for="course_category_1">Course Category (AE, UE, FE)</label>
+                  <select name="course_category_1" id="course_category_1" class="form-control">
+                    <option value="AE">AE</option>
+                    <option value="UE">UE</option>
+                    <option value="FE">FE</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="hours_lecture_1">Hours (Lecture)</label>
+                  <input type="number" name="hours_lecture_1" id="hours_lecture_1" class="form-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <div>
+                  <label for="hours_tutorial_1">Hours (Tutorial)</label>
+                  <input type="number" name="hours_tutorial_1" id="hours_tutorial_1" class="form-control">
+                </div>
+                <div>
+                  <label for="hours_lab_1">Hours (Lab)</label>
+                  <input type="number" name="hours_lab_1" id="hours_lab_1" class="form-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <div>
+                  <label for="ectcs_credits_1">ECTS Credits</label>
+                  <input type="number" name="ectcs_credits_1" id="ectcs_credits_1" class="form-control">
+                </div>
+                <div>
+                  <label for="total_credits_1">Total Credits</label>
+                  <input type="number" name="total_credits_1" id="total_credits_1" class="form-control">
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="faculty">Select Faculty</label>
+              <select name="faculty" id="faculty" class="form-control">
+                  <option value="Computer_OldCatalog">Computer Engineering - Old Catalog</option>
+                  <option value="Computer_Newcatalog">Computer Engineering - New Catalog</option>
+                  <option value="Civil_NewCatalog">Civil Engineering - New Catalog</option>
+                  <option value="EE_OldCatalog">Electrical Engineering - Old Catalog</option>
+                  <option value="EE_NewCatalog">Electrical Engineering - New Catalog</option>
+                  <option value="AI_Catalog">AI Catalog</option>
+                  <option value="Software_NewCatalog">Software Engineering - New Catalog</option>
+                  <option value="Software_OldCatalog">Software Engineering - Old Catalog</option>
+                  <option value="dentistryE_Catalog">Dentistry English Catalog</option>
+                  <option value="dentistryT_Catalog">Dentistry Turkish Catalog</option>
+                  <option value="PharmacyEP_Catalog">Pharmacy English Program Catalog</option>
+                  <option value="PharmacyEM_Catalog">Pharmacy English Mid-Catalog</option>
+                  <option value="PharmacyT_Catalog">Pharmacy Turkish Catalog</option>
+                  <option value="ELT_NewCatalog">ELT New Catalog</option>
+                  <option value="ELT_MidleCatalog">ELT Mid Catalog</option>
+                  <option value="ELT_OldCatalog">ELT Old Catalog</option>
+                  <option value="PE_NewCatalog">Physical Education - New Catalog</option>
+                  <option value="PE_MidleCatalog">Physical Education - Mid Catalog</option>
+                  <option value="PE_OldCatalog">Physical Education - Old Catalog</option>
+                  <option value="SET_NewCatalog">SET - New Catalog</option>
+                  <option value="SET_OldCatalog">SET - Old Catalog</option>
+                  <option value="GPC_NewCatalog">GPC - New Catalog</option>
+                  <option value="GPC_MidleCatalog">GPC - Mid Catalog</option>
+                  <option value="GPC_OldCatalog">GPC - Old Catalog</option>
+                  <option value="TLT_NewCatalog">TLT - New Catalog</option>
+                  <option value="TLT_MidleCatalog">TLT - Mid Catalog</option>
+                  <option value="TLT_OldCatalog">TLT - Old Catalog</option>
+                  <option value="PFCP_Curriculum">PFCP Curriculum</option>
+                  <option value="PSYE_NewCatalog">Psychology English - New Catalog</option>
+                  <option value="PSYE_OldCatalog">Psychology English - Old Catalog</option>
+                  <option value="PSYT_NewCatalog">Psychology Turkish - New Catalog</option>
+                  <option value="PSYT_OldCatalog">Psychology Turkish - Old Catalog</option>
+                  <option value="LAW_NewCatalog">Law - New Catalog</option>
+                  <option value="LAW_OldCatalog">Law - Old Catalog</option>
+                  <option value="INTLAW_NewCatalog">International Law - New Catalog</option>
+                  <option value="INTLAW_OldCatalog">International Law - Old Catalog</option>
+                  <option value="BA_NewCatalog">Business Administration - New Catalog</option>
+                  <option value="BA_OldCatalog">Business Administration - Old Catalog</option>
+                  <option value="BE_Catalog">Business Economics Catalog</option>
+                  <option value="BAM_Catalog">Business Administration Management Catalog</option>
+                  <option value="BFA_NewCatalog">BFA - New Catalog</option>
+                  <option value="BFA_OldCatalog">BFA - Old Catalog</option>
+                  <option value="MDM_Catalog">Media and Digital Marketing Catalog</option>
+                  <option value="ECO_Catalog">Economics Catalog</option>
+                  <option value="PSIR_NewCatalog">PSIR - New Catalog</option>
+                  <option value="PSIR_OldCatalog">PSIR - Old Catalog</option>
+                  <option value="IFB_NewCatalog">IFB - New Catalog</option>
+                  <option value="IFB_OldCatalog">IFB - Old Catalog</option>
+                  <option value="ITB_NewCatalog">ITB - New Catalog</option>
+                  <option value="ITB_OldCatalog">ITB - Old Catalog</option>
+                  <option value="MIS_NewCatalog">MIS - New Catalog</option>
+                  <option value="MIS_OldCatalog">MIS - Old Catalog</option>
+                  <option value="IntArch_NewCatalog">Interior Architecture - New Catalog</option>
+                  <option value="IntArch_OldCatalog">Interior Architecture - Old Catalog</option>
+                  <option value="ARCHI_NewCatalog">Architecture - New Catalog</option>
+                  <option value="ARCHI_OldCatalog">Architecture - Old Catalog</option>
+                  <option value="Nutrition_Catalog">Nutrition Catalog</option>
+                  <option value="physio_engl_Catalog">Physiotherapy English Catalog</option>
+                  <option value="physio_TNewCatalog">Physiotherapy Turkish - New Catalog</option>
+                  <option value="physio_TOldCatalog">Physiotherapy Turkish - Old Catalog</option>
+                  <option value="Nursing_Catalog">Nursing Catalog</option>
+              </select>
+          </div>
+          
+            <div id="button-container">
+              <div>
+                <button type="submit" class="btn btn-primary btn-block">Add Course</button>
+              </div>
+              <div>
+                <button type="button" class="btn btn-secondary btn-block" id="add-course-btn">Add Another Course</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <script>
+    let courseCount = 1;
+    document.getElementById('add-course-btn').addEventListener('click', () => {
+        courseCount++;
+        const courseHtml = `
+            <div class="course">
+                <h3>Course ${courseCount}</h3>
+                <div class="form-group">
+                    <div>
+                        <label for="course_code_${courseCount}">Course Code</label>
+                        <input type="text" name="course_code_${courseCount}" id="course_code_${courseCount}" class="form-control">
+                    </div>
+                    <div>
+                        <label for="course_title_${courseCount}">Course Title</label>
+                        <input type="text" name="course_title_${courseCount}" id="course_title_${courseCount}" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div>
+                        <label for="course_category_${courseCount}">Course Category (AE, UE, FE)</label>
+                        <select name="course_category_${courseCount}" id="course_category_${courseCount}" class="form-control">
+                            <option value="AE">AE</option>
+                            <option value="UE">UE</option>
+                            <option value="FE">FE</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="hours_lecture_${courseCount}">Hours (Lecture)</label>
+                        <input type="number" name="hours_lecture_${courseCount}" id="hours_lecture_${courseCount}" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div>
+                        <label for="hours_tutorial_${courseCount}">Hours (Tutorial)</label>
+                        <input type="number" name="hours_tutorial_${courseCount}" id="hours_tutorial_${courseCount}" class="form-control">
+                    </div>
+                    <div>
+                        <label for="hours_lab_${courseCount}">Hours (Lab)</label>
+                        <input type="number" name="hours_lab_${courseCount}" id="hours_lab_${courseCount}" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div>
+                        <label for="ectcs_credits_${courseCount}">ECTS Credits</label>
+                        <input type="number" name="ectcs_credits_${courseCount}" id="ectcs_credits_${courseCount}" class="form-control">
+                    </div>
+                    <div>
+                        <label for="total_credits_${courseCount}">Total Credits</label>
+                        <input type="number" name="total_credits_${courseCount}" id="total_credits_${courseCount}" class="form-control">
+                    </div>
+                </div>
+                <button type="button" class="btn btn-danger" onclick="removeCourse(this)">Remove</button>
+            </div>
+        `;
+        document.getElementById('courses-container').insertAdjacentHTML('beforeend', courseHtml);
+    });
+
+    function removeCourse(button) {
+        button.closest('.course').remove();
+        courseCount--;
+    }
+  </script>
+
+</body>
+
+{% endblock %}

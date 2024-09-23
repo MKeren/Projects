@@ -31,6 +31,7 @@ urlpatterns = [
     path('faculties/', views.Faculties, name='faculties'),
     path('switch_language/', views.switch_language, name='switch_language'),
     path('i18n/', include('django.conf.urls.i18n')),
+    path('add-area-elective-course/', views.add_area_elective_course, name='add_area_elective_course'),
     
 
     path('computer_catalog/', views.Comp_Catalog, name='computer_catalog'),
