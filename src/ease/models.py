@@ -73,7 +73,7 @@ class Phamarcy_Course(models.Model):
     pre_requisite = models.TextField(null=True, blank=True)
     ects_credit = models.CharField(max_length=255,null=True, blank=True)
     total_credits = models.CharField(max_length=255, null=True, blank=True)
-    grade = models.CharField(max_length=255)
+    grade = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return self.course_code

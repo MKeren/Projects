@@ -128,6 +128,9 @@ LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale'),
 ]
 
+USE_I18N = True
+USE_L10N = True
+
 # Language query parameter
 LANGUAGE_QUERY_PARAMETER = 'lang'
 

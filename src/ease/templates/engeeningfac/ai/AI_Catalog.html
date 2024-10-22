@@ -184,7 +184,7 @@
           </thead>
                         
           <tbody id="tablebody" class="myTable">
-            {% for newcatalog in new_courses %}
+            {% for newcatalog in courses %}
               <tr>
                 <td class="grade-{{newcatalog.grade}}">{{ newcatalog.semester }}</td>
                 <td class="grade-{{newcatalog.grade}}">{{ newcatalog.course_code }}</td>
@@ -221,7 +221,7 @@
             </tr>
           </thead>
           <tbody id="tablebody" class="myTable">
-            {% for AreaElectiveCourse in new_elective_courses %}
+            {% for AreaElectiveCourse in elective_courses %}
               <tr>
                 <td class="grade-{{AreaElectiveCourse.grade}}">{{ AreaElectiveCourse.course_code }}</td>
                 <td class="grade-{{AreaElectiveCourse.grade}}">{{ AreaElectiveCourse.title }}</td>
@@ -255,7 +255,7 @@
             </tr>
           </thead>
           <tbody id="tablebody" class="myTable">
-            {% for TechnicalElectiveCourse in new_technical_courses %}
+            {% for TechnicalElectiveCourse in technical_courses %}
               <tr>
                 <td class="grade-{{TechnicalElectiveCourse.grade}}">{{ TechnicalElectiveCourse.course_code }}</td>
                 <td class="grade-{{TechnicalElectiveCourse.grade}}">{{ TechnicalElectiveCourse.title }}</td>
@@ -289,7 +289,7 @@
       paging: true,
       searching: true,
       info: true,
-      lengthMenu: [5, 10, 15],
+      lengthMenu: [5, 10, 50],
       pageLength: 5,
       scrollX: true,  // Enable horizontal scrolling
       autoWidth: false // Disable automatic column width calculation to allow manual adjustments
@@ -300,7 +300,7 @@
       paging: true,
       searching: true,
       info: true,
-      lengthMenu: [5, 10, 15],
+      lengthMenu: [5, 10, 50],
       pageLength: 5,
       scrollX: true,  // Enable horizontal scrolling
       autoWidth: false // Disable automatic column width calculation to allow manual adjustments
@@ -311,7 +311,7 @@
       paging: true,
       searching: true,
       info: true,
-      lengthMenu: [5, 10, 15],
+      lengthMenu: [5, 10, 50],
       pageLength: 5,
       scrollX: true,  // Enable horizontal scrolling
       autoWidth: false // Disable automatic column width calculation to allow manual adjustments

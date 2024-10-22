@@ -1,22 +1,27 @@
+from gettext import translation
 import io
-from runpy import _TempModule
+import re
+from venv import logger
 import PyPDF2
+import fitz
 from django.http import HttpResponse
 import docx
 import pandas as pd
+from django.utils import translation
+from django.conf import settings
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from AcademEase import settings
+#from AcademEase import settings
 from ease.forms import  DynamicAreaElectiveCourseForm, TranscriptUploadForm
 from ease.models import AI_Catalog, Architecture_and_Fine_Arts_Course, AreaElectiveCourse_AI_Catalog, AreaElectiveCourse_ARCHI_NewCatalog, AreaElectiveCourse_ARCHI_OldCatalog, AreaElectiveCourse_BA_NewCatalog, AreaElectiveCourse_BA_OldCatalog, AreaElectiveCourse_BAM_Catalog, AreaElectiveCourse_BE_Catalog, AreaElectiveCourse_BFA_NewCatalog, AreaElectiveCourse_BFA_OldCatalog, AreaElectiveCourse_Civil_Newcatalog,AreaElectiveCourse_Computer_Newcatalog, AreaElectiveCourse_Computer_OldCatalog, AreaElectiveCourse_ECO_Catalog, AreaElectiveCourse_EE_Newcatalog, AreaElectiveCourse_EE_OldCatalog, AreaElectiveCourse_ELT_MidleCatalog, AreaElectiveCourse_ELT_NewCatalog, AreaElectiveCourse_ELT_OldCtalog, AreaElectiveCourse_GPC_MidleCatalog, AreaElectiveCourse_GPC_NewCatalog, AreaElectiveCourse_GPC_OldCtalog, AreaElectiveCourse_IFB_NewCatalog, AreaElectiveCourse_IFB_OldCatalog, AreaElectiveCourse_INTLAW_NewCatalog, AreaElectiveCourse_INTLAW_OldCatalog, AreaElectiveCourse_ITB_NewCatalog, AreaElectiveCourse_ITB_OldCatalog, AreaElectiveCourse_IntArch_NewCatalog, AreaElectiveCourse_IntArch_OldCatalog, AreaElectiveCourse_LAW_NewCatalog, AreaElectiveCourse_LAW_OldCatalog, AreaElectiveCourse_MDM_Catalog, AreaElectiveCourse_MIS_NewCatalog, AreaElectiveCourse_MIS_OldCatalog, AreaElectiveCourse_Nursing_Catalog, AreaElectiveCourse_Nutrition_Catalog, AreaElectiveCourse_PE_MidleCatalog, AreaElectiveCourse_PE_NewCatalog, AreaElectiveCourse_PE_OldCtalog, AreaElectiveCourse_PFCP_Curriculum, AreaElectiveCourse_PSIR_NewCatalog, AreaElectiveCourse_PSIR_OldCatalog, AreaElectiveCourse_PSYE_NewCatalog, AreaElectiveCourse_PSYE_OldCatalog, AreaElectiveCourse_PSYT_NewCatalog, AreaElectiveCourse_PSYT_OldCatalog, AreaElectiveCourse_PharmacyEM_Catalog, AreaElectiveCourse_PharmacyEP_Catalog, AreaElectiveCourse_PharmacyT_Catalog, AreaElectiveCourse_SET_NewCatalog, AreaElectiveCourse_SET_OldCatalog, AreaElectiveCourse_Software_Newcatalog, AreaElectiveCourse_Software_Oldcatalog, AreaElectiveCourse_TLT_MidleCatalog, AreaElectiveCourse_TLT_NewCatalog, AreaElectiveCourse_TLT_OldCtalog, AreaElectiveCourse_civil_OldCatalog, AreaElectiveCourse_dentistryE_Catalog, AreaElectiveCourse_dentistryT_Catalog, AreaElectiveCourse_physio_TNewCatalog, AreaElectiveCourse_physio_TOldCatalog, AreaElectiveCourse_physio_engl_Catalog, AreaTechnicalCourse_AI_Catalog, AreaTechnicalCourse_ARCHI_NewCatalog, AreaTechnicalCourse_ARCHI_OldCatalog, AreaTechnicalCourse_BA_NewCatalog, AreaTechnicalCourse_BA_OldCatalog, AreaTechnicalCourse_BAM_Catalog, AreaTechnicalCourse_BE_Catalog, AreaTechnicalCourse_BFA_NewCatalog, AreaTechnicalCourse_BFA_OldCatalog, AreaTechnicalCourse_Civil_Newcatalog, AreaTechnicalCourse_Computer_Newcatalog, AreaTechnicalCourse_Computer_OldCatalog, AreaTechnicalCourse_ECO_Catalog, AreaTechnicalCourse_EE_Newcatalog, AreaTechnicalCourse_EE_OldCatalog, AreaTechnicalCourse_ELT_MidleCatalog, AreaTechnicalCourse_ELT_NewCatalog, AreaTechnicalCourse_ELT_OldCtalog, AreaTechnicalCourse_GPC_MidleCatalog, AreaTechnicalCourse_GPC_NewCatalog, AreaTechnicalCourse_GPC_OldCtalog, AreaTechnicalCourse_IFB_NewCatalog, AreaTechnicalCourse_IFB_OldCatalog, AreaTechnicalCourse_INTLAW_NewCatalog, AreaTechnicalCourse_INTLAW_OldCatalog, AreaTechnicalCourse_ITB_NewCatalog, AreaTechnicalCourse_ITB_OldCatalog, AreaTechnicalCourse_IntArch_NewCatalog, AreaTechnicalCourse_IntArch_OldCatalog, AreaTechnicalCourse_LAW_NewCatalog, AreaTechnicalCourse_LAW_OldCatalog, AreaTechnicalCourse_MDM_Catalog, AreaTechnicalCourse_MIS_NewCatalog, AreaTechnicalCourse_MIS_OldCatalog, AreaTechnicalCourse_Nursing_Catalog, AreaTechnicalCourse_Nutrition_Catalog, AreaTechnicalCourse_PE_MidleCatalog, AreaTechnicalCourse_PE_NewCatalog, AreaTechnicalCourse_PE_OldCtalog, AreaTechnicalCourse_PFCP_Curriculum, AreaTechnicalCourse_PSIR_NewCatalog, AreaTechnicalCourse_PSIR_OldCatalog, AreaTechnicalCourse_PSYE_NewCatalog, AreaTechnicalCourse_PSYE_OldCatalog, AreaTechnicalCourse_PSYT_NewCatalog, AreaTechnicalCourse_PSYT_OldCatalog, AreaTechnicalCourse_PharmacyEM_Catalog, AreaTechnicalCourse_PharmacyEP_Catalog, AreaTechnicalCourse_PharmacyT_Catalog, AreaTechnicalCourse_SET_NewCatalog, AreaTechnicalCourse_SET_OldCatalog, AreaTechnicalCourse_Software_Newcatalog, AreaTechnicalCourse_Software_Oldcatalog, AreaTechnicalCourse_TLT_MidleCatalog, AreaTechnicalCourse_TLT_NewCatalog, AreaTechnicalCourse_TLT_OldCtalog, AreaTechnicalCourse_civil_OldCatalog, AreaTechnicalCourse_dentistryE_Catalog, AreaTechnicalCourse_dentistryT_Catalog, AreaTechnicalCourse_physio_TNewCatalog, AreaTechnicalCourse_physio_TOldCatalog, AreaTechnicalCourse_physio_engl_Catalog, Arts_and_Sciences_Course, BA_New_catalog, BA_Old_catalog, BAM_catalog, BE_catalog, BFA_New_catalog, BFA_Old_catalog, Civil_Newcatalog, Dent_English_catalog, Dent_Turkish_catalog, EE_Newcatalog, EE_OldCatalog, Econo_catalog, Economics_and_Administrative_Sciences_Course, Edu_ELT2018_catalog, Edu_ELT2021_catalog, Edu_ELT_catalog, Edu_GPC2018_catalog, Edu_GPC2021_catalog, Edu_GPC_catalog, Edu_PE2018_catalog, Edu_PE2021_catalog, Edu_PE_catalog, Edu_PFCP_catalog, Edu_SET2018_catalog, Edu_SET2021_catalog, Edu_TLT2018_catalog, Edu_TLT2021_catalog, Edu_TLT_catalog, Educational_Sciences_Course, Engineering_Course, Computer_Newcatalog,Computer_OldCatalog, Faculty, Health_Sciences_Course, IFB_New_catalog, IFB_Old_catalog, ITB_New_catalog, ITB_Old_catalog, Int_Law_New_catalog, Int_Law_Old_catalog, Law_Course, Law_New_catalog, Law_Old_catalog, MIS_New_catalog, MIS_Old_catalog, MarkDigM_catalog, PSIR_New_catalog, PSIR_Old_catalog,Phamarcy_Course,Dentistry_Course, Pharmay_English_Mpharm_catalog, Pharmay_English_PharmD_catalog, Pharmay_Turkish_English_PharmD_catalog, Pharmay_Turkish_catalog, Psychologyy_Turkish_New_catalog, Psychologyy_Turkish_Old_catalog, Psycholoy_English_New_catalog, Psycholoy_English_Old_catalog, Software_Newcatalog, Software_Oldcatalog,Transcript, archi_New_catalog, archi_Old_catalog, civil_OldCatalog, interior_New_catalog, interior_Old_catalog, nursing_catalog, nutrition_catalog, physiotherapy_engl_catalog, physiotherapy_turk_new_catalog, physiotherapy_turk_old_catalog
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.utils.translation import gettext as _
 from django.utils.translation import activate
-
 from typing import Type
 from django.db.models import Model
 
+LANGUAGE_SESSION_KEY = 'django_language' 
 
 def user_login(request):
     if request.method == 'POST':
@@ -183,7 +188,7 @@ def user_logout(request):
 def Home(request):
     return render(request, 'home.html')
 
-def switch_language(request):
+#def switch_language(request):
     print(request.GET) 
     lang = request.GET.get('lang','')
     next_url = request.GET.get('next','/')
@@ -191,6 +196,20 @@ def switch_language(request):
     response = redirect(next_url)
     response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang)
     return response
+
+def switch_language(request):
+    if request.method == 'POST':
+        #lang_code = request.POST.get('language', settings.LANGUAGE_CODE)
+        #if lang_code in dict(settings.LANGUAGES):  # Ensure it's a valid language code
+            #translation.activate(lang_code)
+            #request.session[translation.LANGUAGE_SESSION_KEY] = lang_code
+            user_language = request.POST.get('language')
+            translation.activate(user_language)
+            #request.session[translation.LANGUAGE_SESSION_KEY] = user_language
+            request.session[LANGUAGE_SESSION_KEY] = user_language
+            logger.debug(f"Language switched to: {user_language}")  
+
+    return redirect(request.META.get('HTTP_REFERER', '/'))  # Redirect back to the previous page
 
 @login_required
 def StudentTranscriptView(request):
@@ -1128,7 +1147,7 @@ def upload_transcript(request):
                 'AreaElectiveCourse_Computer_OldCatalog': AreaElectiveCourse_Computer_OldCatalog,
                 'AreaElectiveCourse_Computer_Newcatalog': AreaElectiveCourse_Computer_Newcatalog,
                 'AreaElectiveCourse_Civil_Newcatalog': AreaElectiveCourse_Civil_Newcatalog,
-                'AreaElectiveCourse_Civil_Oldcatalog': AreaElectiveCourse_civil_OldCatalog,
+                'AreaElectiveCourse_civil_OldCatalog': AreaElectiveCourse_civil_OldCatalog,
                 'AreaElectiveCourse_EE_OldCatalog': AreaElectiveCourse_EE_OldCatalog,
                 'AreaElectiveCourse_EE_Newcatalog': AreaElectiveCourse_EE_Newcatalog,
                 'AreaElectiveCourse_AI_Catalog': AreaElectiveCourse_AI_Catalog,
@@ -1225,6 +1244,7 @@ def upload_transcript(request):
                 'AreaTechnicalCourse_Computer_OldCatalog': AreaTechnicalCourse_Computer_OldCatalog,
                 'AreaTechnicalCourse_Computer_Newcatalog': AreaTechnicalCourse_Computer_Newcatalog,
                 'AreaTechnicalCourse_Civil_Newcatalog': AreaTechnicalCourse_Civil_Newcatalog,
+                'AreaTechnicalCourse_civil_Oldcatalog': AreaTechnicalCourse_civil_OldCatalog,
                 'AreaTechnicalCourse_EE_OldCatalog': AreaTechnicalCourse_EE_OldCatalog,
                 'AreaTechnicalCourse_EE_Newcatalog': AreaTechnicalCourse_EE_Newcatalog,
                 'AreaTechnicalCourse_AI_Catalog': AreaTechnicalCourse_AI_Catalog,
@@ -1327,17 +1347,52 @@ def process_csv(file: io.BufferedReader) -> pd.DataFrame:
     df = pd.read_csv(file)
     return df
 
+#def process_csv(file: io.BufferedReader) -> pd.DataFrame:
+    # Read the CSV file into a DataFrame
+    df = pd.read_csv(file)
+    
+    # Convert DataFrame to a string to mimic the text structure from the PDF function
+    text = df.to_string(index=False, header=False)
+    
+    # Clean the text by removing unwanted characters like (rst) and *
+    clean_text = re.sub(r'\s*\(rst\)|\*', '', text)
+    
+    # Process the cleaned text to extract course data and return a DataFrame
+    return process_text_data(clean_text)
+
+#def process_excel(file: io.BufferedReader) -> pd.DataFrame:
+    # Read the Excel file into a DataFrame
+    df = pd.read_excel(file)
+
+    # Convert DataFrame to a string to mimic the text structure from the PDF function
+    text = df.to_string(index=False, header=False)
+
+    # Clean the text by removing unwanted characters like (rst) and *
+    clean_text = re.sub(r'\s*\(rst\)|\*', '', text)
+
+    # Process the cleaned text to extract course data and return a DataFrame
+    
+    return process_text_data(clean_text)
+
 def process_excel(file: io.BufferedReader) -> pd.DataFrame:
 
     df = pd.read_excel(file)
     return df
-    
+
 def process_pdf(file: io.BufferedReader) -> pd.DataFrame:
+    # Read the PDF file using PyPDF2
     pdf_reader = PyPDF2.PdfReader(file)
     text = ''
+
+    # Extract text from each page
     for page in pdf_reader.pages:
         text += page.extract_text()
-    return process_text_data(text)
+
+    # Clean the extracted text by removing unwanted characters like (rst) and *
+    clean_text = re.sub(r'\s*\(rst\)|\*', '', text)
+
+    # Process the cleaned text to extract course data and return a DataFrame
+    return process_text_data(clean_text)
 
 def process_docx(file: io.BufferedReader) -> pd.DataFrame:
     doc = docx.Document(file)
@@ -1348,10 +1403,10 @@ def process_txt(file: io.BufferedReader) -> pd.DataFrame:
     text = file.read().decode('utf-8')
     return process_text_data(text)
 
-    #def process_txt(file):
-    #return pd.read_csv(file, delimiter="\t")
+#def process_txt(file):
+#return pd.read_csv(file, delimiter="\t")
 
-def process_text_data(text: str) -> pd.DataFrame:
+#def process_text_data(text: str) -> pd.DataFrame:
     data = {
         'Code': [],
         'Title of Course': [],
@@ -1383,4 +1438,52 @@ def process_text_data(text: str) -> pd.DataFrame:
     
     df = pd.DataFrame(data)
     print("Processed DataFrame from text data:", df)
+    return df
+
+def process_text_data(text: str) -> pd.DataFrame:
+    # Initialize data structure to store extracted information
+    data = {
+        'Code': [],
+        'Title of Course': [],
+        'ECTS Credits': [],
+        'Grade': [],
+        'Credits': [],
+        'Gr.Pts': []
+    }
+    
+    # Clean up the text by removing unwanted characters like (rst) and *
+    clean_text = re.sub(r'\s*\(rst\)|\*', '', text)
+    
+    # Split the text by lines
+    lines = clean_text.split('\n')
+    
+    # Define the expected columns and flag for when the header is found
+    columns = ['Code', 'Title of Course', 'ECTS Credits', 'Grade', 'Credits', 'Gr.Pts']
+    header_found = False
+
+    for line in lines:
+        # Skip lines until we find the header
+        if not header_found:
+            if all(col in line for col in columns):
+                header_found = True
+            continue
+        
+        # After header is found, process each line to extract data
+        if header_found:
+            fields = line.split()
+            
+            # Check if there are at least 6 fields, adjust accordingly if not
+            if len(fields) >= 6:
+                # Extract course code, title, credits, grade, and points
+                data['Code'].append(fields[-5])
+                data['Title of Course'].append(' '.join(fields[0:-5]))  # All before the last 5 fields is the title
+                data['ECTS Credits'].append(fields[-3])
+                data['Grade'].append(fields[-4])
+                data['Credits'].append(fields[-2])
+                data['Gr.Pts'].append(fields[-1])
+
+    # Convert to DataFrame
+    df = pd.DataFrame(data)
+    print("Processed DataFrame from text data:", df)
+    
     return df

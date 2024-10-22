@@ -51,6 +51,18 @@
                 </th>
                 </tr>
             </table>
+
+             <!-- Language Switcher -->
+             <div class="language-switcher" style="margin-right: 10px;">
+                <form action="{% url 'switch_language' %}" method="post">
+                    {% csrf_token %}
+                    <select name="language" onchange="this.form.submit()">
+                        <option value="en" {% if LANGUAGE_CODE == 'en' %}selected{% endif %}>English</option>
+                        <option value="tr" {% if LANGUAGE_CODE == 'tr' %}selected{% endif %}>Türkçe</option>
+                    </select>
+                </form>
+            </div>
+            
         </div>
     </div>
 

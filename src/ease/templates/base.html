@@ -53,17 +53,22 @@
                 <div class="logo"><img src="https://lms3.final.edu.tr/LMS/pluginfile.php/1/core_admin/logo/0x150/1633438538/ufulogoen4.png" alt="Logo of Final International University LMS 3" class="img-fluid"></div>
                 <h5>AcademEase</h5>
             </div>
-            <h4 id="demo" class="right-side"></h4>
+            <h4 id="demo" class="right-side" style="margin-right: 10px;"></h4>
 
-            <div class="language-switcher">
-              <form action="{% url 'switch_language' %}" method="post">
-                {% csrf_token %}
-                  <select name="language"> onchange="this.form.submit()
-                      <option value="en" {% if LANGUAGE_CODE == 'en' %}selected{% endif %}>English</option>
-                      <option value="tr" {% if LANGUAGE_CODE == 'tr' %}selected{% endif %}>Türkçe</option>
+            <div class="language-switcher" style="margin-right: 10px;">
+                <form action="{% url 'switch_language' %}" method="post">
+                    {% csrf_token %}
+                    <select name="language" onchange="this.form.submit()">
+                        <option value="en" {% if LANGUAGE_CODE == 'en' %}selected{% endif %}>English</option>
+                        <option value="tr" {% if LANGUAGE_CODE == 'tr' %}selected{% endif %}>Türkçe</option>
                     </select>
-              </form>
-            </div>  
+                </form>
+            </div>
+
+            <!-- Logout Link -->
+            <div class="{% if request.resolver_match.url_name == 'logout' %}active{% endif %}"></div>
+                <a href="{% url 'logout' %}" style="color: black;"><i class="fas fa-sign-out-alt" style="color: black;"></i> Logout</a>
+            </div>
         </div>
     </div>
        
@@ -84,7 +89,8 @@
     
                 <!-- Faculties Link (Expandable) -->
                 <p class="{% if request.resolver_match.url_name == 'faculties' %}active{% endif %}">
-                    <a href="javascript:void(0);" onclick="toggleFacultySection()"><i class="fas fa-door-open"></i> Faculties</a>
+                    
+                    <a href="{% url 'faculties' %}" onclick="toggleFacultySection()"><i class="fas fa-door-open"></i> Faculties</a>
                     <ul id="faculty-submenu" class="department-list">
     
                     <!-- Faculty of Dentistry -->
@@ -162,7 +168,6 @@
                                 <li class="{% if request.resolver_match.url_name == 'civil_catalog' %}active{% endif %}"><a href="{% url 'civil_catalog' %}"><i class="fas fa-building"></i> Civil Engineering (English)</a></li>
                                 <li class="{% if request.resolver_match.url_name == 'AI_catalog' %}active{% endif %}"><a href="{% url 'AI_catalog' %}"><i class="fas fa-robot"></i> Artificial Intelligence Engineering (English)</a></li>
                                 <li class="{% if request.resolver_match.url_name == 'software_catalog' %}active{% endif %}"><a href="{% url 'software_catalog' %}"><i class="fas fa-code"></i> Software Engineering (English)</a></li>
-                                <li class="{% if request.resolver_match.url_name == 'IA_catalog' %}active{% endif %}"><a href="{% url 'IA_catalog' %}"><i class="fas fa-tools"></i> Industrial Automation (Turkish)</a></li>
                             </ul>
                         </li>
     
@@ -199,11 +204,6 @@
                  <!-- Add Course Link -->
                 <p class="{% if request.resolver_match.url_name == 'add_area_elective_course' %}active{% endif %}">
                     <a href="{% url 'add_area_elective_course' %}"><i class="fas fa-book"></i> Add Course</a>
-                </p>
-    
-                <!-- Logout Link -->
-                <p class="{% if request.resolver_match.url_name == 'logout' %}active{% endif %}">
-                    <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
                 </p>
             </ul>
         </div>
