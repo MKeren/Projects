@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MySpace - Home</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link rel="stylesheet" href="{% static 'sidebar.css' %}">
+
+
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2><a href="{% url 'home' %}" class="logo">MySpace</a></h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="{% url 'home' %}" class="nav-item">
+                    <i class="icon-home"></i> Accueil
+                </a>
+                <a href="{% url 'files' %}" class="nav-item">
+                    <i class="icon-folder"></i> Mes fichiers
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="icon-upload"></i> Upload
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="icon-recent"></i> Récents
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="icon-trash"></i> Corbeille
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <p>8.87 GB utilisé sur 15 GB</p>
+                <div class="storage-bar">
+                    <div class="storage-fill"></div>
+                </div>
+            </div>
+
+            <div class="storage-info">
+                <p>Used Storage: {{ user_storage_used }} of {{ user_total_storage }}</p>
+                <a href="{% url 'manage_storage' %}">Manage Data</a>
+            </div>
+        </aside>
+        <main class="main-content">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+</body>
+</html>
