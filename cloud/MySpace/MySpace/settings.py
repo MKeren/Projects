@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -38,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'drive',
+    'storages',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -74,12 +77,18 @@ WSGI_APPLICATION = 'MySpace.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# settings.py
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'drive',      
+        'USER': 'kema',       
+        'PASSWORD': 'kerenmat',       
+        'HOST': 'localhost',               
+        'PORT': '3306',       
     }
 }
+
 
 
 # Password validation
@@ -123,11 +132,23 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# settings.py
+# AWS S3 settings
+AWS_ACCESS_KEY_ID = 'AKIATAVABIB3EQAA7FHL'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'kera.github.io'
+AWS_S3_REGION_NAME = 'us-east-1'  
+AWS_S3_SIGNATURE_VERSION = 's3v4'
+
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-AWS_ACCESS_KEY_ID = 'your-access-key'
-AWS_SECRET_ACCESS_KEY = 'your-secret-key'
-AWS_STORAGE_BUCKET_NAME = 'your-bucket-name'
-# settings.py
+
+
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+
+
 LOGIN_URL = '/login/'
+
+if DEBUG:
+    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+
 

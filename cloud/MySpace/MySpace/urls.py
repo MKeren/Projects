@@ -15,8 +15,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import  path
 from drive import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,6 +29,6 @@ urlpatterns = [
     path('logout/', views.user_logout, name='logout'),
     path('upload/', views.upload_file, name='upload'),
     path('files/', views.file_list, name='files'),
-    path('manage-storage/', views.manage_storage, name='manage_storage'),
-    path('delete-file/<int:file_id>/', views.delete_file, name='delete_file'),
+    path('create-folder/', views.create_folder, name='create_folder'),
+    path('folder/<str:folder_name>/', views.folder_contents, name='folder_contents'),
 ]
