@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="{% static 'styles.css' %}">
     <link rel="stylesheet" href="{% static 'sidebar.css' %}">
 
-
 </head>
 <body>
     <div class="container">
@@ -21,29 +20,22 @@
                     <i class="icon-home"></i> Accueil
                 </a>
                 <a href="{% url 'files' %}" class="nav-item">
-                    <i class="icon-folder"></i> Mes fichiers
+                    <i class="icon-folder"></i> My Files
                 </a>
-                <a href="#" class="nav-item">
+                <a href="{% url 'upload' %}" class="nav-item">
                     <i class="icon-upload"></i> Upload
                 </a>
-                <a href="#" class="nav-item">
-                    <i class="icon-recent"></i> Récents
-                </a>
-                <a href="#" class="nav-item">
-                    <i class="icon-trash"></i> Corbeille
+                <a href="{% url 'logout' %}" class="nav-item">
+                    <i class="icon-trash"></i> Logout
                 </a>
             </nav>
             <div class="sidebar-footer">
-                <p>8.87 GB utilisé sur 15 GB</p>
+                <p>8.87 GB used over 15 GB</p>
                 <div class="storage-bar">
                     <div class="storage-fill"></div>
                 </div>
             </div>
 
-            <div class="storage-info">
-                <p>Used Storage: {{ user_storage_used }} of {{ user_total_storage }}</p>
-                <a href="{% url 'manage_storage' %}">Manage Data</a>
-            </div>
         </aside>
         <main class="main-content">
             {% block content %}{% endblock %}

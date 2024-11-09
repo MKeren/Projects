@@ -21,9 +21,10 @@
             <tbody>
                 {% for file in recent_files %}
                 <tr>
-                    <td>{{ file.name }}</td>
+                    <td>{{ file.file.name }}</td>
                     <td>{{ file.last_activity_date|date:"Y-m-d H:i" }}</td>
-                    <td>{{ file.size }} MB</td>
+                    <td>{{ file.file.size }} MB</td>
+                    <td>{{ file.get_category_display }}</td> 
                 </tr>
                 {% empty %}
                 <tr>
@@ -35,15 +36,18 @@
     </section>
 
     <!-- Suggested Folders Section -->
-    <section class="suggested-folders">
-        <h2>Suggested Folders</h2>
-        <div class="folders">
-            <div class="folder">My Notes</div>
-            <div class="folder">Important Docs</div>
-            <div class="folder">Pictures</div>
-            <div class="folder">Projects</div>
-        </div>
-    </section>
+<section class="suggested-folders">
+    <h2>Suggested Folders</h2>
+    <div class="folders">
+        <a href="{% url 'folder_contents' folder_name='Important Docs' %}" class="folder">Important Docs</a>
+        <a href="{% url 'folder_contents' folder_name='Pictures' %}" class="folder">Pictures</a>
+        <a href="{% url 'folder_contents' folder_name='Projects' %}" class="folder">Projects</a>
+    </div>
+</section>
+
+
+
+
 
 </div>
 

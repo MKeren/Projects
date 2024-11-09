@@ -29,7 +29,7 @@
         margin-bottom: 20px;
     }
 
-    input[type="text"], input[type="password"], input[type="file"] {
+    input[type="text"], input[type="password"] {
         width: 100%;
         padding: 12px;
         margin: 8px 0;
@@ -39,7 +39,7 @@
     }
 
     button {
-        background-color: #007bff;
+        background-color: #28a745;
         color: white;
         padding: 12px 20px;
         border: none;
@@ -50,7 +50,7 @@
     }
 
     button:hover {
-        background-color: #0056b3;
+        background-color: #218838;
     }
 
     p {
@@ -69,12 +69,12 @@
 </style>
 
 <div class="container">
-    <h2>Create an Account</h2>
+    <h2>Login to Your Account</h2>
     <form method="post">
         {% csrf_token %}
         <input type="text" name="username" placeholder="Username" required>
         <input type="password" name="password" placeholder="Password" required>
-        <button type="submit">Register</button>
+        <button type="submit">Login</button>
     </form>
-    <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+    <p>Don’t have an account? <a href="{% url 'register' %}">Register here</a></p>
 </div>

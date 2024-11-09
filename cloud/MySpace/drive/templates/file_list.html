@@ -1,86 +1,99 @@
-<!-- file_list.html -->
+{% extends 'base.html' %}
 {% load static %}
-<link rel="stylesheet" href="{% static 'styles.css' %}">
+{% block content %}
 
-<style>
-    
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f9;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-    }
-    
-    h1, h2 {
-        color: #333;
-    }
-    
-    form, ul {
-        background: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-    
-    input[type="text"], input[type="password"], input[type="file"] {
-        width: 100%;
-        padding: 8px;
-        margin: 8px 0;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-    }
-    
-    button {
-        background-color: #5cb85c;
-        color: white;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-    
-    button:hover {
-        background-color: #4cae4c;
-    }
-    
-</style>
-    
+<link rel="stylesheet" href="{% static 'dashboard.css' %}">
 
-<!-- file_list.html with filter options -->
-<h2>Your Files</h2>
+<div class="dashboard">
+    <h1>Welcome to MySpace</h1>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        
+        h1, h2, h3 {
+            color: #333;
+        }
+        
+        form, ul {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        input[type="text"], input[type="password"], input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        
+        button {
+            background-color: #5cb85c;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #4cae4c;
+        }
+    </style>
 
-<label for="file-type">Filter by type:</label>
-<select id="file-type" name="file_type" onchange="filterFiles()">
-    <option value="all">All</option>
-    <option value=".zip">ZIP</option>
-    <option value=".rar">RAR</option>
-    <option value=".jpg">JPG</option>
-    <option value=".pdf">PDF</option>
-    <!-- Add other options as needed -->
-</select>
 
-<ul id="file-list">
-    {% for file in files %}
-        <li data-filetype="{{ file.file.name|slice:"-4:" }}">  <!-- e.g., .zip, .jpg -->
-            <a href="{{ file.file.url }}">{{ file.file.name }}</a>
-        </li>
+    <h2>Your Files and Folders</h2>
+
+    <!-- Folders Section -->
+
+    <h3>Folders</h3>
+<ul>
+    {% for folder in folders %}
+        <li><a href="{% url 'folder_contents' folder_name=folder.name  %}">{{ folder.name }}</a></li>
     {% endfor %}
 </ul>
 
-<!-- Add folder form in file_list.html -->
-<h2>Your Folders</h2>
-<form method="post" action="{% url 'files' %}">
-    {% csrf_token %}
-    <input type="text" name="folder_name" placeholder="Folder Name" required>
-    <button type="submit">Create Folder</button>
-</form>
 
-<h3>Files in {{ folder_name }}</h3>
-<!-- Show files within the selected folder here -->
+    <!-- Form to Create Folder -->
+    <form method="post" action="{% url 'create_folder' %}">
+        {% csrf_token %}
+        <button type="submit">Create Folder</button>
+    </form>
+    
+    <!-- Files Section -->
+    <h3>Your Files</h3>
 
+    <!-- File Type Filter -->
+    <label for="file-type">Filter by type:</label>
+    <select id="file-type" name="file_type" onchange="filterFiles()">
+        <option value="all">All</option>
+        <option value=".zip">ZIP</option>
+        <option value=".rar">RAR</option>
+        <option value=".jpg">JPG</option>
+        <option value=".pdf">PDF</option>
+    </select>
+
+    <ul id="file-list">
+        {% for file in files %}
+            <li data-filetype="{{ file.file.name|slice:"-4:" }}">
+                <a href="{{ file.file.url }}">{{ file.file.name }}</a> ({{ file.get_category_display }})
+            </li>
+        {% empty %}
+            <li>No files found.</li>
+        {% endfor %}
+    </ul>
+
+</div>
 
 <script>
     function filterFiles() {
@@ -95,3 +108,5 @@
         });
     }
 </script>
+
+{% endblock %}
