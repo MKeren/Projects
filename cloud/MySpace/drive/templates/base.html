@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -230,50 +230,3 @@ footer {
     </div>
 </body>
 </html>
-=======
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MySpace - Home</title>
-    <link rel="stylesheet" href="{% static 'styles.css' %}">
-    <link rel="stylesheet" href="{% static 'sidebar.css' %}">
-
-</head>
-<body>
-    <div class="container">
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <h2><a href="{% url 'home' %}" class="logo">MySpace</a></h2>
-            </div>
-            <nav class="sidebar-nav">
-                <a href="{% url 'home' %}" class="nav-item">
-                    <i class="icon-home"></i> Accueil
-                </a>
-                <a href="{% url 'files' %}" class="nav-item">
-                    <i class="icon-folder"></i> My Files
-                </a>
-                <a href="{% url 'upload' %}" class="nav-item">
-                    <i class="icon-upload"></i> Upload
-                </a>
-                <a href="{% url 'logout' %}" class="nav-item">
-                    <i class="icon-trash"></i> Logout
-                </a>
-            </nav>
-            <div class="sidebar-footer">
-                <p>8.87 GB used over 15 GB</p>
-                <div class="storage-bar">
-                    <div class="storage-fill"></div>
-                </div>
-            </div>
-
-        </aside>
-        <main class="main-content">
-            {% block content %}{% endblock %}
-        </main>
-    </div>
-</body>
-</html>
->>>>>>> 6617550fcf715d2b591290a52794c37762d08141

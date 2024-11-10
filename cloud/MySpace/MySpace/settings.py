@@ -134,11 +134,32 @@ MEDIA_URL = 'uploads/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# settings.py
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-AWS_ACCESS_KEY_ID = 'your-access-key'
-AWS_SECRET_ACCESS_KEY = 'your-secret-key'
-AWS_STORAGE_BUCKET_NAME = 'your-bucket-name'
-# settings.py
+# AWS S3 settings
+AWS_ACCESS_KEY_ID = 'AKIATAVABIB3EQAA7FHL'
+AWS_SECRET_ACCESS_KEY = 'XKhCKDP+ZeTSl16ExLy3oO4lWucpfmRXgbvfB3xR'
+AWS_STORAGE_BUCKET_NAME = 'drive-project-bucket'
+AWS_S3_REGION_NAME = 'us-east-1'  
+AWS_S3_SIGNATURE_VERSION = 's3v4'
+
+
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+
+# Static files storage configuration
+STATIC_URL = f'https://drive-project-bucket.s3.amazonaws.com/static/'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
+# Media files storage configuration
+MEDIA_URL = f'https://drive-project-bucket.s3.amazonaws.com/media/'
+#DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# Local file paths (optional, used for local development)
+STATIC_ROOT = Path(__file__).resolve().parent / "staticfiles"
+MEDIA_ROOT = Path(__file__).resolve().parent / "mediafiles"
+
+
 LOGIN_URL = '/login/'
+
+#DEFAULT_FILE_STORAGE = 'drive.custom_storages.MediaStorage'
+#DEFAULT_FILE_STORAGE ='drive.custom_storages.S3MediaStorage'
+
 

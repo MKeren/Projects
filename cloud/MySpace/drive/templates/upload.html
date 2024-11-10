@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 {% extends 'base.html' %}
 {% load static %}
 
@@ -112,81 +112,3 @@
 </div>
 
 {% endblock %}
-=======
-<!-- upload.html -->
-{% extends 'base.html' %}
-{% load static %}
-{% block content %}
-
-<link rel="stylesheet" href="{% static 'dashboard.css' %}">
-
-<div class="dashboard">
-    <h1>Welcome to MySpace</h1>
-<style>
-    
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f9;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-    }
-    
-    h1, h2 {
-        color: #333;
-    }
-    
-    form, ul {
-        background: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-    
-    input[type="text"], input[type="password"], input[type="file"] {
-        width: 100%;
-        padding: 8px;
-        margin: 8px 0;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-    }
-    
-    button {
-        background-color: #5cb85c;
-        color: white;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-    
-    button:hover {
-        background-color: #4cae4c;
-    }
-    
-</style>
-    
-
-<h2>Upload New File</h2>
-<form method="post" action="{% url 'upload' %}" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-
-    <label for="folder">Choose a Folder:</label>
-    <select name="folder" id="folder">
-        {% for folder in folders %}
-            <option value="{{ folder.id }}">{{ folder.name }}</option>
-        {% empty %}
-            <option value="">No folders available</option>
-        {% endfor %}
-    </select>
-
-    <button type="submit">Upload</button>
-</form>
-
-
-
-{% endblock %}
->>>>>>> 6617550fcf715d2b591290a52794c37762d08141

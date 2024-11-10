@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
@@ -214,59 +214,3 @@
 
 
 {% endblock %}
-=======
-{% extends 'base.html' %}
-{% load static %}
-{% block content %}
-
-<link rel="stylesheet" href="{% static 'dashboard.css' %}">
-
-<div class="dashboard">
-    <h1>Welcome to MySpace</h1>
-
-    <!-- Last Activity Section -->
-    <section class="activity">
-        <h2>Last Activity</h2>
-        <table class="activity-table">
-            <thead>
-                <tr>
-                    <th>File Name</th>
-                    <th>Last Activity Date</th>
-                    <th>File Size</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for file in recent_files %}
-                <tr>
-                    <td>{{ file.file.name }}</td>
-                    <td>{{ file.last_activity_date|date:"Y-m-d H:i" }}</td>
-                    <td>{{ file.file.size }} MB</td>
-                    <td>{{ file.get_category_display }}</td> 
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="3">No recent activity</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </section>
-
-    <!-- Suggested Folders Section -->
-<section class="suggested-folders">
-    <h2>Suggested Folders</h2>
-    <div class="folders">
-        <a href="{% url 'folder_contents' folder_name='Important Docs' %}" class="folder">Important Docs</a>
-        <a href="{% url 'folder_contents' folder_name='Pictures' %}" class="folder">Pictures</a>
-        <a href="{% url 'folder_contents' folder_name='Projects' %}" class="folder">Projects</a>
-    </div>
-</section>
-
-
-
-
-
-</div>
-
-{% endblock %}
->>>>>>> 6617550fcf715d2b591290a52794c37762d08141
