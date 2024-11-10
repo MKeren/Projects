@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!-- create_folder.html -->
 {% extends 'base.html' %}
 {% load static %}
@@ -12,4 +13,20 @@
     {{ form.as_p }}
     <button type="submit">Create Folder</button>
 </form>
+=======
+<!-- create_folder.html -->
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'dashboard.css' %}">
+
+<div class="dashboard">
+<h1>Create Folder</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create Folder</button>
+</form>
+>>>>>>> 6617550fcf715d2b591290a52794c37762d08141
 {% endblock %}

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends 'base.html' %}
 {% load static %}
 
@@ -90,3 +91,23 @@
 </div>
 
 {% endblock %}
+=======
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h2>Contents of Folder: {{ folder.name }}</h2>
+
+<h3>Files</h3>
+    <ul>
+        {% for file in files_in_folder %}
+            <li>
+                <a href="{{ file.file.url }}">{{ file.file.name }}</a>
+            </li>
+        {% empty %}
+            <li>No files in this folder.</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
+>>>>>>> 6617550fcf715d2b591290a52794c37762d08141

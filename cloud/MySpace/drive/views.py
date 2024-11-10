@@ -10,16 +10,23 @@ from drive.forms import FileForm, FileUploadForm, FolderForm
 from drive.models import File, Folder
 from django.shortcuts import get_object_or_404, redirect
 
-@login_required
-def home(request):
-    # Get recent files, ordered by last activity date, adjust according to your needs
-    recent_files = File.objects.all().order_by('-last_activity')[:5]  # Get the top 5 recent files
 
+def home(request):
+    # Fetch recent files for the last activity table
+    recent_files = File.objects.filter(user=request.user).order_by('-last_activity_date')[:10]
+
+    # Calculate storage space used (in MB)
+    user_storage_used = sum(file.size for file in recent_files)  # example in MB
+    user_total_storage = 10240  # Example: 10 GB in MB
+    
     context = {
         'recent_files': recent_files,
+        'user_storage_used': user_storage_used,
+        'user_total_storage': user_total_storage,
     }
 
     return render(request, 'home.html', context)
+
 
 def register(request):
     if request.method == 'POST':
@@ -46,78 +53,37 @@ def user_logout(request):
     logout(request)
     return redirect('login')
 
-
-def create_folder(request):
-    if request.method == 'POST':
-        form = FolderForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('files')
-    else:
-        form = FolderForm()
-    return render(request, 'create_folder.html', {'form': form})
-
+#@login_required
 def upload_file(request):
-    if request.method == 'POST':
-        form = FileUploadForm(request.POST, request.FILES)
-        folder_id = request.POST.get('folder')
+    if request.method == 'POST' and request.FILES['file']:
+        uploaded_file = request.FILES['file']
+        file_instance = File(user=request.user, file=uploaded_file)
+        file_instance.save()
+        return redirect('file_list')
+    return render(request, 'upload.html')
 
-        if form.is_valid():
-            
-            file = form.save(commit=False)
-            if folder_id:
-               
-                folder = Folder.objects.get(id=folder_id)
-                file.folder = folder
-            file.save()
-            return redirect('files')  
-
-    else:
-        form = FileUploadForm()
-        folders = Folder.objects.all()
-    
-    return render(request, 'upload.html', {'form': form, 'folders': folders})
-
-@login_required
+#@login_required
 def file_list(request):
-    folders = Folder.objects.all()
-    folder_id = request.GET.get('folder')
+    files = File.objects.filter(user=request.user)
+    return render(request, 'file_list.html',{'files': files})
 
-    if folder_id:
-        folder = Folder.objects.get(id=folder_id)
-        files = folder.files.all() 
-    else:
-        files = File.objects.all()
+def manage_storage(request):
+    # Get all files for the current user
+    user_files = File.objects.filter(user=request.user)
 
+    # Calculate storage usage
+    total_storage = 10240  # Example: 10 GB in MB
+    used_storage = sum(file.size for file in user_files)  # Sum of file sizes (in MB)
 
-    if request.method == 'POST':
-        folder_form = FolderForm(request.POST)
-        if folder_form.is_valid():
-            folder_form.save()
-            return redirect('files') 
-    return render(request, 'file_list.html', {
-        'folders': folders,
-        'files': files,
-    })
+    context = {
+        'user_files': user_files,
+        'used_storage': used_storage,
+        'total_storage': total_storage,
+    }
+    
+    return render(request, 'manage_storage.html', context)
 
-def folder_contents(request, folder_name):
-    folder = Folder.objects.get(name=folder_name)
-
-    if request.method == 'POST':
-        form = FileUploadForm(request.POST, request.FILES)
-        if form.is_valid():
-            file = form.save(commit=False)
-            file.folder = folder
-            file.save()
-            return redirect('folder_contents', folder_name=folder_name)
-    else:
-        form = FileUploadForm()
-
-    # Get all files in the folder
-    files_in_folder = File.objects.filter(folder=folder)
-
-    return render(request, 'folder_contents.html', {
-        'folder': folder,
-        'form': form,
-        'files_in_folder': files_in_folder
-    })
+def delete_file(request, file_id):
+    file = get_object_or_404(File, id=file_id, user=request.user)
+    file.delete()
+    return redirect('manage_storage')
