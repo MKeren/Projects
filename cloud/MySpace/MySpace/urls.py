@@ -31,4 +31,4 @@ urlpatterns = [
     path('files/', views.file_list, name='files'),
     path('create-folder/', views.create_folder, name='create_folder'),
     path('folder/<str:folder_name>/', views.folder_contents, name='folder_contents'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

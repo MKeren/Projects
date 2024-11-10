@@ -6,218 +6,246 @@
 
 <style>
     /* Base layout */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    margin: 0;
-    display: flex;
-    height: 100vh;
-}
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        display: flex;
+        height: 100vh;
+    }
 
-.container {
-    display: flex;
-    width: 100%;
-}
+    /* Container for sidebar and main content */
+    .container {
+        display: flex;
+        width: 100%;
+    }
 
-/* Sidebar styling */
-.sidebar {
-    width: 250px;
-    background-color: #202124;
-    color: #ffffff;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+    /* Sidebar styling */
+    .sidebar {
+        width: 250px;
+        background-color: #202124;
+        color: #ffffff;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: fixed;
+        height: 100%;
+        top: 0;
+        left: 0;
+        box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+    }
 
-.sidebar h2 {
-    color: #4285f4;
-}
+    .sidebar h2 {
+        color: #4285f4;
+        margin-bottom: 30px;
+        font-size: 24px;
+        font-weight: bold;
+    }
 
-.sidebar nav a {
-    color: #ffffff;
-    text-decoration: none;
-    margin: 10px 0;
-    display: block;
-}
+    .sidebar nav a {
+        color: #ffffff;
+        text-decoration: none;
+        margin: 15px 0;
+        font-size: 16px;
+        transition: color 0.3s ease;
+    }
 
-.sidebar nav a:hover {
-    color: #4285f4;
-}
+    .sidebar nav a:hover {
+        color: #4285f4;
+    }
 
-/* Main content styling */
-.main-content {
-    flex: 1;
-    padding: 20px;
-    background-color: #ffffff;
-    overflow-y: auto;
-}
+    /* Main content area */
+    .main-content {
+        flex: 1;
+        margin-left: 250px; /* Account for sidebar width */
+        padding: 40px;
+        background-color: #ffffff;
+        overflow-y: auto;
+        height: 100%;
+    }
 
-/* Dashboard styling */
-.dashboard {
-    max-width: 900px;
-    margin: 0 auto;
-}
+    /* Dashboard styling */
+    .dashboard {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
 
-.dashboard h1, .dashboard h2 {
-    color: #333333;
-}
+    /* Header Styling */
+    .dashboard h1 {
+        color: #333333;
+        font-size: 32px;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
 
-/* Sections for activity and suggested folders */
-.activity, .suggested-folders {
-    margin-bottom: 30px;
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+    /* Section styling */
+    .activity, .suggested-folders, .files-section {
+        margin-bottom: 30px;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
 
-.activity ul {
-    list-style-type: none;
-    padding: 0;
-}
+    .activity h2, .suggested-folders h2, .files-section h2 {
+        font-size: 22px;
+        margin-bottom: 15px;
+        color: #4285f4;
+    }
 
-.activity li {
-    margin-bottom: 10px;
-    font-size: 14px;
-}
+    /* Table Styling */
+    .activity-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        font-size: 14px;
+    }
 
-.activity-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
+    .activity-table th, .activity-table td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
 
-.activity-table th, .activity-table td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
+    .activity-table th {
+        background-color: #f4f4f4;
+        font-weight: bold;
+    }
 
-.activity-table th {
-    background-color: #f4f4f4;
-    font-weight: bold;
-}
+    .activity-table td {
+        color: #555;
+    }
 
-.activity-table td {
-    color: #555;
-}
+    /* Folder Styling */
+    .suggested-folders .folders {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
 
+    .folder {
+        background-color: #4285f4;
+        color: #ffffff;
+        padding: 30px;
+        border-radius: 10px;
+        width: 180px;
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        cursor: pointer;
+    }
 
-.suggested-folders .folders {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
+    .folder:hover {
+        background-color: #0b67d7;
+        transform: scale(1.05);
+    }
 
-.folder {
-    background-color: #e8eaed;
-    padding: 20px;
-    border-radius: 8px;
-    width: 150px;
-    text-align: center;
-    font-weight: bold;
-    color: #5f6368;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+    .folder a {
+        color: #ffffff;
+        text-decoration: none;
+    }
 
-.folder:hover {
-    background-color: #c6c8cb;
-    color: #333;
-}
+    /* File List Section */
+    .file-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .file-item {
+        background-color: #e8eaed;
+        padding: 20px;
+        border-radius: 8px;
+        width: 150px;
+        text-align: center;
+        font-weight: bold;
+        color: #5f6368;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .file-item:hover {
+        background-color: #c6c8cb;
+        color: #333;
+        transform: scale(1.05);
+    }
+
+    .file-item a {
+        color: #5f6368;
+        text-decoration: none;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+        .container {
+            flex-direction: column;
+        }
+
+        .main-content {
+            margin-left: 0;
+        }
+
+        .sidebar {
+            width: 100%;
+            padding: 20px;
+        }
+
+        .file-item {
+            width: 100%;
+            font-size: 14px;
+        }
+    }
 
 </style>
 
-
 <div class="dashboard">
     <h1>Welcome to MySpace</h1>
-    
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        
-        h1, h2, h3 {
-            color: #333;
-        }
-        
-        form, ul {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        
-        input[type="text"], input[type="password"], input[type="file"] {
-            width: 100%;
-            padding: 8px;
-            margin: 8px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        
-        button {
-            background-color: #5cb85c;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        
-        button:hover {
-            background-color: #4cae4c;
-        }
-    </style>
-
-
-    <h2>Your Files and Folders</h2>
 
     <!-- Folders Section -->
+    <section class="files-section">
+        <h2>Your Folders</h2>
+        <div class="file-list">
+            {% for folder in folders %}
+                <div class="file-item">
+                    <a href="{% url 'folder_contents' folder_name=folder.name %}">{{ folder.name }}</a>
+                </div>
+            {% endfor %}
+        </div>
 
-    <h3>Folders</h3>
-<ul>
-    {% for folder in folders %}
-        <li><a href="{% url 'folder_contents' folder_name=folder.name  %}">{{ folder.name }}</a></li>
-    {% endfor %}
-</ul>
+        <!-- Form to Create Folder -->
+        <form method="post" action="{% url 'create_folder' %}">
+            {% csrf_token %}
+            <button type="submit">Create Folder</button>
+        </form>
+    </section>
 
-
-    <!-- Form to Create Folder -->
-    <form method="post" action="{% url 'create_folder' %}">
-        {% csrf_token %}
-        <button type="submit">Create Folder</button>
-    </form>
-    
     <!-- Files Section -->
-    <h3>Your Files</h3>
+    <section class="files-section">
+        <h2>Your Files</h2>
 
-    <!-- File Type Filter -->
-    <label for="file-type">Filter by type:</label>
-    <select id="file-type" name="file_type" onchange="filterFiles()">
-        <option value="all">All</option>
-        <option value=".zip">ZIP</option>
-        <option value=".rar">RAR</option>
-        <option value=".jpg">JPG</option>
-        <option value=".pdf">PDF</option>
-    </select>
+        <!-- File Type Filter -->
+        <label for="file-type">Filter by type:</label>
+        <select id="file-type" name="file_type" onchange="filterFiles()">
+            <option value="all">All</option>
+            <option value=".zip">ZIP</option>
+            <option value=".rar">RAR</option>
+            <option value=".jpg">JPG</option>
+            <option value=".pdf">PDF</option>
+        </select>
 
-    <ul id="file-list">
-        {% for file in files %}
-            <li data-filetype="{{ file.file.name|slice:"-4:" }}">
-                <a href="{{ file.file.url }}">{{ file.file.name }}</a> ({{ file.get_category_display }})
-            </li>
-        {% empty %}
-            <li>No files found.</li>
-        {% endfor %}
-    </ul>
-
+        <div class="file-list" id="file-list">
+            {% for file in files %}
+                <div class="file-item" data-filetype="{{ file.file.name|slice:"-4:" }}">
+                    <a href="{{ file.file.url }}">{{ file.file.name }}</a> ({{ file.get_category_display }})
+                </div>
+            {% empty %}
+                <div class="file-item">No files found.</div>
+            {% endfor %}
+        </div>
+    </section>
 </div>
 
 <script>

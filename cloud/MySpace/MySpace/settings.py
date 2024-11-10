@@ -25,6 +25,7 @@ SECRET_KEY = 'django-insecure-lbx@y6ki%6w9=jd+sem)g6p+i%8d11kikpxhc6v^^qyqg&%u#&
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+#DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -148,8 +149,8 @@ AWS_DEFAULT_ACL = None
 STATIC_URL = f'https://drive-project-bucket.s3.amazonaws.com/static/'
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
 # Media files storage configuration
-MEDIA_URL = f'https://drive-project-bucket.s3.amazonaws.com/uploads/'
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+MEDIA_URL = f'https://drive-project-bucket.s3.amazonaws.com/media/'
+#DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # Local file paths (optional, used for local development)
 STATIC_ROOT = Path(__file__).resolve().parent / "staticfiles"
@@ -158,7 +159,7 @@ MEDIA_ROOT = Path(__file__).resolve().parent / "mediafiles"
 
 LOGIN_URL = '/login/'
 
-if DEBUG:
-    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+DEFAULT_FILE_STORAGE = 'drive.custom_storages.MediaStorage'
+DEFAULT_FILE_STORAGE ='drive.custom_storages.S3MediaStorage'
 
 

@@ -10,31 +10,16 @@ from drive.forms import FileForm, FileUploadForm, FolderForm
 from drive.models import File, Folder
 from django.shortcuts import get_object_or_404, redirect
 
-
-def Home(request):
-    # Fetch recent files for the last activity table
-    recent_files = File.objects.all().order_by('-last_activity')[:10]
-
-    # Calculate storage space used (in MB) for the files fetched
-    total_storage_used = sum(file.file_size for file in recent_files)  # assuming file size is in bytes
-    total_storage_limit = 10240 * 1024 * 1024  # Example: 10 GB in bytes
-    
-    context = {
-        'recent_files': recent_files,
-        'total_storage_used': total_storage_used / (1024 * 1024),  # Convert bytes to MB
-        'total_storage_limit': total_storage_limit / (1024 * 1024),  # Convert bytes to MB
-    }
-    
-    return render(request, 'home.html', context)
-
 @login_required
 def home(request):
-    recent_files = File.objects.filter(uploaded_by=request.user).order_by('-last_activity')[:10]
+    # Get recent files, ordered by last activity date, adjust according to your needs
+    recent_files = File.objects.all().order_by('-last_activity')[:5]  # Get the top 5 recent files
+
     context = {
         'recent_files': recent_files,
     }
-    return render(request, 'home.html', context)
 
+    return render(request, 'home.html', context)
 
 def register(request):
     if request.method == 'POST':
@@ -67,50 +52,43 @@ def create_folder(request):
         form = FolderForm(request.POST)
         if form.is_valid():
             form.save()
-            #messages.success(request, 'Folder created successfully!')
             return redirect('files')
     else:
         form = FolderForm()
     return render(request, 'create_folder.html', {'form': form})
 
-@login_required
-def Upload_file(request):
-    if request.method == 'POST':
-        form = FileUploadForm(request.POST, request.FILES)
-        if form.is_valid():
-            file_instance = form.save(commit=False)
-            file_instance.uploaded_by = request.user
-            file_instance.save()
-            #messages.success(request, 'File uploaded successfully!')
-            return redirect('files')
-    else:
-        form = FileForm()
-    return render(request, 'upload.html', {'form': form})
-
-
 def upload_file(request):
-    # Get all folders from the database
-    folders = Folder.objects.all()
-
-    # Handle file upload
     if request.method == 'POST':
         form = FileUploadForm(request.POST, request.FILES)
+        folder_id = request.POST.get('folder')
+
         if form.is_valid():
-            # Save the file, and you can also assign the folder here if required
-            file = form.save()
-            # Redirect to a success page or file list
-            return redirect('files')  # Replace with the appropriate redirect URL
+            
+            file = form.save(commit=False)
+            if folder_id:
+               
+                folder = Folder.objects.get(id=folder_id)
+                file.folder = folder
+            file.save()
+            return redirect('files')  
+
     else:
         form = FileUploadForm()
-
+        folders = Folder.objects.all()
+    
     return render(request, 'upload.html', {'form': form, 'folders': folders})
-
-
 
 @login_required
 def file_list(request):
     folders = Folder.objects.all()
-    files = File.objects.all()
+    folder_id = request.GET.get('folder')
+
+    if folder_id:
+        folder = Folder.objects.get(id=folder_id)
+        files = folder.files.all() 
+    else:
+        files = File.objects.all()
+
 
     if request.method == 'POST':
         folder_form = FolderForm(request.POST)
@@ -128,7 +106,6 @@ def folder_contents(request, folder_name):
     if request.method == 'POST':
         form = FileUploadForm(request.POST, request.FILES)
         if form.is_valid():
-            # Save the file and associate it with the current folder
             file = form.save(commit=False)
             file.folder = folder
             file.save()

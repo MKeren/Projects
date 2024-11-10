@@ -1,8 +1,4 @@
-{% extends 'base.html' %}
-{% load static %}
 
-{% block content %}
-<style>
     body {
         font-family: 'Roboto', sans-serif;
         background-color: #f4f4f9;
@@ -72,21 +68,3 @@
         font-size: 16px;
         margin-top: 20px;
     }
-</style>
-
-<div class="folder-contents">
-    <h2>Contents of Folder: {{ folder.name }}</h2>
-
-    <h3>Files</h3>
-    <ul class="files-list">
-        {% for file in files_in_folder %}
-            <li>
-                <a href="{{ file.file.url }}">{{ file.file.name }}</a>
-            </li>
-        {% empty %}
-            <li class="empty-state">No files in this folder.</li>
-        {% endfor %}
-    </ul>
-</div>
-
-{% endblock %}

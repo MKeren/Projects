@@ -1,120 +1,165 @@
-/* Base layout */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    margin: 0;
-    display: flex;
-    height: 100vh;
-}
 
-.container {
-    display: flex;
-    width: 100%;
-}
-
-/* Sidebar styling */
-.sidebar {
-    width: 250px;
-    background-color: #202124;
-    color: #ffffff;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.sidebar h2 {
-    color: #4285f4;
-}
-
-.sidebar nav a {
-    color: #ffffff;
-    text-decoration: none;
-    margin: 10px 0;
-    display: block;
-}
-
-.sidebar nav a:hover {
-    color: #4285f4;
-}
-
-/* Main content styling */
-.main-content {
-    flex: 1;
-    padding: 20px;
-    background-color: #ffffff;
-    overflow-y: auto;
-}
-
-/* Dashboard styling */
-.dashboard {
-    max-width: 900px;
-    margin: 0 auto;
-}
-
-.dashboard h1, .dashboard h2 {
-    color: #333333;
-}
-
-/* Sections for activity and suggested folders */
-.activity, .suggested-folders {
-    margin-bottom: 30px;
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.activity ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.activity li {
-    margin-bottom: 10px;
-    font-size: 14px;
-}
-
-.activity-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-.activity-table th, .activity-table td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-
-.activity-table th {
-    background-color: #f4f4f4;
-    font-weight: bold;
-}
-
-.activity-table td {
-    color: #555;
-}
-
-
-.suggested-folders .folders {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.folder {
-    background-color: #e8eaed;
-    padding: 20px;
-    border-radius: 8px;
-    width: 150px;
-    text-align: center;
-    font-weight: bold;
-    color: #5f6368;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.folder:hover {
-    background-color: #c6c8cb;
-    color: #333;
-}
+    /* Base layout */
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        display: flex;
+        height: 100vh;
+        overflow: hidden;
+    }
+    
+    /* Container for sidebar and main content */
+    .container {
+        display: flex;
+        width: 100%;
+    }
+    
+    /* Sidebar styling */
+    .sidebar {
+        width: 250px;
+        background-color: #202124;
+        color: #ffffff;
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: fixed;
+        height: 100%;
+        top: 0;
+        left: 0;
+        box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .sidebar h2 {
+        color: #4285f4;
+        margin-bottom: 30px;
+        font-size: 24px;
+        font-weight: bold;
+    }
+    
+    .sidebar nav a {
+        color: #ffffff;
+        text-decoration: none;
+        margin: 15px 0;
+        font-size: 16px;
+        transition: color 0.3s ease;
+    }
+    
+    .sidebar nav a:hover {
+        color: #4285f4;
+    }
+    
+    /* Main content area */
+    .main-content {
+        flex: 1;
+        margin-left: 250px; /* Account for sidebar width */
+        padding: 40px;
+        background-color: #ffffff;
+        overflow-y: auto;
+        height: 100%;
+    }
+    
+    /* Dashboard styling */
+    .dashboard {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    /* Header Styling */
+    .dashboard h1 {
+        color: #333333;
+        font-size: 32px;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+    
+    /* Section styling */
+    .activity, .suggested-folders {
+        margin-bottom: 30px;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .activity h2, .suggested-folders h2 {
+        font-size: 22px;
+        margin-bottom: 15px;
+        color: #4285f4;
+    }
+    
+    /* Table Styling */
+    .activity-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        font-size: 14px;
+    }
+    
+    .activity-table th, .activity-table td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    .activity-table th {
+        background-color: #f4f4f4;
+        font-weight: bold;
+    }
+    
+    .activity-table td {
+        color: #555;
+    }
+    
+    /* Folder Styling */
+    .suggested-folders .folders {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    
+    .folder {
+        background-color: #4285f4;
+        color: #ffffff;
+        padding: 30px;
+        border-radius: 10px;
+        width: 180px;
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        cursor: pointer;
+    }
+    
+    .folder:hover {
+        background-color: #0b67d7;
+        transform: scale(1.05);
+    }
+    
+    .folder a {
+        color: #ffffff;
+        text-decoration: none;
+    }
+    
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+        .container {
+            flex-direction: column;
+        }
+    
+        .main-content {
+            margin-left: 0;
+        }
+    
+        .sidebar {
+            width: 100%;
+            padding: 20px;
+        }
+    
+        .folder {
+            width: 100%;
+            font-size: 14px;
+        }
+    }
