@@ -135,8 +135,7 @@ MEDIA_URL = 'uploads/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # AWS S3 settings
-AWS_ACCESS_KEY_ID = 'AKIATAVABIB3EQAA7FHL'
-AWS_SECRET_ACCESS_KEY = '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'
+
 AWS_STORAGE_BUCKET_NAME = 'drive-project-bucket'
 AWS_S3_REGION_NAME = 'us-east-1'  
 AWS_S3_SIGNATURE_VERSION = 's3v4'
